@@ -1,0 +1,2299 @@
+/* Codex 2.5.0. Generated from src; edit the source then run node build.cjs. */
+
+/* @settings
+name: Codex
+id: codex-theme
+collapsed: false
+settings:
+  - id: codex-folders-section
+    title: 文件列表
+    type: heading
+    level: 1
+    collapsed: false
+  - id: codex-folder-style
+    title: 文件夹样式
+    description: 柔和色块为文件夹铺一层淡色底；简约图标只给图标上色，缩进线按需出现；描边色条为原来的描边加左侧色条。
+    type: class-select
+    allowEmpty: false
+    default: codex-folder-style-tinted
+    options:
+      - label: 柔和色块
+        value: codex-folder-style-tinted
+      - label: 简约图标
+        value: codex-folder-style-minimal
+      - label: 描边色条
+        value: codex-folder-style-outlined
+  - id: codex-folder-palette
+    title: 七彩配色
+    description: 每一层文件夹都按同级顺序从红色开始循环。选择「自定义」后使用下方颜色。
+    type: class-select
+    allowEmpty: false
+    default: codex-palette-cream
+    options:
+      - label: 奶油
+        value: codex-palette-cream
+      - label: 莫兰迪
+        value: codex-palette-muted
+      - label: 鲜明
+        value: codex-palette-vivid
+      - label: 自定义
+        value: codex-palette-custom
+  - id: codex-monochrome-folders
+    title: 中性文件夹配色
+    type: class-toggle
+    default: false
+  - id: codex-folder-markers
+    title: 显示文件夹色条
+    description: 展开的文件夹下方显示同色缩进线。简约样式平时只显示当前文件所在文件夹的竖线，鼠标移入文件列表时淡淡显示其余竖线；描边样式下为左侧色条。
+    type: class-toggle
+    default: true
+  - id: codex-file-icons
+    title: 显示文件与文件夹图标
+    type: class-toggle
+    default: true
+  - id: codex-custom-folder-colors
+    title: 自定义七彩颜色
+    description: 在「七彩配色」中选择「自定义」时生效。
+    type: heading
+    level: 2
+    collapsed: true
+  - id: codex-folder-red-light
+    title: 红色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#98686d'
+  - id: codex-folder-red-dark
+    title: 红色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#b58287'
+  - id: codex-folder-orange-light
+    title: 橙色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#9b7959'
+  - id: codex-folder-orange-dark
+    title: 橙色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#b99a7b'
+  - id: codex-folder-yellow-light
+    title: 黄色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#917f46'
+  - id: codex-folder-yellow-dark
+    title: 黄色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#b6aa78'
+  - id: codex-folder-green-light
+    title: 绿色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#61856b'
+  - id: codex-folder-green-dark
+    title: 绿色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#86a88d'
+  - id: codex-folder-cyan-light
+    title: 青色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#5d8586'
+  - id: codex-folder-cyan-dark
+    title: 青色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#7faaa9'
+  - id: codex-folder-blue-light
+    title: 蓝色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#647f9f'
+  - id: codex-folder-blue-dark
+    title: 蓝色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#829dbb'
+  - id: codex-folder-violet-light
+    title: 紫色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#836b9d'
+  - id: codex-folder-violet-dark
+    title: 紫色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#a08bb7'
+  - id: codex-code-section
+    title: 代码高亮
+    description: 阅读、实时预览与源码模式的代码块共用；行内代码保持单色。
+    type: heading
+    level: 1
+    collapsed: false
+  - id: codex-code-theme
+    title: 配色预设
+    description: 深色与浅色模式各有一套颜色；单色为原来的无高亮样式。
+    type: class-select
+    allowEmpty: false
+    default: codex-code-cream
+    options:
+      - label: 奶油
+        value: codex-code-cream
+      - label: GitHub
+        value: codex-code-github
+      - label: One
+        value: codex-code-one
+      - label: Catppuccin
+        value: codex-code-catppuccin
+      - label: 单色
+        value: codex-code-mono
+  - id: codex-ribbon-section
+    title: 左侧功能区
+    type: heading
+    level: 1
+    collapsed: false
+  - id: codex-floating-ribbon
+    title: 悬浮功能区
+    description: 文件列表展开时，移到左边缘呼出；顶部收起按钮保持固定。
+    type: class-toggle
+    default: true
+    addCommand: true
+  - id: codex-ribbon-peek
+    title: 触发宽度（px）
+    type: variable-number-slider
+    default: 10
+    min: 8
+    max: 20
+    step: 1
+    format: px
+  - id: codex-spacing-section
+    title: 正文与标题间距
+    description: 阅读、实时预览与源码共用。
+    type: heading
+    level: 1
+    collapsed: false
+  - id: codex-prose-line-height
+    title: 正文行高
+    type: variable-number-slider
+    default: 1.5
+    min: 1.3
+    max: 1.8
+    step: 0.05
+  - id: codex-block-gap
+    title: 段落间距（px）
+    type: variable-number-slider
+    default: 12
+    min: 6
+    max: 24
+    step: 1
+    format: px
+  - id: codex-heading-major-gap
+    title: 一、二级标题上方（px）
+    type: variable-number-slider
+    default: 22
+    min: 12
+    max: 36
+    step: 1
+    format: px
+  - id: codex-heading-gap
+    title: 三至六级标题上方（px）
+    type: variable-number-slider
+    default: 18
+    min: 10
+    max: 30
+    step: 1
+    format: px
+  - id: codex-settings-section
+    title: 设置界面间距
+    type: heading
+    level: 2
+    collapsed: true
+  - id: codex-settings-row-padding
+    title: 普通设置行留白（px）
+    type: variable-number-slider
+    default: 12
+    min: 6
+    max: 20
+    step: 1
+    format: px
+  - id: codex-settings-list-padding
+    title: 快捷键、列表行留白（px）
+    type: variable-number-slider
+    default: 7
+    min: 4
+    max: 14
+    step: 1
+    format: px
+*/
+
+/* Codex 2.4 — balanced Markdown, quiet folder markers and clear settings. */
+body {
+  --font-interface-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei UI", sans-serif;
+  --font-text-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  --font-monospace-theme: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-ui-small: 13px;
+  --font-ui-medium: 14px;
+  --font-ui-large: 16px;
+  --line-height-normal: 1.5;
+  --line-height-tight: 1.25;
+  --file-line-width: 728px;
+  --file-margins: 20px;
+  --file-margins-x: 20px;
+  --file-margins-y: 20px;
+  --file-folding-offset: 16px;
+  --file-header-font-size: 13px;
+  --file-header-font-weight: 400;
+  --file-header-background: var(--background-primary);
+  --file-header-background-focused: var(--background-primary);
+  --file-header-border: 0;
+  --codex-prose-line-height: 1.5;
+  --codex-block-gap: 12px;
+  --codex-heading-gap: 18px;
+  --codex-heading-major-gap: 22px;
+  --codex-list-line-height: var(--codex-prose-line-height);
+  --codex-code-line-height: calc(var(--font-text-size, 16px) * var(--codex-prose-line-height));
+  --codex-table-cell-padding-y: 2px;
+  --codex-table-handle-space: 16px;
+  --p-spacing: var(--codex-block-gap);
+  --p-spacing-empty: 0px;
+  --heading-spacing: var(--codex-heading-gap);
+  --h1-size: 1.75em;
+  --h2-size: 1.5em;
+  --h3-size: 1.25em;
+  --h4-size: 1em;
+  --h5-size: 1em;
+  --h6-size: 1em;
+  --h1-weight: 600;
+  --h2-weight: 600;
+  --h3-weight: 600;
+  --h4-weight: 600;
+  --h5-weight: 600;
+  --h6-weight: 600;
+  --h1-line-height: 1.25;
+  --h2-line-height: 1.25;
+  --h3-line-height: 1.25;
+  --h4-line-height: var(--codex-prose-line-height);
+  --h5-line-height: var(--codex-prose-line-height);
+  --h6-line-height: var(--codex-prose-line-height);
+  --h1-letter-spacing: -0.023em;
+  --h2-letter-spacing: 0;
+  --h3-letter-spacing: 0;
+  --h4-letter-spacing: 0;
+  --h5-letter-spacing: 0;
+  --h6-letter-spacing: 0;
+  --h1-color: var(--text-normal);
+  --h2-color: var(--text-normal);
+  --h3-color: var(--text-normal);
+  --h4-color: var(--text-normal);
+  --h5-color: var(--text-normal);
+  --h6-color: var(--text-normal);
+  --bold-weight: 600;
+  --bold-color: inherit;
+  --italic-color: inherit;
+  --list-indent: 1.75em;
+  --list-spacing: 0;
+  --list-marker-color: var(--text-faint);
+  --list-marker-color-hover: var(--text-muted);
+  --list-marker-color-collapsed: var(--text-muted);
+  --list-bullet-size: 0.3em;
+  --indentation-guide-width: 1px;
+  --indentation-guide-width-active: 1px;
+  --indentation-guide-color: color-mix(in srgb, var(--text-faint) 35%, transparent);
+  --indentation-guide-color-active: color-mix(in srgb, var(--text-muted) 60%, transparent);
+  --indentation-guide-reading-indent: -14px;
+  --nav-indentation-guide-width: 0;
+  --checklist-done-decoration: none;
+  --checklist-done-color: var(--text-normal);
+  --link-color: var(--text-accent);
+  --link-color-hover: var(--text-accent-hover);
+  --link-external-color: var(--text-accent);
+  --link-external-color-hover: var(--text-accent-hover);
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
+  --link-external-decoration: underline;
+  --link-external-decoration-hover: underline;
+  --link-unresolved-color: var(--text-muted);
+  --link-unresolved-opacity: 0.85;
+  --code-size: 1em;
+  --code-radius: 12px;
+  --code-border-width: 0;
+  --code-white-space: pre-wrap;
+  --code-normal: var(--text-normal);
+  --code-comment: var(--text-normal);
+  --code-keyword: var(--text-normal);
+  --code-function: var(--text-normal);
+  --code-string: var(--text-normal);
+  --code-number: var(--text-normal);
+  --code-operator: var(--text-normal);
+  --code-property: var(--text-normal);
+  --code-punctuation: var(--text-normal);
+  --code-tag: var(--text-normal);
+  --code-important: var(--text-normal);
+  --code-value: var(--text-normal);
+  --blockquote-border-thickness: 4px;
+  --blockquote-border-color: var(--codex-quote-border);
+  --blockquote-background-color: transparent;
+  --blockquote-color: var(--text-muted);
+  --blockquote-font-style: normal;
+  --callout-border-width: 0;
+  --callout-radius: 8px;
+  --callout-padding: 16px 18px;
+  --callout-title-weight: 600;
+  --callout-content-padding: 6px 0 0;
+  --table-border-width: 0;
+  --table-border-color: var(--codex-table-rule);
+  --table-header-weight: 600;
+  --table-header-color: var(--text-normal);
+  --table-header-background: transparent;
+  --table-header-background-hover: transparent;
+  --table-row-background-hover: transparent;
+  --table-cell-vertical-alignment: top;
+  --table-text-size: 1em;
+  --table-line-height: var(--codex-prose-line-height);
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --radius-l: 12px;
+  --radius-xl: 16px;
+  --input-radius: 8px;
+  --input-height: 34px;
+  --input-shadow: none;
+  --input-shadow-hover: none;
+  --button-radius: 8px;
+  --modal-radius: 16px;
+  --modal-border-width: 1px;
+  --menu-radius: 10px;
+  --menu-padding: 5px;
+  --menu-shadow: var(--shadow-l);
+  --popover-shadow: var(--shadow-l);
+  --prompt-radius: 14px;
+  --prompt-border-width: 1px;
+  --prompt-border-color: var(--background-modifier-border);
+  --ribbon-width: 40px;
+  --ribbon-padding: 10px 5px;
+  --ribbon-background: var(--background-secondary);
+  --ribbon-background-collapsed: var(--background-secondary);
+  --codex-ribbon-peek: 10px;
+  --codex-settings-row-padding: 12px;
+  --codex-settings-list-padding: 7px;
+  --tab-radius: 8px;
+  --tab-radius-active: 8px;
+  --tab-outline-width: 0;
+  --tab-font-size: 13px;
+  --tab-font-weight: 400;
+  --tab-container-background: var(--background-secondary);
+  --tab-background-active: var(--background-primary);
+  --tab-text-color: var(--text-muted);
+  --tab-text-color-active: var(--text-normal);
+  --tab-text-color-focused: var(--text-muted);
+  --tab-text-color-focused-active: var(--text-normal);
+  --tab-text-color-focused-active-current: var(--text-normal);
+  --titlebar-background: var(--background-secondary);
+  --titlebar-background-focused: var(--background-secondary);
+  --titlebar-text-color: var(--text-muted);
+  --titlebar-text-color-focused: var(--text-normal);
+  --titlebar-text-weight: 400;
+  --nav-item-size: 13px;
+  --nav-item-weight: 400;
+  --nav-item-weight-active: 500;
+  --nav-item-padding: 7px 10px;
+  --nav-item-parent-padding: 7px 10px;
+  --nav-item-children-padding-left: 14px;
+  --nav-item-color: var(--text-muted);
+  --nav-item-color-hover: var(--text-normal);
+  --nav-item-color-active: var(--text-normal);
+  --nav-item-color-selected: var(--text-normal);
+  --nav-item-background-hover: var(--background-modifier-hover);
+  --nav-item-background-active: var(--codex-selected);
+  --nav-item-background-selected: var(--codex-selected);
+  --nav-collapse-icon-color: var(--text-faint);
+  --nav-collapse-icon-color-collapsed: var(--text-muted);
+  --nav-indentation-guide-color: transparent;
+  --divider-color: var(--background-modifier-border);
+  --divider-color-hover: var(--text-faint);
+  --divider-width: 1px;
+  --divider-width-hover: 2px;
+  --icon-size: 17px;
+  --icon-stroke: 1.6px;
+  --icon-color: var(--text-muted);
+  --icon-color-hover: var(--text-normal);
+  --icon-color-active: var(--text-normal);
+  --icon-color-focused: var(--text-normal);
+  --icon-opacity: 1;
+  --icon-opacity-hover: 1;
+  --icon-opacity-active: 1;
+  --tag-size: 0.8em;
+  --tag-padding-x: 0.6em;
+  --tag-padding-y: 0.2em;
+  --tag-radius: 5px;
+  --tag-border-width: 0;
+  --tag-color: var(--text-muted);
+  --tag-color-hover: var(--text-normal);
+  --tag-background: var(--codex-selected);
+  --tag-background-hover: var(--background-modifier-hover);
+  --metadata-label-font-size: 13px;
+  --metadata-input-font-size: 13px;
+  --metadata-label-text-color: var(--text-muted);
+  --metadata-border-color: var(--background-modifier-border);
+  --metadata-border-radius: 8px;
+  --metadata-property-radius: 5px;
+  --metadata-padding: 12px 0;
+  --status-bar-background: var(--background-primary);
+  --status-bar-border-width: 0;
+  --status-bar-font-size: 11px;
+  --status-bar-text-color: var(--text-faint);
+  --status-bar-radius: 8px 0 0 0;
+  --graph-text: var(--text-muted);
+  --graph-line: var(--background-modifier-border);
+  --graph-node: var(--text-muted);
+  --graph-node-unresolved: var(--text-faint);
+  --graph-node-focused: var(--text-accent);
+}
+
+.theme-dark {
+  color-scheme: dark;
+  --color-base-00: #181818;
+  --color-base-05: #1a1a1a;
+  --color-base-10: #212121;
+  --color-base-20: #262626;
+  --color-base-25: #2c2c2c;
+  --color-base-30: #343434;
+  --color-base-35: #454545;
+  --color-base-40: #606060;
+  --color-base-50: #858585;
+  --color-base-60: #aaaaaa;
+  --color-base-70: #cccccc;
+  --color-base-100: #f3f3f3;
+  --background-primary: #181818;
+  --background-primary-alt: #181818;
+  --background-secondary: #141414;
+  --background-secondary-alt: #1a1a1a;
+  --background-modifier-border: #2c2c2c;
+  --background-modifier-border-hover: #454545;
+  --background-modifier-border-focus: #858585;
+  --background-modifier-hover: rgb(255 255 255 / 5%);
+  --background-modifier-active-hover: rgb(255 255 255 / 9%);
+  --background-modifier-form-field: #212121;
+  --background-modifier-box-shadow: rgb(0 0 0 / 30%);
+  --background-modifier-cover: rgb(0 0 0 / 45%);
+  --background-modifier-message: #f3f3f3;
+  --text-normal: #f3f3f3;
+  --text-muted: #aaaaaa;
+  --text-faint: #858585;
+  --text-on-accent: #181818;
+  --text-on-accent-inverted: #f3f3f3;
+  --text-accent: #3b75bc;
+  --text-accent-hover: #76a9e5;
+  --text-selection: rgb(59 117 188 / 35%);
+  --text-highlight-bg: #4b432a;
+  --caret-color: #f3f3f3;
+  --color-accent: #f3f3f3;
+  --color-accent-1: #f3f3f3;
+  --color-accent-2: #ffffff;
+  --interactive-normal: #262626;
+  --interactive-hover: #343434;
+  --interactive-accent: #f3f3f3;
+  --interactive-accent-hover: #ffffff;
+  --code-background: #1a1a1a;
+  --codex-inline-background: #212121;
+  --codex-selected: #292929;
+  --codex-quote-border: #2b2b2b;
+  --codex-table-rule: #232323;
+  --codex-diagram-fill: #00284d;
+  --codex-diagram-stroke: #23496a;
+  --codex-diagram-text: #a6c9e7;
+  --codex-folder-red: var(--codex-folder-red-dark, #b58287);
+  --codex-folder-orange: var(--codex-folder-orange-dark, #b99a7b);
+  --codex-folder-yellow: var(--codex-folder-yellow-dark, #b6aa78);
+  --codex-folder-green: var(--codex-folder-green-dark, #86a88d);
+  --codex-folder-cyan: var(--codex-folder-cyan-dark, #7faaa9);
+  --codex-folder-blue: var(--codex-folder-blue-dark, #829dbb);
+  --codex-folder-violet: var(--codex-folder-violet-dark, #a08bb7);
+  --hr-color: #343434;
+  --scrollbar-bg: transparent;
+  --scrollbar-thumb-bg: rgb(255 255 255 / 20%);
+  --scrollbar-active-thumb-bg: rgb(255 255 255 / 32%);
+  --shadow-s: 0 2px 8px rgb(0 0 0 / 15%);
+  --shadow-l: 0 12px 40px rgb(0 0 0 / 32%);
+}
+
+.theme-light {
+  color-scheme: light;
+  --color-base-00: #ffffff;
+  --color-base-05: #f9f9f9;
+  --color-base-10: #f3f3f3;
+  --color-base-20: #eeeeee;
+  --color-base-25: #e5e5e5;
+  --color-base-30: #dddddd;
+  --color-base-35: #cccccc;
+  --color-base-40: #aaaaaa;
+  --color-base-50: #737373;
+  --color-base-60: #5d5d5d;
+  --color-base-70: #444444;
+  --color-base-100: #0d0d0d;
+  --background-primary: #ffffff;
+  --background-primary-alt: #ffffff;
+  --background-secondary: #f9f9f9;
+  --background-secondary-alt: #f3f3f3;
+  --background-modifier-border: #e5e5e5;
+  --background-modifier-border-hover: #cccccc;
+  --background-modifier-border-focus: #737373;
+  --background-modifier-hover: rgb(0 0 0 / 5%);
+  --background-modifier-active-hover: rgb(0 0 0 / 9%);
+  --background-modifier-form-field: #ffffff;
+  --background-modifier-box-shadow: rgb(0 0 0 / 12%);
+  --background-modifier-cover: rgb(0 0 0 / 25%);
+  --background-modifier-message: #0d0d0d;
+  --text-normal: #0d0d0d;
+  --text-muted: #5d5d5d;
+  --text-faint: #737373;
+  --text-on-accent: #ffffff;
+  --text-on-accent-inverted: #0d0d0d;
+  --text-accent: #356eb5;
+  --text-accent-hover: #245797;
+  --text-selection: rgb(53 110 181 / 18%);
+  --text-highlight-bg: #fff0bd;
+  --caret-color: #0d0d0d;
+  --color-accent: #0d0d0d;
+  --color-accent-1: #0d0d0d;
+  --color-accent-2: #343434;
+  --interactive-normal: #ffffff;
+  --interactive-hover: #eeeeee;
+  --interactive-accent: #0d0d0d;
+  --interactive-accent-hover: #343434;
+  --code-background: #f9f9f9;
+  --codex-inline-background: #f1f1f1;
+  --codex-selected: #eaeaea;
+  --codex-quote-border: #dddddd;
+  --codex-table-rule: #eeeeee;
+  --codex-diagram-fill: #e9f2fb;
+  --codex-diagram-stroke: #b1c9df;
+  --codex-diagram-text: #28547b;
+  --codex-folder-red: var(--codex-folder-red-light, #98686d);
+  --codex-folder-orange: var(--codex-folder-orange-light, #9b7959);
+  --codex-folder-yellow: var(--codex-folder-yellow-light, #917f46);
+  --codex-folder-green: var(--codex-folder-green-light, #61856b);
+  --codex-folder-cyan: var(--codex-folder-cyan-light, #5d8586);
+  --codex-folder-blue: var(--codex-folder-blue-light, #647f9f);
+  --codex-folder-violet: var(--codex-folder-violet-light, #836b9d);
+  --hr-color: #dddddd;
+  --scrollbar-bg: transparent;
+  --scrollbar-thumb-bg: rgb(0 0 0 / 20%);
+  --scrollbar-active-thumb-bg: rgb(0 0 0 / 32%);
+  --shadow-s: 0 2px 8px rgb(0 0 0 / 5%);
+  --shadow-l: 0 12px 40px rgb(0 0 0 / 12%);
+}
+
+/* Folder palette presets. 「自定义」 keeps the Style Settings pickers defined above. */
+.codex-palette-cream.theme-dark,
+.codex-palette-cream .theme-dark {
+  --codex-folder-red: #e8a3a1;
+  --codex-folder-orange: #eab88f;
+  --codex-folder-yellow: #e4cf96;
+  --codex-folder-green: #afcfa1;
+  --codex-folder-cyan: #9fd1c8;
+  --codex-folder-blue: #a9c1e6;
+  --codex-folder-violet: #c8b3e3;
+}
+
+.codex-palette-cream.theme-light,
+.codex-palette-cream .theme-light {
+  --codex-folder-red: #cf7d79;
+  --codex-folder-orange: #d0915d;
+  --codex-folder-yellow: #bb9a45;
+  --codex-folder-green: #74a467;
+  --codex-folder-cyan: #55a198;
+  --codex-folder-blue: #7391c8;
+  --codex-folder-violet: #9d81c4;
+}
+
+.codex-palette-muted.theme-dark,
+.codex-palette-muted .theme-dark {
+  --codex-folder-red: #b58287;
+  --codex-folder-orange: #b99a7b;
+  --codex-folder-yellow: #b6aa78;
+  --codex-folder-green: #86a88d;
+  --codex-folder-cyan: #7faaa9;
+  --codex-folder-blue: #829dbb;
+  --codex-folder-violet: #a08bb7;
+}
+
+.codex-palette-muted.theme-light,
+.codex-palette-muted .theme-light {
+  --codex-folder-red: #98686d;
+  --codex-folder-orange: #9b7959;
+  --codex-folder-yellow: #917f46;
+  --codex-folder-green: #61856b;
+  --codex-folder-cyan: #5d8586;
+  --codex-folder-blue: #647f9f;
+  --codex-folder-violet: #836b9d;
+}
+
+.codex-palette-vivid.theme-dark,
+.codex-palette-vivid .theme-dark {
+  --codex-folder-red: #ff7b72;
+  --codex-folder-orange: #ffa657;
+  --codex-folder-yellow: #e3b341;
+  --codex-folder-green: #56d364;
+  --codex-folder-cyan: #39c5cf;
+  --codex-folder-blue: #58a6ff;
+  --codex-folder-violet: #bc8cff;
+}
+
+.codex-palette-vivid.theme-light,
+.codex-palette-vivid .theme-light {
+  --codex-folder-red: #cf222e;
+  --codex-folder-orange: #bc4c00;
+  --codex-folder-yellow: #9a6700;
+  --codex-folder-green: #1a7f37;
+  --codex-folder-cyan: #1b7c83;
+  --codex-folder-blue: #0969da;
+  --codex-folder-violet: #8250df;
+}
+
+
+/* Code highlight presets. Obsidian maps Prism (reading) and CodeMirror (editing) tokens to these
+   variables; 「单色」 keeps the base values above. --code-number mirrors --code-value. */
+/* Cream: soft pastels matching the cream folder palette. */
+.codex-code-cream.theme-dark,
+.codex-code-cream .theme-dark {
+  --code-normal: var(--text-normal);
+  --code-comment: #8e8a83;
+  --code-keyword: #e8a3a1;
+  --code-function: #a9c1e6;
+  --code-string: #afcfa1;
+  --code-value: #eab88f;
+  --code-operator: #9fd1c8;
+  --code-property: #c8b3e3;
+  --code-punctuation: #a8a29a;
+  --code-tag: #e8a3a1;
+  --code-important: #e4cf96;
+  --code-number: var(--code-value);
+}
+
+/* Cream: soft pastels matching the cream folder palette. */
+.codex-code-cream.theme-light,
+.codex-code-cream .theme-light {
+  --code-normal: var(--text-normal);
+  --code-comment: #9a968e;
+  --code-keyword: #c4605c;
+  --code-function: #4f73b5;
+  --code-string: #4f8a43;
+  --code-value: #b86f35;
+  --code-operator: #3f8f86;
+  --code-property: #8562b5;
+  --code-punctuation: #7d7770;
+  --code-tag: #c4605c;
+  --code-important: #a8862f;
+  --code-number: var(--code-value);
+}
+
+/* GitHub (Primer) dark / light. */
+.codex-code-github.theme-dark,
+.codex-code-github .theme-dark {
+  --code-normal: #e6edf3;
+  --code-comment: #8b949e;
+  --code-keyword: #ff7b72;
+  --code-function: #d2a8ff;
+  --code-string: #a5d6ff;
+  --code-value: #79c0ff;
+  --code-operator: #ff7b72;
+  --code-property: #79c0ff;
+  --code-punctuation: #c9d1d9;
+  --code-tag: #7ee787;
+  --code-important: #ffa657;
+  --code-number: var(--code-value);
+}
+
+/* GitHub (Primer) dark / light. */
+.codex-code-github.theme-light,
+.codex-code-github .theme-light {
+  --code-normal: #1f2328;
+  --code-comment: #6e7781;
+  --code-keyword: #cf222e;
+  --code-function: #8250df;
+  --code-string: #0a3069;
+  --code-value: #0550ae;
+  --code-operator: #cf222e;
+  --code-property: #0550ae;
+  --code-punctuation: #24292f;
+  --code-tag: #116329;
+  --code-important: #953800;
+  --code-number: var(--code-value);
+}
+
+/* Atom One Dark / One Light. */
+.codex-code-one.theme-dark,
+.codex-code-one .theme-dark {
+  --code-normal: #abb2bf;
+  --code-comment: #7f848e;
+  --code-keyword: #c678dd;
+  --code-function: #61afef;
+  --code-string: #98c379;
+  --code-value: #d19a66;
+  --code-operator: #56b6c2;
+  --code-property: #e06c75;
+  --code-punctuation: #abb2bf;
+  --code-tag: #e06c75;
+  --code-important: #e5c07b;
+  --code-number: var(--code-value);
+}
+
+/* Atom One Dark / One Light. */
+.codex-code-one.theme-light,
+.codex-code-one .theme-light {
+  --code-normal: #383a42;
+  --code-comment: #a0a1a7;
+  --code-keyword: #a626a4;
+  --code-function: #4078f2;
+  --code-string: #50a14f;
+  --code-value: #986801;
+  --code-operator: #0184bc;
+  --code-property: #e45649;
+  --code-punctuation: #383a42;
+  --code-tag: #e45649;
+  --code-important: #c18401;
+  --code-number: var(--code-value);
+}
+
+/* Catppuccin Mocha / Latte. */
+.codex-code-catppuccin.theme-dark,
+.codex-code-catppuccin .theme-dark {
+  --code-normal: #cdd6f4;
+  --code-comment: #7f849c;
+  --code-keyword: #cba6f7;
+  --code-function: #89b4fa;
+  --code-string: #a6e3a1;
+  --code-value: #fab387;
+  --code-operator: #89dceb;
+  --code-property: #eba0ac;
+  --code-punctuation: #9399b2;
+  --code-tag: #f38ba8;
+  --code-important: #f9e2af;
+  --code-number: var(--code-value);
+}
+
+/* Catppuccin Mocha / Latte. */
+.codex-code-catppuccin.theme-light,
+.codex-code-catppuccin .theme-light {
+  --code-normal: #4c4f69;
+  --code-comment: #8c8fa1;
+  --code-keyword: #8839ef;
+  --code-function: #1e66f5;
+  --code-string: #40a02b;
+  --code-value: #fe640b;
+  --code-operator: #04a5e5;
+  --code-property: #e64553;
+  --code-punctuation: #7c7f93;
+  --code-tag: #d20f39;
+  --code-important: #df8e1d;
+  --code-number: var(--code-value);
+}
+
+/* Flat neutral chrome and familiar Obsidian controls. */
+.workspace,
+.workspace-split.mod-root,
+.workspace-leaf-content {
+  background-color: var(--background-primary);
+}
+
+.workspace-split.mod-left-split,
+.workspace-split.mod-right-split,
+.workspace-split.mod-left-split .workspace-leaf-content,
+.workspace-split.mod-right-split .workspace-leaf-content {
+  background-color: var(--background-secondary);
+}
+
+.workspace .mod-root .workspace-tab-header {
+  margin-block: 5px;
+  padding: 0 3px;
+}
+
+.workspace-tab-header.is-active {
+  box-shadow: none;
+}
+
+.workspace-tab-header-inner {
+  padding-inline: 9px;
+}
+
+.workspace-tab-header-inner::after {
+  display: none;
+}
+
+.view-header {
+  background: var(--background-primary);
+  border-bottom: 0;
+}
+
+/* Center within the pane, with symmetric room for the native toolbar buttons. */
+body.show-view-header:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] > .view-header {
+  --codex-header-button-count: 2;
+  --codex-header-side-space: calc(var(--size-4-3) + var(--size-4-2) + var(--codex-header-button-count) * (var(--icon-s) + var(--size-2-3) * 2));
+}
+
+body.show-view-header:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] > .view-header:has(> .view-actions > :nth-child(3)) {
+  --codex-header-button-count: 3;
+}
+
+body.show-view-header:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] > .view-header:has(> .view-actions > :nth-child(4)) {
+  --codex-header-button-count: 4;
+}
+
+body.show-view-header:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] > .view-header:has(> .view-actions > :nth-child(5)) {
+  --codex-header-button-count: 5;
+}
+
+body.show-view-header:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] > .view-header:has(> .view-actions > :nth-child(6)) {
+  --codex-header-button-count: 6;
+}
+
+body.show-view-header:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] > .view-header > .view-header-title-container {
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max(0px, calc(100% - 2 * var(--codex-header-side-space)));
+  justify-content: center;
+}
+
+body.show-view-header:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] > .view-header > :is(.view-header-left, .view-actions) {
+  position: relative;
+  z-index: 2;
+}
+
+body.show-view-header:not(.is-mobile) .workspace-leaf-content[data-type="markdown"] > .view-header > .view-actions {
+  margin-inline-start: auto;
+}
+
+.view-header-title,
+.view-header-breadcrumb {
+  color: var(--text-muted);
+}
+
+.view-header-title-container:not(.mod-at-end)::after {
+  background: linear-gradient(to right, transparent, var(--background-primary));
+}
+
+.workspace-ribbon {
+  border-inline-end-color: transparent;
+}
+
+.workspace-ribbon .clickable-icon {
+  margin-block: 3px;
+  border-radius: 8px;
+}
+
+.nav-header {
+  padding: 12px 10px 8px;
+}
+
+.nav-files-container {
+  padding: 0 10px 16px;
+}
+
+.nav-file-title,
+.nav-folder-title {
+  margin-block: 2px;
+  border-radius: 8px;
+}
+
+.nav-folder-title {
+  color: var(--text-normal);
+}
+
+.nav-file-tag {
+  color: var(--text-faint);
+  background: transparent;
+  font-size: 10px;
+}
+
+.workspace-sidedock-vault-profile {
+  border-top: 0;
+}
+
+.clickable-icon {
+  border-radius: 6px;
+}
+
+.clickable-icon:focus-visible,
+.workspace-tab-header:focus-visible,
+.nav-file-title:focus-visible,
+.nav-folder-title:focus-visible {
+  outline: 2px solid var(--text-accent-hover);
+  outline-offset: 2px;
+}
+
+.modal,
+.prompt,
+.menu,
+.popover {
+  border-color: var(--background-modifier-border);
+}
+
+.modal.mod-settings .vertical-tab-header {
+  padding: 12px 6px;
+  background: var(--background-secondary);
+  border-right: 0;
+}
+
+.vertical-tab-nav-item {
+  margin-block: 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.vertical-tab-nav-item.is-active {
+  color: var(--text-normal);
+  background: var(--codex-selected);
+}
+
+.vertical-tab-header-group-title {
+  padding: 6px 10px;
+  color: var(--text-faint);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.vertical-tab-header-group {
+  padding-block: 8px;
+}
+
+body:not(.is-phone) .vertical-tab-header-group-items {
+  gap: 1px;
+}
+
+.vertical-tab-content {
+  --setting-items-padding-y: var(--codex-settings-row-padding);
+  --setting-items-padding-x: 18px;
+}
+
+.vertical-tab-content .setting-item:not(.setting-item-heading) {
+  padding-block: var(--codex-settings-row-padding);
+  margin-bottom: 0;
+  border-color: var(--background-modifier-border);
+}
+
+.vertical-tab-content .setting-group:is(.mod-hotkeys, .mod-list) .setting-item:not(.setting-item-heading) {
+  padding-block: var(--codex-settings-list-padding);
+  align-items: center;
+}
+
+.vertical-tab-content .setting-item-description {
+  line-height: 1.4;
+}
+
+.vertical-tab-content .setting-group + .setting-group {
+  margin-top: 20px;
+}
+
+.vertical-tab-content .setting-item-heading {
+  padding-block: 0;
+  margin-bottom: 12px;
+}
+
+button.mod-cta {
+  font-weight: 500;
+}
+
+:is(input[type="text"], input[type="search"], input[type="number"], textarea):focus {
+  border-color: var(--background-modifier-border-focus);
+  box-shadow: 0 0 0 2px var(--background-modifier-hover);
+}
+
+.suggestion-item,
+.menu-item {
+  border-radius: 6px;
+}
+
+.suggestion-item.is-selected {
+  color: var(--text-normal);
+  background: var(--codex-selected);
+}
+
+.search-result-file-matched-text {
+  color: var(--text-normal);
+  background: var(--text-highlight-bg);
+}
+
+.tooltip,
+.notice {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 10px;
+  background: var(--background-secondary);
+  color: var(--text-normal);
+  box-shadow: var(--shadow-l);
+}
+
+.tooltip .tooltip-arrow {
+  border-bottom-color: var(--background-secondary);
+}
+
+.canvas-node-container,
+.markdown-embed {
+  border-radius: 12px;
+}
+
+body.is-mobile {
+  --file-margins: 16px;
+  --file-margins-x: 16px;
+  --file-margins-y: 16px;
+  --input-height: 40px;
+  --nav-item-padding: 9px 10px;
+  --nav-item-parent-padding: 9px 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace-tab-header,
+  .nav-file-title,
+  .nav-folder-title,
+  .clickable-icon,
+  .vertical-tab-nav-item {
+    transition: none;
+  }
+}
+
+/* Enabled switches: the monochrome accent equals the default white thumb in dark mode. */
+.checkbox-container.is-enabled::after {
+  background-color: var(--text-on-accent);
+}
+
+/* Keep the native collapse button fixed; reveal only the controls below it. */
+body.codex-floating-ribbon:not(.is-mobile) .workspace {
+  position: relative;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block: 0;
+  height: auto;
+  width: var(--ribbon-width);
+  margin: 0;
+  padding: calc(var(--header-height) + 8px) 0 8px;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  pointer-events: none;
+  -webkit-app-region: no-drag;
+  isolation: isolate;
+  z-index: calc(var(--layer-status-bar) + 1);
+}
+
+/* The edge starts below the header, so its toggle never opens the drawer. */
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary)::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: var(--header-height);
+  bottom: 0;
+  width: var(--codex-ribbon-peek);
+  height: auto;
+  background: transparent;
+  border: 0;
+  pointer-events: none;
+  -webkit-app-region: no-drag;
+}
+
+/* Pane Tools marks the visible file list. The :has fallback also works without it. */
+body.codex-floating-ribbon:not(.is-mobile)
+  .workspace.is-left-sidedock-open:is(.codex-file-list-open, :not(.codex-pane-tools-active):has(.mod-left-split .workspace-leaf:not(.is-hidden):not([style*="display: none"]) > .workspace-leaf-content[data-type="file-explorer"]))
+  .workspace-ribbon:is(.mod-left, .mod-primary)::before {
+  pointer-events: auto;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary)::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: var(--header-height);
+  bottom: 0;
+  width: var(--ribbon-width);
+  background: var(--ribbon-background);
+  border-inline-end: 1px solid var(--background-modifier-border);
+  border-radius: 0 10px 10px 0;
+  transform: translateX(-100%);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary)
+  :is(.side-dock-actions, .side-dock-settings) {
+  position: relative;
+  z-index: 1;
+  padding-inline: 5px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-100%);
+  transition: transform 160ms ease, opacity 120ms ease, visibility 160ms;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary)
+  :is(.side-dock-actions, .side-dock-settings) * {
+  pointer-events: none !important;
+}
+
+body.codex-floating-ribbon:not(.is-mobile)
+  .workspace.is-left-sidedock-open:is(.codex-file-list-open, :not(.codex-pane-tools-active):has(.mod-left-split .workspace-leaf:not(.is-hidden):not([style*="display: none"]) > .workspace-leaf-content[data-type="file-explorer"]))
+  .workspace-ribbon:is(.mod-left, .mod-primary):is(:hover, :has(:is(.side-dock-actions, .side-dock-settings):focus-within)):not(:has(.sidebar-toggle-button:hover)) {
+  pointer-events: auto;
+  -webkit-app-region: no-drag;
+}
+
+body.codex-floating-ribbon:not(.is-mobile)
+  .workspace.is-left-sidedock-open:is(.codex-file-list-open, :not(.codex-pane-tools-active):has(.mod-left-split .workspace-leaf:not(.is-hidden):not([style*="display: none"]) > .workspace-leaf-content[data-type="file-explorer"]))
+  .workspace-ribbon:is(.mod-left, .mod-primary):is(:hover, :has(:is(.side-dock-actions, .side-dock-settings):focus-within)):not(:has(.sidebar-toggle-button:hover))::after {
+  transform: translateX(0);
+  box-shadow: 8px 0 22px var(--background-modifier-box-shadow);
+}
+
+body.codex-floating-ribbon:not(.is-mobile)
+  .workspace.is-left-sidedock-open:is(.codex-file-list-open, :not(.codex-pane-tools-active):has(.mod-left-split .workspace-leaf:not(.is-hidden):not([style*="display: none"]) > .workspace-leaf-content[data-type="file-explorer"]))
+  .workspace-ribbon:is(.mod-left, .mod-primary):is(:hover, :has(:is(.side-dock-actions, .side-dock-settings):focus-within)):not(:has(.sidebar-toggle-button:hover))
+  :is(.side-dock-actions, .side-dock-settings) {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+body.codex-floating-ribbon:not(.is-mobile)
+  .workspace.is-left-sidedock-open:is(.codex-file-list-open, :not(.codex-pane-tools-active):has(.mod-left-split .workspace-leaf:not(.is-hidden):not([style*="display: none"]) > .workspace-leaf-content[data-type="file-explorer"]))
+  .workspace-ribbon:is(.mod-left, .mod-primary):is(:hover, :has(:is(.side-dock-actions, .side-dock-settings):focus-within)):not(:has(.sidebar-toggle-button:hover))
+  :is(.side-dock-actions, .side-dock-settings) * {
+  pointer-events: auto !important;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .sidebar-toggle-button {
+  top: 0;
+  inset-inline-start: 0;
+  width: var(--ribbon-width);
+  height: var(--header-height);
+  transform: none;
+  pointer-events: auto;
+  z-index: 3;
+  -webkit-app-region: no-drag;
+  background: var(--background-secondary);
+  border-radius: 0;
+}
+
+/* Obsidian can move the same native button into the tab strip. */
+body.codex-floating-ribbon:not(.is-mobile) .workspace .sidebar-toggle-button.mod-left {
+  position: relative;
+  z-index: calc(var(--layer-status-bar) + 2);
+  pointer-events: auto !important;
+  -webkit-app-region: no-drag;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .sidebar-toggle-button {
+  position: absolute;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace .sidebar-toggle-button.mod-left * {
+  pointer-events: auto !important;
+  -webkit-app-region: no-drag;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-tabs.mod-top-left-space .workspace-tab-header-container {
+  padding-inline-start: calc(var(--ribbon-width) + 6px) !important;
+}
+
+/* Electron merges native drag rectangles separately from DOM hit testing.
+   Reserve a no-drag corner in the overlaid tab strip as well as on the button. */
+body.codex-floating-ribbon.is-hidden-frameless:not(.is-mobile, .mod-macos)
+  .workspace-tabs.mod-top-left-space .workspace-tab-header-container::before {
+  -webkit-app-region: no-drag !important;
+  width: max(40px, var(--ribbon-width));
+  pointer-events: none;
+}
+
+body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary)::after,
+body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary) :is(.side-dock-actions, .side-dock-settings) {
+  transform: translateX(100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary)::after,
+  body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) :is(.side-dock-actions, .side-dock-settings) {
+    transition: none;
+  }
+}
+
+/* Rainbow folders, after AnuPpuccin and Minimal: every folder takes the next of seven colors among its
+   sibling folders, restarting at red inside each folder. Files and icons inherit their folder's color. */
+.nav-files-container {
+  --codex-folder-color: var(--text-muted);
+  --codex-icon-color: var(--text-muted);
+  --codex-folder-radius: 8px;
+  --nav-item-background-active: transparent;
+  --nav-item-background-selected: transparent;
+}
+
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 1 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-red);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 2 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-orange);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 3 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-yellow);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 4 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-green);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 5 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-cyan);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 6 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-blue);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 7 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-violet);
+}
+
+.codex-monochrome-folders .nav-files-container .nav-folder:not(.mod-root) {
+  --codex-folder-color: var(--text-muted) !important;
+}
+
+/* Icons inside a folder follow that folder; root-level files stay muted. */
+.nav-files-container .nav-folder:not(.mod-root) {
+  --codex-icon-color: var(--codex-folder-color);
+}
+
+/* ---------- Folder rows ---------- */
+.nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--codex-folder-radius);
+  background-color: transparent;
+  color: var(--text-normal);
+}
+
+/* The disclosure arrow sits inside the row and takes the folder color. */
+.nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title > .collapse-icon {
+  --nav-collapse-icon-color: var(--codex-folder-color);
+  --nav-collapse-icon-color-collapsed: var(--codex-folder-color);
+  position: static;
+  margin-inline-start: 0;
+  margin-inline-end: 6px;
+  align-self: center;
+  color: var(--codex-folder-color);
+  opacity: 0.85;
+}
+
+/* Soft tint: a light wash of the folder color, text leaning toward it. */
+.codex-folder-style-tinted .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title {
+  background-color: color-mix(in srgb, var(--codex-folder-color) 13%, transparent);
+  color: color-mix(in oklab, var(--codex-folder-color) 40%, var(--text-normal));
+}
+
+.codex-folder-style-tinted .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title:hover {
+  background-color: color-mix(in srgb, var(--codex-folder-color) 21%, transparent);
+}
+
+/* Minimal: neutral row, colored icon and guide only. */
+.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title:hover {
+  background-color: color-mix(in srgb, var(--codex-folder-color) 10%, transparent);
+}
+
+/* Outlined: faint outline, square start edge carrying a straight 2px color bar, rounded end corners. */
+.codex-folder-style-outlined .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title {
+  border-color: color-mix(in srgb, var(--background-modifier-border) 70%, transparent);
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.codex-folder-style-outlined.codex-folder-markers .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: -1px;
+  inset-block: -1px;
+  width: 2px;
+  background-color: var(--codex-folder-color);
+  pointer-events: none;
+}
+
+/* Children: the indentation guide runs under the arrow in the folder color. */
+.nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
+  margin-inline-start: 18px;
+  padding-inline-start: 6px;
+  border-inline-start-color: transparent;
+}
+
+.codex-folder-markers:not(.codex-folder-style-outlined) .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
+  /* The theme turns indentation guides off globally, so this guide sets its own width. */
+  border-inline-start: 1px solid color-mix(in srgb, var(--codex-folder-color) 45%, transparent);
+}
+
+/* Minimal keeps deep trees quiet (as VS Code's guides-on-hover): no guides at rest except the folder
+   holding the current file; faint guides while the pointer is over the list; a hovered folder's guide
+   strengthens. */
+.codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
+  border-inline-start-color: transparent;
+  transition: border-color 0.15s ease;
+}
+
+.codex-folder-markers.codex-folder-style-minimal .nav-files-container:hover .nav-folder:not(.mod-root) > .nav-folder-children {
+  border-inline-start-color: color-mix(in srgb, var(--codex-folder-color) 18%, transparent);
+}
+
+.codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root):has(> .nav-folder-title:hover) > .nav-folder-children {
+  border-inline-start-color: color-mix(in srgb, var(--codex-folder-color) 50%, transparent);
+}
+
+.codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root):has(> .nav-folder-children > .nav-file > .nav-file-title.is-active) > .nav-folder-children {
+  border-inline-start-color: color-mix(in srgb, var(--codex-folder-color) 70%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
+    transition: none;
+  }
+}
+
+/* ---------- Icons ---------- */
+.nav-files-container .nav-folder {
+  --codex-folder-icon: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/%3E%3C/svg%3E');
+}
+
+.nav-files-container .nav-folder:not(.is-collapsed) {
+  --codex-folder-icon: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/%3E%3C/svg%3E');
+}
+
+.codex-file-icons .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title > .nav-folder-title-content {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.codex-file-icons .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title > .nav-folder-title-content::before {
+  content: "";
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin-inline-end: 7px;
+  background-color: var(--codex-folder-color);
+  -webkit-mask: var(--codex-folder-icon) center / contain no-repeat;
+  mask: var(--codex-folder-icon) center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* Supply a paper outline for files without an icon from Obsidian or a plugin. */
+.codex-file-icons .nav-files-container .nav-file-title:not(:has(.nav-file-icon, .tree-item-icon)):not(.is-being-renamed):not(:has([contenteditable="true"]))::before {
+  content: "";
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin-inline-end: 7px;
+  background-color: var(--codex-icon-color);
+  -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M8 13h8 M8 17h8"/%3E%3C/svg%3E') center / contain no-repeat;
+  mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M8 13h8 M8 17h8"/%3E%3C/svg%3E') center / contain no-repeat;
+  pointer-events: none;
+}
+
+.nav-files-container .nav-file-title {
+  align-items: center;
+  border-radius: var(--codex-folder-radius);
+}
+
+.nav-files-container .nav-file-title :is(.nav-file-icon, .tree-item-icon) {
+  position: static;
+  margin-inline-start: 0;
+  margin-inline-end: 7px;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--codex-icon-color);
+}
+
+body:not(.codex-file-icons) .nav-files-container .nav-file-title :is(.nav-file-icon, .tree-item-icon) {
+  display: none;
+}
+
+/* ---------- Files ---------- */
+.nav-files-container .nav-file-title:is(.is-active, .is-selected):not(.is-being-dragged):not(.is-being-dragged-over) {
+  background-color: transparent;
+  color: var(--text-normal);
+  font-weight: 500;
+}
+
+/* The tinted and minimal styles mark the current file with a faint wash of its folder color. */
+:is(.codex-folder-style-tinted, .codex-folder-style-minimal) .nav-files-container .nav-file-title.is-active:not(.is-being-dragged):not(.is-being-dragged-over) {
+  background-color: color-mix(in srgb, var(--codex-icon-color) 12%, transparent);
+}
+
+/* Drag feedback must also survive the native active/selected hover rules. */
+body .nav-files-container .nav-file-title.is-being-dragged-over,
+body .nav-files-container .nav-file-title.is-being-dragged-over:hover {
+  background-color: color-mix(in oklch, var(--interactive-accent) 10%, transparent);
+  color: var(--nav-item-color-highlighted);
+}
+
+body .nav-files-container .nav-file-title.is-being-dragged,
+body .nav-files-container .nav-file-title.is-being-dragged:hover {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+/* Keep these adjustments within Codex; other Style Settings sections retain their UI. */
+body .style-settings-heading[data-id="codex-theme"] {
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+}
+
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container {
+  padding-inline-start: 14px;
+}
+
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container .style-settings-heading {
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+}
+
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container .style-settings-container {
+  padding-bottom: 12px;
+}
+
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container .setting-item:not(.setting-item-heading) {
+  padding-block: max(6px, calc(var(--codex-settings-row-padding) - 4px));
+  align-items: center;
+  gap: 12px;
+}
+
+/* Style Settings appends a second description containing the default value. */
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container .setting-item-description > div:has(> small) {
+  display: none;
+}
+
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container .setting-item-description:empty {
+  display: none;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container {
+  container-type: inline-size;
+  column-gap: 20px;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"]:not(.is-collapsed) + .style-settings-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container > .setting-item {
+  min-width: 0;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .setting-item-info {
+  margin-inline-end: 0;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .setting-item-description {
+  display: none;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .setting-item-name {
+  font-size: var(--font-ui-small);
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .setting-item-control {
+  flex: 0 0 auto;
+  gap: 6px;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .pickr .pcr-button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .pickr-reset > button {
+  margin-inline-start: 0;
+  padding: 6px;
+}
+
+/* Each initially unopened picker needs its own default, rather than a shared parent color. */
+.setting-item[data-id="codex-folder-red-light"] {
+  --pcr-color: var(--codex-folder-red-light, #98686d);
+}
+
+.setting-item[data-id="codex-folder-red-dark"] {
+  --pcr-color: var(--codex-folder-red-dark, #b58287);
+}
+
+.setting-item[data-id="codex-folder-orange-light"] {
+  --pcr-color: var(--codex-folder-orange-light, #9b7959);
+}
+
+.setting-item[data-id="codex-folder-orange-dark"] {
+  --pcr-color: var(--codex-folder-orange-dark, #b99a7b);
+}
+
+.setting-item[data-id="codex-folder-yellow-light"] {
+  --pcr-color: var(--codex-folder-yellow-light, #917f46);
+}
+
+.setting-item[data-id="codex-folder-yellow-dark"] {
+  --pcr-color: var(--codex-folder-yellow-dark, #b6aa78);
+}
+
+.setting-item[data-id="codex-folder-green-light"] {
+  --pcr-color: var(--codex-folder-green-light, #61856b);
+}
+
+.setting-item[data-id="codex-folder-green-dark"] {
+  --pcr-color: var(--codex-folder-green-dark, #86a88d);
+}
+
+.setting-item[data-id="codex-folder-cyan-light"] {
+  --pcr-color: var(--codex-folder-cyan-light, #5d8586);
+}
+
+.setting-item[data-id="codex-folder-cyan-dark"] {
+  --pcr-color: var(--codex-folder-cyan-dark, #7faaa9);
+}
+
+.setting-item[data-id="codex-folder-blue-light"] {
+  --pcr-color: var(--codex-folder-blue-light, #647f9f);
+}
+
+.setting-item[data-id="codex-folder-blue-dark"] {
+  --pcr-color: var(--codex-folder-blue-dark, #829dbb);
+}
+
+.setting-item[data-id="codex-folder-violet-light"] {
+  --pcr-color: var(--codex-folder-violet-light, #836b9d);
+}
+
+.setting-item[data-id="codex-folder-violet-dark"] {
+  --pcr-color: var(--codex-folder-violet-dark, #a08bb7);
+}
+
+/* With a preset selected, the swatches show that preset's colors; 「自定义」 shows the saved custom colors.
+   Pickr writes --pcr-color inline on the button once a color is saved, hence !important. */
+.codex-palette-cream .setting-item[data-id="codex-folder-red-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-red-light"] .pcr-button {
+  --pcr-color: #cf7d79 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-orange-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-orange-light"] .pcr-button {
+  --pcr-color: #d0915d !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-yellow-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-yellow-light"] .pcr-button {
+  --pcr-color: #bb9a45 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-green-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-green-light"] .pcr-button {
+  --pcr-color: #74a467 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-cyan-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-cyan-light"] .pcr-button {
+  --pcr-color: #55a198 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-blue-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-blue-light"] .pcr-button {
+  --pcr-color: #7391c8 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-violet-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-violet-light"] .pcr-button {
+  --pcr-color: #9d81c4 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-red-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-red-dark"] .pcr-button {
+  --pcr-color: #e8a3a1 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-orange-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-orange-dark"] .pcr-button {
+  --pcr-color: #eab88f !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-yellow-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-yellow-dark"] .pcr-button {
+  --pcr-color: #e4cf96 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-green-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-green-dark"] .pcr-button {
+  --pcr-color: #afcfa1 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-cyan-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-cyan-dark"] .pcr-button {
+  --pcr-color: #9fd1c8 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-blue-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-blue-dark"] .pcr-button {
+  --pcr-color: #a9c1e6 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-violet-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-violet-dark"] .pcr-button {
+  --pcr-color: #c8b3e3 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-red-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-red-light"] .pcr-button {
+  --pcr-color: #98686d !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-orange-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-orange-light"] .pcr-button {
+  --pcr-color: #9b7959 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-yellow-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-yellow-light"] .pcr-button {
+  --pcr-color: #917f46 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-green-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-green-light"] .pcr-button {
+  --pcr-color: #61856b !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-cyan-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-cyan-light"] .pcr-button {
+  --pcr-color: #5d8586 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-blue-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-blue-light"] .pcr-button {
+  --pcr-color: #647f9f !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-violet-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-violet-light"] .pcr-button {
+  --pcr-color: #836b9d !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-red-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-red-dark"] .pcr-button {
+  --pcr-color: #b58287 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-orange-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-orange-dark"] .pcr-button {
+  --pcr-color: #b99a7b !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-yellow-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-yellow-dark"] .pcr-button {
+  --pcr-color: #b6aa78 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-green-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-green-dark"] .pcr-button {
+  --pcr-color: #86a88d !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-cyan-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-cyan-dark"] .pcr-button {
+  --pcr-color: #7faaa9 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-blue-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-blue-dark"] .pcr-button {
+  --pcr-color: #829dbb !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-violet-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-violet-dark"] .pcr-button {
+  --pcr-color: #a08bb7 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-red-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-red-light"] .pcr-button {
+  --pcr-color: #cf222e !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-orange-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-orange-light"] .pcr-button {
+  --pcr-color: #bc4c00 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-yellow-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-yellow-light"] .pcr-button {
+  --pcr-color: #9a6700 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-green-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-green-light"] .pcr-button {
+  --pcr-color: #1a7f37 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-cyan-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-cyan-light"] .pcr-button {
+  --pcr-color: #1b7c83 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-blue-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-blue-light"] .pcr-button {
+  --pcr-color: #0969da !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-violet-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-violet-light"] .pcr-button {
+  --pcr-color: #8250df !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-red-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-red-dark"] .pcr-button {
+  --pcr-color: #ff7b72 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-orange-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-orange-dark"] .pcr-button {
+  --pcr-color: #ffa657 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-yellow-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-yellow-dark"] .pcr-button {
+  --pcr-color: #e3b341 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-green-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-green-dark"] .pcr-button {
+  --pcr-color: #56d364 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-cyan-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-cyan-dark"] .pcr-button {
+  --pcr-color: #39c5cf !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-blue-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-blue-dark"] .pcr-button {
+  --pcr-color: #58a6ff !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-violet-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-violet-dark"] .pcr-button {
+  --pcr-color: #bc8cff !important;
+}
+
+@container (width < 520px) {
+  body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container > .setting-item {
+    grid-column: 1 / -1;
+  }
+}
+
+/* A 728px document, 16px body, 28/24/20/16px heading scale. */
+.markdown-preview-view,
+.markdown-source-view.mod-cm6 .cm-scroller {
+  font-family: var(--font-text);
+  line-height: var(--codex-prose-line-height);
+}
+
+.markdown-preview-view {
+  padding: var(--file-margins);
+  overflow-wrap: anywhere;
+}
+
+/* The screenshot starts with the document's own H1, without a file-name title. */
+.workspace-leaf-content[data-type="markdown"] .inline-title {
+  display: none;
+}
+
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+  margin-block: var(--codex-heading-gap) var(--codex-block-gap);
+  border: 0;
+  padding: 0;
+}
+
+.markdown-rendered :is(h1, h2) {
+  /* Native block-adjacency rules also use this variable on the heading itself. */
+  --heading-spacing: var(--codex-heading-major-gap);
+  margin-top: var(--codex-heading-major-gap);
+}
+
+.markdown-rendered :is(p, ul, ol, blockquote, table) {
+  margin-block: var(--codex-block-gap);
+}
+
+/* Heading padding supplies only the space not already provided by a blank line. */
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header {
+  --codex-heading-before: var(--codex-heading-gap);
+  padding-top: var(--codex-heading-before);
+  padding-bottom: 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-line:is(.HyperMD-header-1, .HyperMD-header-2) {
+  --codex-heading-before: var(--codex-heading-major-gap);
+}
+
+.markdown-source-view.mod-cm6 .cm-line:has(> br:only-child) + .cm-line.HyperMD-header,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header + .cm-line:not(.HyperMD-header):has(> br:only-child) + .cm-line.HyperMD-header {
+  padding-top: calc(var(--codex-heading-before) - var(--codex-block-gap));
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header + .cm-line:not(.HyperMD-header):not(:has(> br:only-child)) {
+  padding-top: var(--codex-block-gap);
+}
+
+.markdown-source-view.mod-cm6 .cm-content > .cm-line.HyperMD-header:first-child {
+  padding-top: 0;
+}
+
+/* One source blank line matches one reading-view block gap. */
+.markdown-source-view.mod-cm6 .cm-line:not(.HyperMD-codeblock):not(.HyperMD-table-row):has(> br:only-child) {
+  min-height: var(--codex-block-gap);
+  line-height: var(--codex-block-gap);
+  padding-block: 0;
+}
+
+.markdown-rendered .heading-collapse-indicator,
+.markdown-rendered .list-collapse-indicator {
+  opacity: 0;
+}
+
+.markdown-rendered :is(.el-h1, .el-h2, .el-h3, .el-h4, .el-h5, .el-h6, .el-ul, .el-ol):hover .collapse-indicator,
+.markdown-rendered .collapse-indicator:focus-visible {
+  opacity: 1;
+}
+
+.markdown-rendered a,
+.cm-s-obsidian .cm-link,
+.cm-s-obsidian .cm-hmd-internal-link {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.markdown-rendered .external-link {
+  background-image: none;
+  padding-inline-end: 0;
+}
+
+.markdown-rendered :not(pre) > code,
+.cm-s-obsidian span.cm-inline-code {
+  padding: 0 0.1em;
+  border: 0;
+  border-radius: 0;
+  background: var(--codex-inline-background);
+  color: inherit;
+  font-size: 1em;
+  font-weight: 500;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.markdown-rendered :is(ul, ol) {
+  padding-inline-start: 28px;
+}
+
+.markdown-rendered li {
+  margin-block: 0;
+  padding: 0;
+  line-height: var(--codex-list-line-height);
+}
+
+.markdown-rendered li::marker {
+  color: var(--text-faint);
+  font-weight: 400;
+}
+
+.markdown-rendered li > :is(ul, ol) {
+  margin-block: 0;
+  padding-inline-start: 18px;
+}
+
+/* Unordered list indentation vertical lines (guides) */
+.markdown-rendered li > ul {
+  position: relative;
+}
+
+.markdown-rendered li > ul::before {
+  content: "";
+  position: absolute;
+  display: block;
+  inset-inline-start: var(--indentation-guide-reading-indent, -14px);
+  top: 0;
+  bottom: 0;
+  border-inline-end: var(--indentation-guide-width, 1px) solid var(--indentation-guide-color);
+  pointer-events: none;
+  transition: border-color 0.15s ease;
+}
+
+.markdown-rendered li > ul:hover::before {
+  border-inline-end-color: var(--indentation-guide-color-active);
+}
+
+.markdown-rendered li > p {
+  margin-block: 0;
+}
+
+.markdown-rendered li > p + p {
+  margin-top: var(--codex-block-gap);
+}
+
+/* (已禁用 Codex 的纯文本风格待办，恢复 Obsidian 标准方框复选框)
+.markdown-rendered input.task-list-item-checkbox,
+.markdown-source-view.mod-cm6 .task-list-label input.task-list-item-checkbox {
+  appearance: none;
+  ...
+}
+*/
+
+.markdown-rendered blockquote {
+  padding: 0 0 0 16px;
+  margin-inline: 0;
+  border-radius: 0;
+  background: transparent;
+  line-height: var(--codex-prose-line-height);
+}
+
+.markdown-rendered blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-rendered blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* Quiet code cards match the reference, including wrapped long lines. */
+.markdown-rendered pre {
+  position: relative;
+  margin-block: var(--codex-block-gap);
+  padding: var(--codex-code-line-height) 16px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--code-background);
+  box-shadow: none;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  tab-size: 4;
+  text-shadow: none;
+}
+
+.markdown-rendered pre > code {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--code-normal);
+  font-family: var(--font-monospace);
+  font-size: var(--code-size);
+  font-weight: 400;
+  line-height: var(--codex-code-line-height);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-variant-ligatures: none;
+}
+
+.markdown-rendered pre .token {
+  background: transparent;
+  text-shadow: none;
+}
+
+.markdown-rendered pre::before {
+  content: var(--codex-code-language, "");
+  position: absolute;
+  top: 2px;
+  inset-inline-end: 16px;
+  color: var(--text-muted);
+  font: 600 0.8em/1.5 var(--font-monospace);
+  pointer-events: none;
+}
+
+.markdown-rendered pre[data-language]::before {
+  content: attr(data-language);
+}
+
+.markdown-rendered pre:hover::before {
+  inset-inline-end: 80px;
+}
+
+.markdown-rendered button.copy-code-button {
+  border: 0;
+  border-radius: 6px;
+  background: var(--code-background);
+  color: var(--text-muted);
+  font-size: 11px;
+  box-shadow: none;
+}
+
+.markdown-rendered button.copy-code-button:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock {
+  padding-inline: 16px;
+  line-height: var(--codex-code-line-height);
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin {
+  padding-top: 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end {
+  padding-bottom: 0;
+}
+
+.markdown-source-view.mod-cm6 .code-block-flair {
+  color: var(--text-muted);
+  font-family: var(--font-monospace);
+}
+
+/* 代码视图（源码模式及代码块）不显示缩进竖线 */
+.markdown-source-view.mod-cm6:not(.is-live-preview) .cm-indent::before,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock .cm-indent::before,
+.markdown-rendered pre .cm-indent::before {
+  display: none !important;
+}
+
+.markdown-rendered table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 1em;
+  line-height: var(--codex-prose-line-height);
+}
+
+.markdown-rendered :is(th, td) {
+  padding: var(--codex-table-cell-padding-y) 14px;
+  border: 0;
+  border-bottom: 1px solid var(--codex-table-rule);
+  background: transparent;
+  color: var(--text-normal);
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.markdown-rendered tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Match the native table editor's control lanes without enlarging its rows. */
+.markdown-preview-view .el-table {
+  padding-block: var(--codex-table-handle-space);
+}
+
+.markdown-preview-view .el-table > table {
+  margin-block: 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget {
+  padding-block: var(--codex-table-handle-space);
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget .table-cell-wrapper {
+  padding: var(--codex-table-cell-padding-y) 14px;
+}
+
+.markdown-rendered hr {
+  height: 1px;
+  margin-block: var(--codex-block-gap);
+  border: 0;
+  background: var(--hr-color);
+}
+
+/* An inactive editor rule should occupy the same height as a rendered rule. */
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-hr:not(.cm-active),
+.markdown-source-view.mod-cm6.is-live-preview .hr {
+  min-height: 1px;
+  height: 1px;
+  line-height: 1px;
+  font-size: 0;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-hr:not(.cm-active) :is(.cm-formatting-hr, .cm-hr) {
+  font-size: 0;
+}
+
+.markdown-rendered :is(img, video) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.markdown-rendered .image-embed img {
+  width: 100%;
+}
+
+.markdown-rendered .math-block {
+  margin-block: var(--codex-block-gap);
+  overflow-x: auto;
+}
+
+.markdown-rendered .mermaid .node rect {
+  /* Mermaid emits SVG-id rules; these colors intentionally override them. */
+  fill: var(--codex-diagram-fill) !important;
+  stroke: var(--codex-diagram-stroke) !important;
+  rx: 14px;
+  ry: 14px;
+}
+
+.markdown-rendered .mermaid .nodeLabel {
+  color: var(--codex-diagram-text) !important;
+}
+
+.callout {
+  mix-blend-mode: normal;
+}
+
+.metadata-container {
+  margin-bottom: var(--codex-block-gap);
+}
+
+/* Print uses readable paper colors and avoids splitting code cards. */
+@media print {
+  .markdown-preview-view {
+    --background-primary: #ffffff;
+    --text-normal: #0d0d0d;
+    --text-muted: #5d5d5d;
+    --code-background: #f9f9f9;
+    --codex-inline-background: #f1f1f1;
+    --codex-table-rule: #dddddd;
+    --hr-color: #dddddd;
+  }
+
+  .markdown-rendered pre {
+    break-inside: avoid;
+  }
+}
+
+/* Native fenced-code labels, including common aliases. */
+.markdown-rendered pre:has(> code.language-javascript),
+.markdown-rendered pre.language-javascript,
+.markdown-rendered pre:has(> code.language-js),
+.markdown-rendered pre.language-js { --codex-code-language: "javascript"; }
+
+.markdown-rendered pre:has(> code.language-typescript),
+.markdown-rendered pre.language-typescript,
+.markdown-rendered pre:has(> code.language-ts),
+.markdown-rendered pre.language-ts { --codex-code-language: "typescript"; }
+
+.markdown-rendered pre:has(> code.language-jsx),
+.markdown-rendered pre.language-jsx { --codex-code-language: "jsx"; }
+
+.markdown-rendered pre:has(> code.language-tsx),
+.markdown-rendered pre.language-tsx { --codex-code-language: "tsx"; }
+
+.markdown-rendered pre:has(> code.language-python),
+.markdown-rendered pre.language-python,
+.markdown-rendered pre:has(> code.language-py),
+.markdown-rendered pre.language-py { --codex-code-language: "python"; }
+
+.markdown-rendered pre:has(> code.language-css),
+.markdown-rendered pre.language-css { --codex-code-language: "css"; }
+
+.markdown-rendered pre:has(> code.language-scss),
+.markdown-rendered pre.language-scss { --codex-code-language: "scss"; }
+
+.markdown-rendered pre:has(> code.language-less),
+.markdown-rendered pre.language-less { --codex-code-language: "less"; }
+
+.markdown-rendered pre:has(> code.language-html),
+.markdown-rendered pre.language-html,
+.markdown-rendered pre:has(> code.language-markup),
+.markdown-rendered pre.language-markup { --codex-code-language: "html"; }
+
+.markdown-rendered pre:has(> code.language-xml),
+.markdown-rendered pre.language-xml { --codex-code-language: "xml"; }
+
+.markdown-rendered pre:has(> code.language-svg),
+.markdown-rendered pre.language-svg { --codex-code-language: "svg"; }
+
+.markdown-rendered pre:has(> code.language-json),
+.markdown-rendered pre.language-json { --codex-code-language: "json"; }
+
+.markdown-rendered pre:has(> code.language-jsonc),
+.markdown-rendered pre.language-jsonc { --codex-code-language: "jsonc"; }
+
+.markdown-rendered pre:has(> code.language-bash),
+.markdown-rendered pre.language-bash,
+.markdown-rendered pre:has(> code.language-sh),
+.markdown-rendered pre.language-sh,
+.markdown-rendered pre:has(> code.language-shell),
+.markdown-rendered pre.language-shell { --codex-code-language: "bash"; }
+
+.markdown-rendered pre:has(> code.language-powershell),
+.markdown-rendered pre.language-powershell,
+.markdown-rendered pre:has(> code.language-ps1),
+.markdown-rendered pre.language-ps1 { --codex-code-language: "powershell"; }
+
+.markdown-rendered pre:has(> code.language-sql),
+.markdown-rendered pre.language-sql { --codex-code-language: "sql"; }
+
+.markdown-rendered pre:has(> code.language-yaml),
+.markdown-rendered pre.language-yaml,
+.markdown-rendered pre:has(> code.language-yml),
+.markdown-rendered pre.language-yml { --codex-code-language: "yaml"; }
+
+.markdown-rendered pre:has(> code.language-toml),
+.markdown-rendered pre.language-toml { --codex-code-language: "toml"; }
+
+.markdown-rendered pre:has(> code.language-ini),
+.markdown-rendered pre.language-ini { --codex-code-language: "ini"; }
+
+.markdown-rendered pre:has(> code.language-markdown),
+.markdown-rendered pre.language-markdown,
+.markdown-rendered pre:has(> code.language-md),
+.markdown-rendered pre.language-md { --codex-code-language: "markdown"; }
+
+.markdown-rendered pre:has(> code.language-diff),
+.markdown-rendered pre.language-diff { --codex-code-language: "diff"; }
+
+.markdown-rendered pre:has(> code.language-text),
+.markdown-rendered pre.language-text,
+.markdown-rendered pre:has(> code.language-txt),
+.markdown-rendered pre.language-txt,
+.markdown-rendered pre:has(> code.language-plaintext),
+.markdown-rendered pre.language-plaintext { --codex-code-language: "text"; }
+
+.markdown-rendered pre:has(> code.language-c),
+.markdown-rendered pre.language-c { --codex-code-language: "c"; }
+
+.markdown-rendered pre:has(> code.language-cpp),
+.markdown-rendered pre.language-cpp,
+.markdown-rendered pre:has(> code.language-c\+\+),
+.markdown-rendered pre.language-c\+\+ { --codex-code-language: "cpp"; }
+
+.markdown-rendered pre:has(> code.language-csharp),
+.markdown-rendered pre.language-csharp,
+.markdown-rendered pre:has(> code.language-cs),
+.markdown-rendered pre.language-cs { --codex-code-language: "csharp"; }
+
+.markdown-rendered pre:has(> code.language-java),
+.markdown-rendered pre.language-java { --codex-code-language: "java"; }
+
+.markdown-rendered pre:has(> code.language-kotlin),
+.markdown-rendered pre.language-kotlin,
+.markdown-rendered pre:has(> code.language-kt),
+.markdown-rendered pre.language-kt { --codex-code-language: "kotlin"; }
+
+.markdown-rendered pre:has(> code.language-go),
+.markdown-rendered pre.language-go { --codex-code-language: "go"; }
+
+.markdown-rendered pre:has(> code.language-rust),
+.markdown-rendered pre.language-rust,
+.markdown-rendered pre:has(> code.language-rs),
+.markdown-rendered pre.language-rs { --codex-code-language: "rust"; }
+
+.markdown-rendered pre:has(> code.language-ruby),
+.markdown-rendered pre.language-ruby,
+.markdown-rendered pre:has(> code.language-rb),
+.markdown-rendered pre.language-rb { --codex-code-language: "ruby"; }
+
+.markdown-rendered pre:has(> code.language-php),
+.markdown-rendered pre.language-php { --codex-code-language: "php"; }
+
+.markdown-rendered pre:has(> code.language-swift),
+.markdown-rendered pre.language-swift { --codex-code-language: "swift"; }
+
+.markdown-rendered pre:has(> code.language-dart),
+.markdown-rendered pre.language-dart { --codex-code-language: "dart"; }
+
+.markdown-rendered pre:has(> code.language-r),
+.markdown-rendered pre.language-r { --codex-code-language: "r"; }
+
+.markdown-rendered pre:has(> code.language-lua),
+.markdown-rendered pre.language-lua { --codex-code-language: "lua"; }
+
+.markdown-rendered pre:has(> code.language-dockerfile),
+.markdown-rendered pre.language-dockerfile,
+.markdown-rendered pre:has(> code.language-docker),
+.markdown-rendered pre.language-docker { --codex-code-language: "dockerfile"; }
+
+.markdown-rendered pre:has(> code.language-graphql),
+.markdown-rendered pre.language-graphql { --codex-code-language: "graphql"; }
+
+.markdown-rendered pre:has(> code.language-latex),
+.markdown-rendered pre.language-latex,
+.markdown-rendered pre:has(> code.language-tex),
+.markdown-rendered pre.language-tex { --codex-code-language: "latex"; }
+
+.markdown-rendered pre:has(> code.language-vue),
+.markdown-rendered pre.language-vue { --codex-code-language: "vue"; }
+
+.markdown-rendered pre:has(> code.language-svelte),
+.markdown-rendered pre.language-svelte { --codex-code-language: "svelte"; }

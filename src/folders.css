@@ -1,0 +1,215 @@
+/* Rainbow folders, after AnuPpuccin and Minimal: every folder takes the next of seven colors among its
+   sibling folders, restarting at red inside each folder. Files and icons inherit their folder's color. */
+.nav-files-container {
+  --codex-folder-color: var(--text-muted);
+  --codex-icon-color: var(--text-muted);
+  --codex-folder-radius: 8px;
+  --nav-item-background-active: transparent;
+  --nav-item-background-selected: transparent;
+}
+
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 1 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-red);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 2 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-orange);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 3 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-yellow);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 4 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-green);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 5 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-cyan);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 6 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-blue);
+}
+.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 7 of .nav-folder) {
+  --codex-folder-color: var(--codex-folder-violet);
+}
+
+.codex-monochrome-folders .nav-files-container .nav-folder:not(.mod-root) {
+  --codex-folder-color: var(--text-muted) !important;
+}
+
+/* Icons inside a folder follow that folder; root-level files stay muted. */
+.nav-files-container .nav-folder:not(.mod-root) {
+  --codex-icon-color: var(--codex-folder-color);
+}
+
+/* ---------- Folder rows ---------- */
+.nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--codex-folder-radius);
+  background-color: transparent;
+  color: var(--text-normal);
+}
+
+/* The disclosure arrow sits inside the row and takes the folder color. */
+.nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title > .collapse-icon {
+  --nav-collapse-icon-color: var(--codex-folder-color);
+  --nav-collapse-icon-color-collapsed: var(--codex-folder-color);
+  position: static;
+  margin-inline-start: 0;
+  margin-inline-end: 6px;
+  align-self: center;
+  color: var(--codex-folder-color);
+  opacity: 0.85;
+}
+
+/* Soft tint: a light wash of the folder color, text leaning toward it. */
+.codex-folder-style-tinted .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title {
+  background-color: color-mix(in srgb, var(--codex-folder-color) 13%, transparent);
+  color: color-mix(in oklab, var(--codex-folder-color) 40%, var(--text-normal));
+}
+
+.codex-folder-style-tinted .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title:hover {
+  background-color: color-mix(in srgb, var(--codex-folder-color) 21%, transparent);
+}
+
+/* Minimal: neutral row, colored icon and guide only. */
+.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title:hover {
+  background-color: color-mix(in srgb, var(--codex-folder-color) 10%, transparent);
+}
+
+/* Outlined: faint outline, square start edge carrying a straight 2px color bar, rounded end corners. */
+.codex-folder-style-outlined .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title {
+  border-color: color-mix(in srgb, var(--background-modifier-border) 70%, transparent);
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.codex-folder-style-outlined.codex-folder-markers .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: -1px;
+  inset-block: -1px;
+  width: 2px;
+  background-color: var(--codex-folder-color);
+  pointer-events: none;
+}
+
+/* Children: the indentation guide runs under the arrow in the folder color. */
+.nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
+  margin-inline-start: 18px;
+  padding-inline-start: 6px;
+  border-inline-start-color: transparent;
+}
+
+.codex-folder-markers:not(.codex-folder-style-outlined) .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
+  /* The theme turns indentation guides off globally, so this guide sets its own width. */
+  border-inline-start: 1px solid color-mix(in srgb, var(--codex-folder-color) 45%, transparent);
+}
+
+/* Minimal keeps deep trees quiet (as VS Code's guides-on-hover): no guides at rest except the folder
+   holding the current file; faint guides while the pointer is over the list; a hovered folder's guide
+   strengthens. */
+.codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
+  border-inline-start-color: transparent;
+  transition: border-color 0.15s ease;
+}
+
+.codex-folder-markers.codex-folder-style-minimal .nav-files-container:hover .nav-folder:not(.mod-root) > .nav-folder-children {
+  border-inline-start-color: color-mix(in srgb, var(--codex-folder-color) 18%, transparent);
+}
+
+.codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root):has(> .nav-folder-title:hover) > .nav-folder-children {
+  border-inline-start-color: color-mix(in srgb, var(--codex-folder-color) 50%, transparent);
+}
+
+.codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root):has(> .nav-folder-children > .nav-file > .nav-file-title.is-active) > .nav-folder-children {
+  border-inline-start-color: color-mix(in srgb, var(--codex-folder-color) 70%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
+    transition: none;
+  }
+}
+
+/* ---------- Icons ---------- */
+.nav-files-container .nav-folder {
+  --codex-folder-icon: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/%3E%3C/svg%3E');
+}
+
+.nav-files-container .nav-folder:not(.is-collapsed) {
+  --codex-folder-icon: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/%3E%3C/svg%3E');
+}
+
+.codex-file-icons .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title > .nav-folder-title-content {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.codex-file-icons .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title > .nav-folder-title-content::before {
+  content: "";
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin-inline-end: 7px;
+  background-color: var(--codex-folder-color);
+  -webkit-mask: var(--codex-folder-icon) center / contain no-repeat;
+  mask: var(--codex-folder-icon) center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* Supply a paper outline for files without an icon from Obsidian or a plugin. */
+.codex-file-icons .nav-files-container .nav-file-title:not(:has(.nav-file-icon, .tree-item-icon)):not(.is-being-renamed):not(:has([contenteditable="true"]))::before {
+  content: "";
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin-inline-end: 7px;
+  background-color: var(--codex-icon-color);
+  -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M8 13h8 M8 17h8"/%3E%3C/svg%3E') center / contain no-repeat;
+  mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M8 13h8 M8 17h8"/%3E%3C/svg%3E') center / contain no-repeat;
+  pointer-events: none;
+}
+
+.nav-files-container .nav-file-title {
+  align-items: center;
+  border-radius: var(--codex-folder-radius);
+}
+
+.nav-files-container .nav-file-title :is(.nav-file-icon, .tree-item-icon) {
+  position: static;
+  margin-inline-start: 0;
+  margin-inline-end: 7px;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--codex-icon-color);
+}
+
+body:not(.codex-file-icons) .nav-files-container .nav-file-title :is(.nav-file-icon, .tree-item-icon) {
+  display: none;
+}
+
+/* ---------- Files ---------- */
+.nav-files-container .nav-file-title:is(.is-active, .is-selected):not(.is-being-dragged):not(.is-being-dragged-over) {
+  background-color: transparent;
+  color: var(--text-normal);
+  font-weight: 500;
+}
+
+/* The tinted and minimal styles mark the current file with a faint wash of its folder color. */
+:is(.codex-folder-style-tinted, .codex-folder-style-minimal) .nav-files-container .nav-file-title.is-active:not(.is-being-dragged):not(.is-being-dragged-over) {
+  background-color: color-mix(in srgb, var(--codex-icon-color) 12%, transparent);
+}
+
+/* Drag feedback must also survive the native active/selected hover rules. */
+body .nav-files-container .nav-file-title.is-being-dragged-over,
+body .nav-files-container .nav-file-title.is-being-dragged-over:hover {
+  background-color: color-mix(in oklch, var(--interactive-accent) 10%, transparent);
+  color: var(--nav-item-color-highlighted);
+}
+
+body .nav-files-container .nav-file-title.is-being-dragged,
+body .nav-files-container .nav-file-title.is-being-dragged:hover {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}

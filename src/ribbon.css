@@ -1,0 +1,162 @@
+/* Keep the native collapse button fixed; reveal only the controls below it. */
+body.codex-floating-ribbon:not(.is-mobile) .workspace {
+  position: relative;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block: 0;
+  height: auto;
+  width: var(--ribbon-width);
+  margin: 0;
+  padding: calc(var(--header-height) + 8px) 0 8px;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  pointer-events: none;
+  -webkit-app-region: no-drag;
+  isolation: isolate;
+  z-index: calc(var(--layer-status-bar) + 1);
+}
+
+/* The edge starts below the header, so its toggle never opens the drawer. */
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary)::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: var(--header-height);
+  bottom: 0;
+  width: var(--codex-ribbon-peek);
+  height: auto;
+  background: transparent;
+  border: 0;
+  pointer-events: none;
+  -webkit-app-region: no-drag;
+}
+
+/* Pane Tools marks the visible file list. The :has fallback also works without it. */
+body.codex-floating-ribbon:not(.is-mobile)
+  .workspace.is-left-sidedock-open:is(.codex-file-list-open, :not(.codex-pane-tools-active):has(.mod-left-split .workspace-leaf:not(.is-hidden):not([style*="display: none"]) > .workspace-leaf-content[data-type="file-explorer"]))
+  .workspace-ribbon:is(.mod-left, .mod-primary)::before {
+  pointer-events: auto;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary)::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: var(--header-height);
+  bottom: 0;
+  width: var(--ribbon-width);
+  background: var(--ribbon-background);
+  border-inline-end: 1px solid var(--background-modifier-border);
+  border-radius: 0 10px 10px 0;
+  transform: translateX(-100%);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary)
+  :is(.side-dock-actions, .side-dock-settings) {
+  position: relative;
+  z-index: 1;
+  padding-inline: 5px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-100%);
+  transition: transform 160ms ease, opacity 120ms ease, visibility 160ms;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary)
+  :is(.side-dock-actions, .side-dock-settings) * {
+  pointer-events: none !important;
+}
+
+body.codex-floating-ribbon:not(.is-mobile)
+  .workspace.is-left-sidedock-open:is(.codex-file-list-open, :not(.codex-pane-tools-active):has(.mod-left-split .workspace-leaf:not(.is-hidden):not([style*="display: none"]) > .workspace-leaf-content[data-type="file-explorer"]))
+  .workspace-ribbon:is(.mod-left, .mod-primary):is(:hover, :has(:is(.side-dock-actions, .side-dock-settings):focus-within)):not(:has(.sidebar-toggle-button:hover)) {
+  pointer-events: auto;
+  -webkit-app-region: no-drag;
+}
+
+body.codex-floating-ribbon:not(.is-mobile)
+  .workspace.is-left-sidedock-open:is(.codex-file-list-open, :not(.codex-pane-tools-active):has(.mod-left-split .workspace-leaf:not(.is-hidden):not([style*="display: none"]) > .workspace-leaf-content[data-type="file-explorer"]))
+  .workspace-ribbon:is(.mod-left, .mod-primary):is(:hover, :has(:is(.side-dock-actions, .side-dock-settings):focus-within)):not(:has(.sidebar-toggle-button:hover))::after {
+  transform: translateX(0);
+  box-shadow: 8px 0 22px var(--background-modifier-box-shadow);
+}
+
+body.codex-floating-ribbon:not(.is-mobile)
+  .workspace.is-left-sidedock-open:is(.codex-file-list-open, :not(.codex-pane-tools-active):has(.mod-left-split .workspace-leaf:not(.is-hidden):not([style*="display: none"]) > .workspace-leaf-content[data-type="file-explorer"]))
+  .workspace-ribbon:is(.mod-left, .mod-primary):is(:hover, :has(:is(.side-dock-actions, .side-dock-settings):focus-within)):not(:has(.sidebar-toggle-button:hover))
+  :is(.side-dock-actions, .side-dock-settings) {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+body.codex-floating-ribbon:not(.is-mobile)
+  .workspace.is-left-sidedock-open:is(.codex-file-list-open, :not(.codex-pane-tools-active):has(.mod-left-split .workspace-leaf:not(.is-hidden):not([style*="display: none"]) > .workspace-leaf-content[data-type="file-explorer"]))
+  .workspace-ribbon:is(.mod-left, .mod-primary):is(:hover, :has(:is(.side-dock-actions, .side-dock-settings):focus-within)):not(:has(.sidebar-toggle-button:hover))
+  :is(.side-dock-actions, .side-dock-settings) * {
+  pointer-events: auto !important;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .sidebar-toggle-button {
+  top: 0;
+  inset-inline-start: 0;
+  width: var(--ribbon-width);
+  height: var(--header-height);
+  transform: none;
+  pointer-events: auto;
+  z-index: 3;
+  -webkit-app-region: no-drag;
+  background: var(--background-secondary);
+  border-radius: 0;
+}
+
+/* Obsidian can move the same native button into the tab strip. */
+body.codex-floating-ribbon:not(.is-mobile) .workspace .sidebar-toggle-button.mod-left {
+  position: relative;
+  z-index: calc(var(--layer-status-bar) + 2);
+  pointer-events: auto !important;
+  -webkit-app-region: no-drag;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) .sidebar-toggle-button {
+  position: absolute;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace .sidebar-toggle-button.mod-left * {
+  pointer-events: auto !important;
+  -webkit-app-region: no-drag;
+}
+
+body.codex-floating-ribbon:not(.is-mobile) .workspace-tabs.mod-top-left-space .workspace-tab-header-container {
+  padding-inline-start: calc(var(--ribbon-width) + 6px) !important;
+}
+
+/* Electron merges native drag rectangles separately from DOM hit testing.
+   Reserve a no-drag corner in the overlaid tab strip as well as on the button. */
+body.codex-floating-ribbon.is-hidden-frameless:not(.is-mobile, .mod-macos)
+  .workspace-tabs.mod-top-left-space .workspace-tab-header-container::before {
+  -webkit-app-region: no-drag !important;
+  width: max(40px, var(--ribbon-width));
+  pointer-events: none;
+}
+
+body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary)::after,
+body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary) :is(.side-dock-actions, .side-dock-settings) {
+  transform: translateX(100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary)::after,
+  body.codex-floating-ribbon:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary) :is(.side-dock-actions, .side-dock-settings) {
+    transition: none;
+  }
+}

@@ -1,0 +1,310 @@
+/* Keep these adjustments within Codex; other Style Settings sections retain their UI. */
+body .style-settings-heading[data-id="codex-theme"] {
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+}
+
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container {
+  padding-inline-start: 14px;
+}
+
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container .style-settings-heading {
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+}
+
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container .style-settings-container {
+  padding-bottom: 12px;
+}
+
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container .setting-item:not(.setting-item-heading) {
+  padding-block: max(6px, calc(var(--codex-settings-row-padding) - 4px));
+  align-items: center;
+  gap: 12px;
+}
+
+/* Style Settings appends a second description containing the default value. */
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container .setting-item-description > div:has(> small) {
+  display: none;
+}
+
+body .style-settings-heading[data-id="codex-theme"] + .style-settings-container .setting-item-description:empty {
+  display: none;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container {
+  container-type: inline-size;
+  column-gap: 20px;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"]:not(.is-collapsed) + .style-settings-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container > .setting-item {
+  min-width: 0;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .setting-item-info {
+  margin-inline-end: 0;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .setting-item-description {
+  display: none;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .setting-item-name {
+  font-size: var(--font-ui-small);
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .setting-item-control {
+  flex: 0 0 auto;
+  gap: 6px;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .pickr .pcr-button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+}
+
+body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container .pickr-reset > button {
+  margin-inline-start: 0;
+  padding: 6px;
+}
+
+/* Each initially unopened picker needs its own default, rather than a shared parent color. */
+.setting-item[data-id="codex-folder-red-light"] {
+  --pcr-color: var(--codex-folder-red-light, #98686d);
+}
+
+.setting-item[data-id="codex-folder-red-dark"] {
+  --pcr-color: var(--codex-folder-red-dark, #b58287);
+}
+
+.setting-item[data-id="codex-folder-orange-light"] {
+  --pcr-color: var(--codex-folder-orange-light, #9b7959);
+}
+
+.setting-item[data-id="codex-folder-orange-dark"] {
+  --pcr-color: var(--codex-folder-orange-dark, #b99a7b);
+}
+
+.setting-item[data-id="codex-folder-yellow-light"] {
+  --pcr-color: var(--codex-folder-yellow-light, #917f46);
+}
+
+.setting-item[data-id="codex-folder-yellow-dark"] {
+  --pcr-color: var(--codex-folder-yellow-dark, #b6aa78);
+}
+
+.setting-item[data-id="codex-folder-green-light"] {
+  --pcr-color: var(--codex-folder-green-light, #61856b);
+}
+
+.setting-item[data-id="codex-folder-green-dark"] {
+  --pcr-color: var(--codex-folder-green-dark, #86a88d);
+}
+
+.setting-item[data-id="codex-folder-cyan-light"] {
+  --pcr-color: var(--codex-folder-cyan-light, #5d8586);
+}
+
+.setting-item[data-id="codex-folder-cyan-dark"] {
+  --pcr-color: var(--codex-folder-cyan-dark, #7faaa9);
+}
+
+.setting-item[data-id="codex-folder-blue-light"] {
+  --pcr-color: var(--codex-folder-blue-light, #647f9f);
+}
+
+.setting-item[data-id="codex-folder-blue-dark"] {
+  --pcr-color: var(--codex-folder-blue-dark, #829dbb);
+}
+
+.setting-item[data-id="codex-folder-violet-light"] {
+  --pcr-color: var(--codex-folder-violet-light, #836b9d);
+}
+
+.setting-item[data-id="codex-folder-violet-dark"] {
+  --pcr-color: var(--codex-folder-violet-dark, #a08bb7);
+}
+
+/* With a preset selected, the swatches show that preset's colors; 「自定义」 shows the saved custom colors.
+   Pickr writes --pcr-color inline on the button once a color is saved, hence !important. */
+.codex-palette-cream .setting-item[data-id="codex-folder-red-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-red-light"] .pcr-button {
+  --pcr-color: #cf7d79 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-orange-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-orange-light"] .pcr-button {
+  --pcr-color: #d0915d !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-yellow-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-yellow-light"] .pcr-button {
+  --pcr-color: #bb9a45 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-green-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-green-light"] .pcr-button {
+  --pcr-color: #74a467 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-cyan-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-cyan-light"] .pcr-button {
+  --pcr-color: #55a198 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-blue-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-blue-light"] .pcr-button {
+  --pcr-color: #7391c8 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-violet-light"],
+.codex-palette-cream .setting-item[data-id="codex-folder-violet-light"] .pcr-button {
+  --pcr-color: #9d81c4 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-red-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-red-dark"] .pcr-button {
+  --pcr-color: #e8a3a1 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-orange-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-orange-dark"] .pcr-button {
+  --pcr-color: #eab88f !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-yellow-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-yellow-dark"] .pcr-button {
+  --pcr-color: #e4cf96 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-green-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-green-dark"] .pcr-button {
+  --pcr-color: #afcfa1 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-cyan-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-cyan-dark"] .pcr-button {
+  --pcr-color: #9fd1c8 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-blue-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-blue-dark"] .pcr-button {
+  --pcr-color: #a9c1e6 !important;
+}
+.codex-palette-cream .setting-item[data-id="codex-folder-violet-dark"],
+.codex-palette-cream .setting-item[data-id="codex-folder-violet-dark"] .pcr-button {
+  --pcr-color: #c8b3e3 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-red-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-red-light"] .pcr-button {
+  --pcr-color: #98686d !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-orange-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-orange-light"] .pcr-button {
+  --pcr-color: #9b7959 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-yellow-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-yellow-light"] .pcr-button {
+  --pcr-color: #917f46 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-green-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-green-light"] .pcr-button {
+  --pcr-color: #61856b !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-cyan-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-cyan-light"] .pcr-button {
+  --pcr-color: #5d8586 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-blue-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-blue-light"] .pcr-button {
+  --pcr-color: #647f9f !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-violet-light"],
+.codex-palette-muted .setting-item[data-id="codex-folder-violet-light"] .pcr-button {
+  --pcr-color: #836b9d !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-red-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-red-dark"] .pcr-button {
+  --pcr-color: #b58287 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-orange-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-orange-dark"] .pcr-button {
+  --pcr-color: #b99a7b !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-yellow-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-yellow-dark"] .pcr-button {
+  --pcr-color: #b6aa78 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-green-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-green-dark"] .pcr-button {
+  --pcr-color: #86a88d !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-cyan-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-cyan-dark"] .pcr-button {
+  --pcr-color: #7faaa9 !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-blue-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-blue-dark"] .pcr-button {
+  --pcr-color: #829dbb !important;
+}
+.codex-palette-muted .setting-item[data-id="codex-folder-violet-dark"],
+.codex-palette-muted .setting-item[data-id="codex-folder-violet-dark"] .pcr-button {
+  --pcr-color: #a08bb7 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-red-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-red-light"] .pcr-button {
+  --pcr-color: #cf222e !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-orange-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-orange-light"] .pcr-button {
+  --pcr-color: #bc4c00 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-yellow-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-yellow-light"] .pcr-button {
+  --pcr-color: #9a6700 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-green-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-green-light"] .pcr-button {
+  --pcr-color: #1a7f37 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-cyan-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-cyan-light"] .pcr-button {
+  --pcr-color: #1b7c83 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-blue-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-blue-light"] .pcr-button {
+  --pcr-color: #0969da !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-violet-light"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-violet-light"] .pcr-button {
+  --pcr-color: #8250df !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-red-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-red-dark"] .pcr-button {
+  --pcr-color: #ff7b72 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-orange-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-orange-dark"] .pcr-button {
+  --pcr-color: #ffa657 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-yellow-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-yellow-dark"] .pcr-button {
+  --pcr-color: #e3b341 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-green-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-green-dark"] .pcr-button {
+  --pcr-color: #56d364 !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-cyan-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-cyan-dark"] .pcr-button {
+  --pcr-color: #39c5cf !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-blue-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-blue-dark"] .pcr-button {
+  --pcr-color: #58a6ff !important;
+}
+.codex-palette-vivid .setting-item[data-id="codex-folder-violet-dark"],
+.codex-palette-vivid .setting-item[data-id="codex-folder-violet-dark"] .pcr-button {
+  --pcr-color: #bc8cff !important;
+}
+
+@container (width < 520px) {
+  body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-settings-container > .setting-item {
+    grid-column: 1 / -1;
+  }
+}

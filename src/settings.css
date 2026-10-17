@@ -1,0 +1,242 @@
+/* @settings
+name: Codex
+id: codex-theme
+collapsed: false
+settings:
+  - id: codex-folders-section
+    title: 文件列表
+    type: heading
+    level: 1
+    collapsed: false
+  - id: codex-folder-style
+    title: 文件夹样式
+    description: 柔和色块为文件夹铺一层淡色底；简约图标只给图标上色，缩进线按需出现；描边色条为原来的描边加左侧色条。
+    type: class-select
+    allowEmpty: false
+    default: codex-folder-style-tinted
+    options:
+      - label: 柔和色块
+        value: codex-folder-style-tinted
+      - label: 简约图标
+        value: codex-folder-style-minimal
+      - label: 描边色条
+        value: codex-folder-style-outlined
+  - id: codex-folder-palette
+    title: 七彩配色
+    description: 每一层文件夹都按同级顺序从红色开始循环。选择「自定义」后使用下方颜色。
+    type: class-select
+    allowEmpty: false
+    default: codex-palette-cream
+    options:
+      - label: 奶油
+        value: codex-palette-cream
+      - label: 莫兰迪
+        value: codex-palette-muted
+      - label: 鲜明
+        value: codex-palette-vivid
+      - label: 自定义
+        value: codex-palette-custom
+  - id: codex-monochrome-folders
+    title: 中性文件夹配色
+    type: class-toggle
+    default: false
+  - id: codex-folder-markers
+    title: 显示文件夹色条
+    description: 展开的文件夹下方显示同色缩进线。简约样式平时只显示当前文件所在文件夹的竖线，鼠标移入文件列表时淡淡显示其余竖线；描边样式下为左侧色条。
+    type: class-toggle
+    default: true
+  - id: codex-file-icons
+    title: 显示文件与文件夹图标
+    type: class-toggle
+    default: true
+  - id: codex-custom-folder-colors
+    title: 自定义七彩颜色
+    description: 在「七彩配色」中选择「自定义」时生效。
+    type: heading
+    level: 2
+    collapsed: true
+  - id: codex-folder-red-light
+    title: 红色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#98686d'
+  - id: codex-folder-red-dark
+    title: 红色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#b58287'
+  - id: codex-folder-orange-light
+    title: 橙色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#9b7959'
+  - id: codex-folder-orange-dark
+    title: 橙色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#b99a7b'
+  - id: codex-folder-yellow-light
+    title: 黄色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#917f46'
+  - id: codex-folder-yellow-dark
+    title: 黄色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#b6aa78'
+  - id: codex-folder-green-light
+    title: 绿色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#61856b'
+  - id: codex-folder-green-dark
+    title: 绿色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#86a88d'
+  - id: codex-folder-cyan-light
+    title: 青色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#5d8586'
+  - id: codex-folder-cyan-dark
+    title: 青色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#7faaa9'
+  - id: codex-folder-blue-light
+    title: 蓝色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#647f9f'
+  - id: codex-folder-blue-dark
+    title: 蓝色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#829dbb'
+  - id: codex-folder-violet-light
+    title: 紫色 · 浅色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#836b9d'
+  - id: codex-folder-violet-dark
+    title: 紫色 · 深色
+    type: variable-color
+    format: hex
+    opacity: false
+    default: '#a08bb7'
+  - id: codex-code-section
+    title: 代码高亮
+    description: 阅读、实时预览与源码模式的代码块共用；行内代码保持单色。
+    type: heading
+    level: 1
+    collapsed: false
+  - id: codex-code-theme
+    title: 配色预设
+    description: 深色与浅色模式各有一套颜色；单色为原来的无高亮样式。
+    type: class-select
+    allowEmpty: false
+    default: codex-code-cream
+    options:
+      - label: 奶油
+        value: codex-code-cream
+      - label: GitHub
+        value: codex-code-github
+      - label: One
+        value: codex-code-one
+      - label: Catppuccin
+        value: codex-code-catppuccin
+      - label: 单色
+        value: codex-code-mono
+  - id: codex-ribbon-section
+    title: 左侧功能区
+    type: heading
+    level: 1
+    collapsed: false
+  - id: codex-floating-ribbon
+    title: 悬浮功能区
+    description: 文件列表展开时，移到左边缘呼出；顶部收起按钮保持固定。
+    type: class-toggle
+    default: true
+    addCommand: true
+  - id: codex-ribbon-peek
+    title: 触发宽度（px）
+    type: variable-number-slider
+    default: 10
+    min: 8
+    max: 20
+    step: 1
+    format: px
+  - id: codex-spacing-section
+    title: 正文与标题间距
+    description: 阅读、实时预览与源码共用。
+    type: heading
+    level: 1
+    collapsed: false
+  - id: codex-prose-line-height
+    title: 正文行高
+    type: variable-number-slider
+    default: 1.5
+    min: 1.3
+    max: 1.8
+    step: 0.05
+  - id: codex-block-gap
+    title: 段落间距（px）
+    type: variable-number-slider
+    default: 12
+    min: 6
+    max: 24
+    step: 1
+    format: px
+  - id: codex-heading-major-gap
+    title: 一、二级标题上方（px）
+    type: variable-number-slider
+    default: 22
+    min: 12
+    max: 36
+    step: 1
+    format: px
+  - id: codex-heading-gap
+    title: 三至六级标题上方（px）
+    type: variable-number-slider
+    default: 18
+    min: 10
+    max: 30
+    step: 1
+    format: px
+  - id: codex-settings-section
+    title: 设置界面间距
+    type: heading
+    level: 2
+    collapsed: true
+  - id: codex-settings-row-padding
+    title: 普通设置行留白（px）
+    type: variable-number-slider
+    default: 12
+    min: 6
+    max: 20
+    step: 1
+    format: px
+  - id: codex-settings-list-padding
+    title: 快捷键、列表行留白（px）
+    type: variable-number-slider
+    default: 7
+    min: 4
+    max: 14
+    step: 1
+    format: px
+*/

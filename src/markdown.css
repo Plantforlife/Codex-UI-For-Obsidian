@@ -1,0 +1,376 @@
+/* A 728px document, 16px body, 28/24/20/16px heading scale. */
+.markdown-preview-view,
+.markdown-source-view.mod-cm6 .cm-scroller {
+  font-family: var(--font-text);
+  line-height: var(--codex-prose-line-height);
+}
+
+.markdown-preview-view {
+  padding: var(--file-margins);
+  overflow-wrap: anywhere;
+}
+
+/* The screenshot starts with the document's own H1, without a file-name title. */
+.workspace-leaf-content[data-type="markdown"] .inline-title {
+  display: none;
+}
+
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+  margin-block: var(--codex-heading-gap) var(--codex-block-gap);
+  border: 0;
+  padding: 0;
+}
+
+.markdown-rendered :is(h1, h2) {
+  /* Native block-adjacency rules also use this variable on the heading itself. */
+  --heading-spacing: var(--codex-heading-major-gap);
+  margin-top: var(--codex-heading-major-gap);
+}
+
+.markdown-rendered :is(p, ul, ol, blockquote, table) {
+  margin-block: var(--codex-block-gap);
+}
+
+/* Heading padding supplies only the space not already provided by a blank line. */
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header {
+  --codex-heading-before: var(--codex-heading-gap);
+  padding-top: var(--codex-heading-before);
+  padding-bottom: 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-line:is(.HyperMD-header-1, .HyperMD-header-2) {
+  --codex-heading-before: var(--codex-heading-major-gap);
+}
+
+.markdown-source-view.mod-cm6 .cm-line:has(> br:only-child) + .cm-line.HyperMD-header,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header + .cm-line:not(.HyperMD-header):has(> br:only-child) + .cm-line.HyperMD-header {
+  padding-top: calc(var(--codex-heading-before) - var(--codex-block-gap));
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header + .cm-line:not(.HyperMD-header):not(:has(> br:only-child)) {
+  padding-top: var(--codex-block-gap);
+}
+
+.markdown-source-view.mod-cm6 .cm-content > .cm-line.HyperMD-header:first-child {
+  padding-top: 0;
+}
+
+/* One source blank line matches one reading-view block gap. */
+.markdown-source-view.mod-cm6 .cm-line:not(.HyperMD-codeblock):not(.HyperMD-table-row):has(> br:only-child) {
+  min-height: var(--codex-block-gap);
+  line-height: var(--codex-block-gap);
+  padding-block: 0;
+}
+
+.markdown-rendered .heading-collapse-indicator,
+.markdown-rendered .list-collapse-indicator {
+  opacity: 0;
+}
+
+.markdown-rendered :is(.el-h1, .el-h2, .el-h3, .el-h4, .el-h5, .el-h6, .el-ul, .el-ol):hover .collapse-indicator,
+.markdown-rendered .collapse-indicator:focus-visible {
+  opacity: 1;
+}
+
+.markdown-rendered a,
+.cm-s-obsidian .cm-link,
+.cm-s-obsidian .cm-hmd-internal-link {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.markdown-rendered .external-link {
+  background-image: none;
+  padding-inline-end: 0;
+}
+
+.markdown-rendered :not(pre) > code,
+.cm-s-obsidian span.cm-inline-code {
+  padding: 0 0.1em;
+  border: 0;
+  border-radius: 0;
+  background: var(--codex-inline-background);
+  color: inherit;
+  font-size: 1em;
+  font-weight: 500;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.markdown-rendered :is(ul, ol) {
+  padding-inline-start: 28px;
+}
+
+.markdown-rendered li {
+  margin-block: 0;
+  padding: 0;
+  line-height: var(--codex-list-line-height);
+}
+
+.markdown-rendered li::marker {
+  color: var(--text-faint);
+  font-weight: 400;
+}
+
+.markdown-rendered li > :is(ul, ol) {
+  margin-block: 0;
+  padding-inline-start: 18px;
+}
+
+/* Unordered list indentation vertical lines (guides) */
+.markdown-rendered li > ul {
+  position: relative;
+}
+
+.markdown-rendered li > ul::before {
+  content: "";
+  position: absolute;
+  display: block;
+  inset-inline-start: var(--indentation-guide-reading-indent, -14px);
+  top: 0;
+  bottom: 0;
+  border-inline-end: var(--indentation-guide-width, 1px) solid var(--indentation-guide-color);
+  pointer-events: none;
+  transition: border-color 0.15s ease;
+}
+
+.markdown-rendered li > ul:hover::before {
+  border-inline-end-color: var(--indentation-guide-color-active);
+}
+
+.markdown-rendered li > p {
+  margin-block: 0;
+}
+
+.markdown-rendered li > p + p {
+  margin-top: var(--codex-block-gap);
+}
+
+/* (已禁用 Codex 的纯文本风格待办，恢复 Obsidian 标准方框复选框)
+.markdown-rendered input.task-list-item-checkbox,
+.markdown-source-view.mod-cm6 .task-list-label input.task-list-item-checkbox {
+  appearance: none;
+  ...
+}
+*/
+
+.markdown-rendered blockquote {
+  padding: 0 0 0 16px;
+  margin-inline: 0;
+  border-radius: 0;
+  background: transparent;
+  line-height: var(--codex-prose-line-height);
+}
+
+.markdown-rendered blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-rendered blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* Quiet code cards match the reference, including wrapped long lines. */
+.markdown-rendered pre {
+  position: relative;
+  margin-block: var(--codex-block-gap);
+  padding: var(--codex-code-line-height) 16px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--code-background);
+  box-shadow: none;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  tab-size: 4;
+  text-shadow: none;
+}
+
+.markdown-rendered pre > code {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--code-normal);
+  font-family: var(--font-monospace);
+  font-size: var(--code-size);
+  font-weight: 400;
+  line-height: var(--codex-code-line-height);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-variant-ligatures: none;
+}
+
+.markdown-rendered pre .token {
+  background: transparent;
+  text-shadow: none;
+}
+
+.markdown-rendered pre::before {
+  content: var(--codex-code-language, "");
+  position: absolute;
+  top: 2px;
+  inset-inline-end: 16px;
+  color: var(--text-muted);
+  font: 600 0.8em/1.5 var(--font-monospace);
+  pointer-events: none;
+}
+
+.markdown-rendered pre[data-language]::before {
+  content: attr(data-language);
+}
+
+.markdown-rendered pre:hover::before {
+  inset-inline-end: 80px;
+}
+
+.markdown-rendered button.copy-code-button {
+  border: 0;
+  border-radius: 6px;
+  background: var(--code-background);
+  color: var(--text-muted);
+  font-size: 11px;
+  box-shadow: none;
+}
+
+.markdown-rendered button.copy-code-button:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock {
+  padding-inline: 16px;
+  line-height: var(--codex-code-line-height);
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin {
+  padding-top: 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end {
+  padding-bottom: 0;
+}
+
+.markdown-source-view.mod-cm6 .code-block-flair {
+  color: var(--text-muted);
+  font-family: var(--font-monospace);
+}
+
+/* 代码视图（源码模式及代码块）不显示缩进竖线 */
+.markdown-source-view.mod-cm6:not(.is-live-preview) .cm-indent::before,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock .cm-indent::before,
+.markdown-rendered pre .cm-indent::before {
+  display: none !important;
+}
+
+.markdown-rendered table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 1em;
+  line-height: var(--codex-prose-line-height);
+}
+
+.markdown-rendered :is(th, td) {
+  padding: var(--codex-table-cell-padding-y) 14px;
+  border: 0;
+  border-bottom: 1px solid var(--codex-table-rule);
+  background: transparent;
+  color: var(--text-normal);
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.markdown-rendered tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Match the native table editor's control lanes without enlarging its rows. */
+.markdown-preview-view .el-table {
+  padding-block: var(--codex-table-handle-space);
+}
+
+.markdown-preview-view .el-table > table {
+  margin-block: 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget {
+  padding-block: var(--codex-table-handle-space);
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget .table-cell-wrapper {
+  padding: var(--codex-table-cell-padding-y) 14px;
+}
+
+.markdown-rendered hr {
+  height: 1px;
+  margin-block: var(--codex-block-gap);
+  border: 0;
+  background: var(--hr-color);
+}
+
+/* An inactive editor rule should occupy the same height as a rendered rule. */
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-hr:not(.cm-active),
+.markdown-source-view.mod-cm6.is-live-preview .hr {
+  min-height: 1px;
+  height: 1px;
+  line-height: 1px;
+  font-size: 0;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-hr:not(.cm-active) :is(.cm-formatting-hr, .cm-hr) {
+  font-size: 0;
+}
+
+.markdown-rendered :is(img, video) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.markdown-rendered .image-embed img {
+  width: 100%;
+}
+
+.markdown-rendered .math-block {
+  margin-block: var(--codex-block-gap);
+  overflow-x: auto;
+}
+
+.markdown-rendered .mermaid .node rect {
+  /* Mermaid emits SVG-id rules; these colors intentionally override them. */
+  fill: var(--codex-diagram-fill) !important;
+  stroke: var(--codex-diagram-stroke) !important;
+  rx: 14px;
+  ry: 14px;
+}
+
+.markdown-rendered .mermaid .nodeLabel {
+  color: var(--codex-diagram-text) !important;
+}
+
+.callout {
+  mix-blend-mode: normal;
+}
+
+.metadata-container {
+  margin-bottom: var(--codex-block-gap);
+}
+
+/* Print uses readable paper colors and avoids splitting code cards. */
+@media print {
+  .markdown-preview-view {
+    --background-primary: #ffffff;
+    --text-normal: #0d0d0d;
+    --text-muted: #5d5d5d;
+    --code-background: #f9f9f9;
+    --codex-inline-background: #f1f1f1;
+    --codex-table-rule: #dddddd;
+    --hr-color: #dddddd;
+  }
+
+  .markdown-rendered pre {
+    break-inside: avoid;
+  }
+}
