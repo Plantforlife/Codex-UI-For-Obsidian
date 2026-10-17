@@ -146,7 +146,7 @@
   margin-top: var(--codex-block-gap);
 }
 
-/* (已禁用 Codex 的纯文本风格待办，恢复 Obsidian 标准方框复选框)
+/* (已禁用 Codex UI For Obsidian 的纯文本风格待办，恢复 Obsidian 标准方框复选框)
 .markdown-rendered input.task-list-item-checkbox,
 .markdown-source-view.mod-cm6 .task-list-label input.task-list-item-checkbox {
   appearance: none;

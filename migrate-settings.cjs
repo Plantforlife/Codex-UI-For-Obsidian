@@ -43,7 +43,7 @@ if (require.main === module) {
     const backupFile = `${settingsFile}.backup-${Date.now()}`;
     fs.writeFileSync(backupFile, original, { flag: "wx" });
     fs.writeFileSync(settingsFile, JSON.stringify(migrated, null, 2) + "\n");
-    console.log(`Migrated Codex settings; original saved to ${backupFile}`);
+    console.log(`Migrated Codex UI For Obsidian settings; original saved to ${backupFile}`);
   }
 }
 

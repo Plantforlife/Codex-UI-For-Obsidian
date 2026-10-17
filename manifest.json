@@ -1,7 +1,7 @@
 {
-  "name": "Codex",
-  "version": "2.5.0",
+  "name": "Codex UI For Obsidian",
+  "version": "2.5.1",
   "minAppVersion": "1.6.0",
   "author": "Local",
-  "description": "Codex styling with subtle folder markers, file icons, clear color settings, a floating ribbon and shared Markdown spacing."
+  "description": "Codex UI For Obsidian styling with subtle folder markers, file icons, clear color settings, a floating ribbon and shared Markdown spacing."
 }

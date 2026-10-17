@@ -1,7 +1,7 @@
 {
-  "name": "obsidian-codex-theme",
-  "version": "2.5.0",
-  "description": "Codex theme for Obsidian",
+  "name": "codex-ui-for-obsidian",
+  "version": "2.5.1",
+  "description": "Codex UI For Obsidian theme",
   "private": true,
   "scripts": {
     "build": "node build.cjs"

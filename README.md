@@ -1,16 +1,16 @@
-# Codex
+# Codex UI For Obsidian
 
-面向 Obsidian 的简洁主题，提供深浅配色、七彩文件夹、紧凑的 Markdown 排版和悬浮功能区。当前版本 **2.5.0**，最低需要 Obsidian **1.6.0**。
+面向 Obsidian 的简洁主题，提供深浅配色、七彩文件夹、紧凑的 Markdown 排版和悬浮功能区。当前版本 **2.5.1**，最低需要 Obsidian **1.6.0**。
 
 配套增强插件：[Better Obsidian](https://github.com/Plantforlife/better-obsidian)，提供自动源码 / 阅读双栏、平滑同步滚动、文档分割和文件列表增强。主题可独立使用；悬浮功能区的文件列表可见性识别由配套插件提供。
 
 ## 安装
 
-1. 从 [Releases](https://github.com/Plantforlife/obsidian-codex-theme/releases/latest) 下载 `theme.css` 和 `manifest.json`。
-2. 在笔记库中新建 `.obsidian/themes/Codex/`，将两个文件放入该目录。
-3. 在 Obsidian「设置 → 外观 → 主题」中选择 **Codex**。
+1. 从 [Releases](https://github.com/Plantforlife/Codex-UI-For-Obsidian/releases/latest) 下载 `theme.css` 和 `manifest.json`。
+2. 在笔记库中新建 `.obsidian/themes/Codex UI For Obsidian/`，将两个文件放入该目录。
+3. 在 Obsidian「设置 → 外观 → 主题」中选择 **Codex UI For Obsidian**。
 
-浅色 / 深色随 Obsidian 的基础颜色切换。安装并启用 **Style Settings** 后，可在「设置 → Style Settings → Codex」调整主题选项。
+浅色 / 深色随 Obsidian 的基础颜色切换。安装并启用 **Style Settings** 后，可在「设置 → Style Settings → Codex UI For Obsidian」调整主题选项。
 
 ## 特点
 

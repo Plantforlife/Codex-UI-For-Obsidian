@@ -1,7 +1,7 @@
-/* Codex 2.5.0. Generated from src; edit the source then run node build.cjs. */
+/* Codex UI For Obsidian 2.5.1. Generated from src; edit the source then run node build.cjs. */
 
 /* @settings
-name: Codex
+name: Codex UI For Obsidian
 id: codex-theme
 collapsed: false
 settings:
@@ -243,7 +243,7 @@ settings:
     format: px
 */
 
-/* Codex 2.4 — balanced Markdown, quiet folder markers and clear settings. */
+/* Codex UI For Obsidian 2.4 — balanced Markdown, quiet folder markers and clear settings. */
 body {
   --font-interface-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei UI", sans-serif;
   --font-text-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
@@ -1453,7 +1453,7 @@ body .nav-files-container .nav-file-title.is-being-dragged:hover {
   color: var(--text-on-accent);
 }
 
-/* Keep these adjustments within Codex; other Style Settings sections retain their UI. */
+/* Keep these adjustments within Codex UI For Obsidian; other Style Settings sections retain their UI. */
 body .style-settings-heading[data-id="codex-theme"] {
   margin-bottom: 12px;
   padding-bottom: 6px;
@@ -1912,7 +1912,7 @@ body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-sett
   margin-top: var(--codex-block-gap);
 }
 
-/* (已禁用 Codex 的纯文本风格待办，恢复 Obsidian 标准方框复选框)
+/* (已禁用 Codex UI For Obsidian 的纯文本风格待办，恢复 Obsidian 标准方框复选框)
 .markdown-rendered input.task-list-item-checkbox,
 .markdown-source-view.mod-cm6 .task-list-label input.task-list-item-checkbox {
   appearance: none;

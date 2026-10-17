@@ -27,8 +27,8 @@ const labels = Object.entries(languages).map(([label, aliases]) => {
   ]).join(',\n');
   return `${selectors} { --codex-code-language: "${label}"; }`;
 }).join('\n\n');
-const css = `/* Codex ${manifest.version}. Generated from src; edit the source then run node build.cjs. */\n\n` +
+const css = `/* Codex UI For Obsidian ${manifest.version}. Generated from src; edit the source then run node build.cjs. */\n\n` +
   sections.map(file => fs.readFileSync(path.join(sourceDir, file), 'utf8').trim()).join('\n\n') +
   '\n\n/* Native fenced-code labels, including common aliases. */\n' + labels + '\n';
 fs.writeFileSync(path.join(__dirname, 'theme.css'), css);
-console.log(`Built Codex ${manifest.version} (${Buffer.byteLength(css)} bytes).`);
+console.log(`Built Codex UI For Obsidian ${manifest.version} (${Buffer.byteLength(css)} bytes).`);
