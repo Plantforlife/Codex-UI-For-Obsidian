@@ -1,4 +1,4 @@
-/* Codex UI For Obsidian 2.5.1. Generated from src; edit the source then run node build.cjs. */
+/* Codex UI For Obsidian 2.6.0. Generated from src; edit the source then run node build.cjs. */
 
 /* @settings
 name: Codex UI For Obsidian
@@ -15,7 +15,7 @@ settings:
     description: 柔和色块为文件夹铺一层淡色底；简约图标只给图标上色，缩进线按需出现；描边色条为原来的描边加左侧色条。
     type: class-select
     allowEmpty: false
-    default: codex-folder-style-tinted
+    default: codex-folder-style-minimal
     options:
       - label: 柔和色块
         value: codex-folder-style-tinted
@@ -243,11 +243,11 @@ settings:
     format: px
 */
 
-/* Codex UI For Obsidian 2.4 — balanced Markdown, quiet folder markers and clear settings. */
+/* Codex UI For Obsidian — balanced Markdown, quiet folder markers and clear settings. */
 body {
-  --font-interface-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei UI", sans-serif;
-  --font-text-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
-  --font-monospace-theme: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-interface-theme: "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+  --font-text-theme: "Microsoft YaHei", sans-serif;
+  --font-monospace-theme: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", "Microsoft YaHei", monospace;
   --font-ui-small: 13px;
   --font-ui-medium: 14px;
   --font-ui-large: 16px;
@@ -1240,6 +1240,7 @@ body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary)
 /* Rainbow folders, after AnuPpuccin and Minimal: every folder takes the next of seven colors among its
    sibling folders, restarting at red inside each folder. Files and icons inherit their folder's color. */
 .nav-files-container {
+  --codex-file-icon: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M8 13h8 M8 17h8"/%3E%3C/svg%3E');
   --codex-folder-color: var(--text-muted);
   --codex-icon-color: var(--text-muted);
   --codex-folder-radius: 8px;
@@ -1396,7 +1397,24 @@ body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary)
   pointer-events: none;
 }
 
-/* Supply a paper outline for files without an icon from Obsidian or a plugin. */
+/* File types use the same outline style as the folder icons. Existing native
+   or plugin-provided icons retain priority over this fallback. */
+.nav-files-container .nav-file-title[data-path$=".svg" i] {
+  --codex-file-icon: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M4 17C4 6 20 6 20 17M7 7h10M12 4v6"/%3E%3Crect x="2" y="17" width="4" height="4" rx=".5"/%3E%3Crect x="18" y="17" width="4" height="4" rx=".5"/%3E%3Crect x="10" y="5" width="4" height="4" rx=".5"/%3E%3C/svg%3E');
+}
+
+.nav-files-container .nav-file-title:is([data-path$=".png" i], [data-path$=".jpg" i], [data-path$=".jpeg" i], [data-path$=".gif" i], [data-path$=".webp" i], [data-path$=".avif" i], [data-path$=".bmp" i], [data-path$=".ico" i], [data-path$=".tif" i], [data-path$=".tiff" i], [data-path$=".heic" i]) {
+  --codex-file-icon: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Crect x="3" y="3" width="18" height="18" rx="2"/%3E%3Ccircle cx="8.5" cy="8.5" r="1.5"/%3E%3Cpath d="m21 15-5-5L5 21"/%3E%3C/svg%3E');
+}
+
+.nav-files-container .nav-file-title:is([data-path$=".mp3" i], [data-path$=".wav" i], [data-path$=".flac" i], [data-path$=".m4a" i], [data-path$=".ogg" i], [data-path$=".opus" i]) {
+  --codex-file-icon: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M9 18V5l12-2v13M9 8l12-2"/%3E%3Cellipse cx="6" cy="18" rx="3" ry="3"/%3E%3Cellipse cx="18" cy="16" rx="3" ry="3"/%3E%3C/svg%3E');
+}
+
+.nav-files-container .nav-file-title:is([data-path$=".mp4" i], [data-path$=".webm" i], [data-path$=".mov" i], [data-path$=".mkv" i], [data-path$=".avi" i]) {
+  --codex-file-icon: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Crect x="3" y="4" width="18" height="16" rx="2"/%3E%3Cpath d="m10 8 6 4-6 4Z"/%3E%3C/svg%3E');
+}
+
 .codex-file-icons .nav-files-container .nav-file-title:not(:has(.nav-file-icon, .tree-item-icon)):not(.is-being-renamed):not(:has([contenteditable="true"]))::before {
   content: "";
   flex: 0 0 16px;
@@ -1404,8 +1422,8 @@ body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary)
   height: 16px;
   margin-inline-end: 7px;
   background-color: var(--codex-icon-color);
-  -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M8 13h8 M8 17h8"/%3E%3C/svg%3E') center / contain no-repeat;
-  mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M8 13h8 M8 17h8"/%3E%3C/svg%3E') center / contain no-repeat;
+  -webkit-mask: var(--codex-file-icon) center / contain no-repeat;
+  mask: var(--codex-file-icon) center / contain no-repeat;
   pointer-events: none;
 }
 
@@ -1851,7 +1869,7 @@ body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-sett
 }
 
 .markdown-rendered :not(pre) > code,
-.cm-s-obsidian span.cm-inline-code {
+.cm-s-obsidian .cm-line:not(.HyperMD-codeblock) span.cm-inline-code {
   padding: 0 0.1em;
   border: 0;
   border-radius: 0;
@@ -1970,24 +1988,6 @@ body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-sett
 .markdown-rendered pre .token {
   background: transparent;
   text-shadow: none;
-}
-
-.markdown-rendered pre::before {
-  content: var(--codex-code-language, "");
-  position: absolute;
-  top: 2px;
-  inset-inline-end: 16px;
-  color: var(--text-muted);
-  font: 600 0.8em/1.5 var(--font-monospace);
-  pointer-events: none;
-}
-
-.markdown-rendered pre[data-language]::before {
-  content: attr(data-language);
-}
-
-.markdown-rendered pre:hover::before {
-  inset-inline-end: 80px;
 }
 
 .markdown-rendered button.copy-code-button {
@@ -2138,6 +2138,202 @@ body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-sett
 
   .markdown-rendered pre {
     break-inside: avoid;
+  }
+}
+
+/* macOS-inspired code cards. Visual reference: lspzc's Obsidian forum post
+   https://forum-zh.obsidian.md/t/topic/61038 . Independently implemented for
+   the theme's native reading blocks and CodeMirror 6 editing surfaces. */
+body {
+  --codex-code-header-height: 36px;
+  --codex-code-header-bg: #f0f1f3;
+  --codex-code-header-border: rgb(0 0 0 / 6%);
+  --codex-code-card-bg: #f9f9f9;
+  --codex-code-card-radius: 8px;
+  --codex-code-copy-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7'%3E%3Crect x='8' y='8' width='12' height='13' rx='2'/%3E%3Cpath d='M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3'/%3E%3C/svg%3E");
+}
+
+.theme-dark {
+  --codex-code-header-bg: #24272b;
+  --codex-code-header-border: rgb(255 255 255 / 6%);
+  --codex-code-card-bg: #111111;
+}
+
+.markdown-rendered pre {
+  padding-top: calc(var(--codex-code-header-height) + var(--codex-code-line-height));
+  border-radius: var(--codex-code-card-radius);
+  background: var(--codex-code-card-bg);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 12%);
+}
+
+/* The bar and dots share one decorative layer; language gets its own layer. */
+.markdown-rendered pre::before,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--codex-code-header-height);
+  border-radius: var(--codex-code-card-radius) var(--codex-code-card-radius) 0 0;
+  background:
+    radial-gradient(circle at 22px 18px, #ff5f56 0 6px, transparent 6.5px),
+    radial-gradient(circle at 42px 18px, #ffbd2e 0 6px, transparent 6.5px),
+    radial-gradient(circle at 62px 18px, #27c93f 0 6px, transparent 6.5px),
+    var(--codex-code-header-bg);
+  box-shadow: inset 0 -1px var(--codex-code-header-border);
+  pointer-events: none;
+  user-select: none;
+}
+
+.markdown-rendered pre::after,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin::after {
+  position: absolute;
+  inset: 0 52px auto 84px;
+  height: var(--codex-code-header-height);
+  overflow: hidden;
+  color: var(--text-muted);
+  font: 500 12px/var(--codex-code-header-height) var(--font-monospace);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.markdown-rendered pre::after {
+  content: var(--codex-code-language, "");
+}
+
+.markdown-rendered pre[data-language]::after {
+  content: attr(data-language);
+}
+
+.markdown-rendered pre[data-codex-language]::after,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin::after {
+  content: attr(data-codex-language);
+}
+
+/* Keep real fence lines editable underneath the header. Better Obsidian maps
+   the header and actual code-line positions separately for dual-view scrolling. */
+.markdown-source-view.mod-cm6 {
+  --code-background: var(--codex-code-card-bg);
+  --code-radius: var(--codex-code-card-radius);
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin {
+  position: relative;
+  padding-top: var(--codex-code-header-height);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin.codex-code-start .code-block-flair {
+  display: none;
+}
+
+/* Native inline-code rules otherwise win over CodeMirror's token colors when
+   a token carries both classes. Both views consume the selected code palette. */
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-comment, .cm-meta) {
+  color: var(--code-comment);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-tag {
+  color: var(--code-tag);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-punctuation, .cm-bracket) {
+  color: var(--code-punctuation);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-number, .cm-atom) {
+  color: var(--code-value);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-qualifier, .cm-string, .cm-string-2) {
+  color: var(--code-string);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-operator {
+  color: var(--code-operator);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-link, .cm-variable, .cm-variable-2, .cm-variable-3) {
+  color: var(--code-property);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-builtin, .cm-property, .cm-attribute, .cm-type, .cm-def) {
+  color: var(--code-function);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-keyword {
+  color: var(--code-keyword);
+}
+
+/* Theme-only fallback for unfocused live-preview blocks. Better Obsidian adds
+   language metadata in source mode too, plus a separate native clipboard action. */
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin:not(.codex-code-start) .code-block-flair {
+  inset: 0 52px auto 84px;
+  padding: 0;
+  height: var(--codex-code-header-height);
+  font: 500 12px/var(--codex-code-header-height) var(--font-monospace);
+  background: transparent;
+}
+
+.markdown-rendered pre > button.copy-code-button,
+.markdown-rendered pre:not(:hover) > button.copy-code-button,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin .codex-code-copy {
+  position: absolute;
+  inset: 6px 8px auto auto;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  min-width: 28px;
+  height: 24px;
+  min-height: 24px;
+  margin: 0;
+  padding: 4px 6px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+  font-size: 0;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.markdown-rendered button.copy-code-button:not(:has(svg))::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background-color: currentColor;
+  mask: var(--codex-code-copy-icon) center / contain no-repeat;
+}
+
+.markdown-rendered button.copy-code-button svg,
+.markdown-source-view.mod-cm6 .codex-code-copy svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.markdown-rendered pre > button.copy-code-button:hover,
+.markdown-source-view.mod-cm6 .codex-code-copy:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.markdown-rendered button.copy-code-button:focus-visible,
+.markdown-source-view.mod-cm6 .codex-code-copy:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 1px;
+}
+
+.markdown-source-view.mod-cm6 .codex-code-copy[data-copied] {
+  color: var(--text-accent);
+}
+
+@media print {
+  .markdown-rendered pre > button.copy-code-button,
+  .markdown-rendered pre:not(:hover) > button.copy-code-button,
+  .markdown-source-view.mod-cm6 .HyperMD-codeblock-begin .codex-code-copy {
+    display: none;
+  }
+  .markdown-rendered pre,
+  .markdown-rendered pre > code {
+    max-height: none;
+    overflow: visible;
+    box-shadow: none;
   }
 }
 

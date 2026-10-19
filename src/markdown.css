@@ -85,7 +85,7 @@
 }
 
 .markdown-rendered :not(pre) > code,
-.cm-s-obsidian span.cm-inline-code {
+.cm-s-obsidian .cm-line:not(.HyperMD-codeblock) span.cm-inline-code {
   padding: 0 0.1em;
   border: 0;
   border-radius: 0;
@@ -204,24 +204,6 @@
 .markdown-rendered pre .token {
   background: transparent;
   text-shadow: none;
-}
-
-.markdown-rendered pre::before {
-  content: var(--codex-code-language, "");
-  position: absolute;
-  top: 2px;
-  inset-inline-end: 16px;
-  color: var(--text-muted);
-  font: 600 0.8em/1.5 var(--font-monospace);
-  pointer-events: none;
-}
-
-.markdown-rendered pre[data-language]::before {
-  content: attr(data-language);
-}
-
-.markdown-rendered pre:hover::before {
-  inset-inline-end: 80px;
 }
 
 .markdown-rendered button.copy-code-button {

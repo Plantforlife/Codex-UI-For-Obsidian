@@ -1,0 +1,195 @@
+/* macOS-inspired code cards. Visual reference: lspzc's Obsidian forum post
+   https://forum-zh.obsidian.md/t/topic/61038 . Independently implemented for
+   the theme's native reading blocks and CodeMirror 6 editing surfaces. */
+body {
+  --codex-code-header-height: 36px;
+  --codex-code-header-bg: #f0f1f3;
+  --codex-code-header-border: rgb(0 0 0 / 6%);
+  --codex-code-card-bg: #f9f9f9;
+  --codex-code-card-radius: 8px;
+  --codex-code-copy-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7'%3E%3Crect x='8' y='8' width='12' height='13' rx='2'/%3E%3Cpath d='M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3'/%3E%3C/svg%3E");
+}
+
+.theme-dark {
+  --codex-code-header-bg: #24272b;
+  --codex-code-header-border: rgb(255 255 255 / 6%);
+  --codex-code-card-bg: #111111;
+}
+
+.markdown-rendered pre {
+  padding-top: calc(var(--codex-code-header-height) + var(--codex-code-line-height));
+  border-radius: var(--codex-code-card-radius);
+  background: var(--codex-code-card-bg);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 12%);
+}
+
+/* The bar and dots share one decorative layer; language gets its own layer. */
+.markdown-rendered pre::before,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--codex-code-header-height);
+  border-radius: var(--codex-code-card-radius) var(--codex-code-card-radius) 0 0;
+  background:
+    radial-gradient(circle at 22px 18px, #ff5f56 0 6px, transparent 6.5px),
+    radial-gradient(circle at 42px 18px, #ffbd2e 0 6px, transparent 6.5px),
+    radial-gradient(circle at 62px 18px, #27c93f 0 6px, transparent 6.5px),
+    var(--codex-code-header-bg);
+  box-shadow: inset 0 -1px var(--codex-code-header-border);
+  pointer-events: none;
+  user-select: none;
+}
+
+.markdown-rendered pre::after,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin::after {
+  position: absolute;
+  inset: 0 52px auto 84px;
+  height: var(--codex-code-header-height);
+  overflow: hidden;
+  color: var(--text-muted);
+  font: 500 12px/var(--codex-code-header-height) var(--font-monospace);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.markdown-rendered pre::after {
+  content: var(--codex-code-language, "");
+}
+
+.markdown-rendered pre[data-language]::after {
+  content: attr(data-language);
+}
+
+.markdown-rendered pre[data-codex-language]::after,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin::after {
+  content: attr(data-codex-language);
+}
+
+/* Keep real fence lines editable underneath the header. Better Obsidian maps
+   the header and actual code-line positions separately for dual-view scrolling. */
+.markdown-source-view.mod-cm6 {
+  --code-background: var(--codex-code-card-bg);
+  --code-radius: var(--codex-code-card-radius);
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin {
+  position: relative;
+  padding-top: var(--codex-code-header-height);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin.codex-code-start .code-block-flair {
+  display: none;
+}
+
+/* Native inline-code rules otherwise win over CodeMirror's token colors when
+   a token carries both classes. Both views consume the selected code palette. */
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-comment, .cm-meta) {
+  color: var(--code-comment);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-tag {
+  color: var(--code-tag);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-punctuation, .cm-bracket) {
+  color: var(--code-punctuation);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-number, .cm-atom) {
+  color: var(--code-value);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-qualifier, .cm-string, .cm-string-2) {
+  color: var(--code-string);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-operator {
+  color: var(--code-operator);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-link, .cm-variable, .cm-variable-2, .cm-variable-3) {
+  color: var(--code-property);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock :is(.cm-builtin, .cm-property, .cm-attribute, .cm-type, .cm-def) {
+  color: var(--code-function);
+}
+.markdown-source-view.mod-cm6 .HyperMD-codeblock .cm-keyword {
+  color: var(--code-keyword);
+}
+
+/* Theme-only fallback for unfocused live-preview blocks. Better Obsidian adds
+   language metadata in source mode too, plus a separate native clipboard action. */
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin:not(.codex-code-start) .code-block-flair {
+  inset: 0 52px auto 84px;
+  padding: 0;
+  height: var(--codex-code-header-height);
+  font: 500 12px/var(--codex-code-header-height) var(--font-monospace);
+  background: transparent;
+}
+
+.markdown-rendered pre > button.copy-code-button,
+.markdown-rendered pre:not(:hover) > button.copy-code-button,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin .codex-code-copy {
+  position: absolute;
+  inset: 6px 8px auto auto;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  min-width: 28px;
+  height: 24px;
+  min-height: 24px;
+  margin: 0;
+  padding: 4px 6px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+  font-size: 0;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.markdown-rendered button.copy-code-button:not(:has(svg))::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background-color: currentColor;
+  mask: var(--codex-code-copy-icon) center / contain no-repeat;
+}
+
+.markdown-rendered button.copy-code-button svg,
+.markdown-source-view.mod-cm6 .codex-code-copy svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.markdown-rendered pre > button.copy-code-button:hover,
+.markdown-source-view.mod-cm6 .codex-code-copy:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.markdown-rendered button.copy-code-button:focus-visible,
+.markdown-source-view.mod-cm6 .codex-code-copy:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 1px;
+}
+
+.markdown-source-view.mod-cm6 .codex-code-copy[data-copied] {
+  color: var(--text-accent);
+}
+
+@media print {
+  .markdown-rendered pre > button.copy-code-button,
+  .markdown-rendered pre:not(:hover) > button.copy-code-button,
+  .markdown-source-view.mod-cm6 .HyperMD-codeblock-begin .codex-code-copy {
+    display: none;
+  }
+  .markdown-rendered pre,
+  .markdown-rendered pre > code {
+    max-height: none;
+    overflow: visible;
+    box-shadow: none;
+  }
+}

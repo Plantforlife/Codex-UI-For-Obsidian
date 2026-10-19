@@ -3,7 +3,7 @@ const path = require('node:path');
 
 // The installed theme remains a standalone CSS theme; this builder needs only Node.
 const sourceDir = path.join(__dirname, 'src');
-const sections = ['settings.css', 'tokens.css', 'workspace.css', 'ribbon.css', 'folders.css', 'style-settings.css', 'markdown.css'];
+const sections = ['settings.css', 'tokens.css', 'workspace.css', 'ribbon.css', 'folders.css', 'style-settings.css', 'markdown.css', 'code-cards.css'];
 const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, 'manifest.json'), 'utf8'));
 const languages = {
   javascript: ['javascript', 'js'],

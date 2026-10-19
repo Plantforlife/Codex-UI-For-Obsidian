@@ -13,7 +13,7 @@ settings:
     description: 柔和色块为文件夹铺一层淡色底；简约图标只给图标上色，缩进线按需出现；描边色条为原来的描边加左侧色条。
     type: class-select
     allowEmpty: false
-    default: codex-folder-style-tinted
+    default: codex-folder-style-minimal
     options:
       - label: 柔和色块
         value: codex-folder-style-tinted
