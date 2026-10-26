@@ -55,6 +55,12 @@
   padding-top: 0;
 }
 
+/* CodeMirror's text-top widget buffer beside the fold arrow adds ~1px to each large heading line,
+   which accumulates against reading view. */
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header .cm-widgetBuffer {
+  vertical-align: top;
+}
+
 /* One source blank line matches one reading-view block gap. */
 .markdown-source-view.mod-cm6 .cm-line:not(.HyperMD-codeblock):not(.HyperMD-table-row):has(> br:only-child) {
   min-height: var(--codex-block-gap);
@@ -97,8 +103,50 @@
   box-decoration-break: clone;
 }
 
+/* Source backticks stay outside the code background, as in reading view. */
+.cm-s-obsidian .cm-line:not(.HyperMD-codeblock) span.cm-inline-code.cm-formatting-code {
+  padding: 0;
+  background: transparent;
+  color: var(--text-faint);
+  font-weight: 400;
+}
+
+/* Reading lists line up with source mode: text starts after the marker's width, and each level adds
+   the same --list-indent that source mode gives an indent. */
 .markdown-rendered :is(ul, ol) {
-  padding-inline-start: 28px;
+  padding-inline-start: 0;
+}
+
+.markdown-rendered ul > li {
+  margin-inline-start: var(--codex-list-marker-ul);
+}
+
+.markdown-rendered ol > li {
+  margin-inline-start: var(--codex-list-marker-ol);
+}
+
+.markdown-rendered :is(ul ul, ol ol) > li {
+  margin-inline-start: var(--list-indent);
+}
+
+.markdown-rendered ul > li > ol > li {
+  margin-inline-start: calc(var(--list-indent) + var(--codex-list-marker-ol) - var(--codex-list-marker-ul));
+}
+
+.markdown-rendered ol > li > ul > li {
+  margin-inline-start: calc(var(--list-indent) + var(--codex-list-marker-ul) - var(--codex-list-marker-ol));
+}
+
+.markdown-rendered .list-bullet {
+  margin-inline-start: calc(var(--codex-list-bullet-center) - var(--codex-list-marker-ul));
+}
+
+/* The checkbox takes the place of "[ ]", so task text starts where it does after "- [ ] ". */
+.markdown-rendered ul > li.task-list-item > :is(p > .task-list-item-checkbox, .task-list-item-checkbox) {
+  /* Form controls default to a smaller font; the em widths need the list's. */
+  font-size: inherit;
+  margin-inline-start: 0;
+  margin-inline-end: calc(var(--codex-list-marker-task) - var(--codex-list-marker-ul) - var(--checkbox-size));
 }
 
 .markdown-rendered li {
@@ -114,7 +162,6 @@
 
 .markdown-rendered li > :is(ul, ol) {
   margin-block: 0;
-  padding-inline-start: 18px;
 }
 
 /* Unordered list indentation vertical lines (guides) */
@@ -145,14 +192,6 @@
 .markdown-rendered li > p + p {
   margin-top: var(--codex-block-gap);
 }
-
-/* (已禁用 Codex UI For Obsidian 的纯文本风格待办，恢复 Obsidian 标准方框复选框)
-.markdown-rendered input.task-list-item-checkbox,
-.markdown-source-view.mod-cm6 .task-list-label input.task-list-item-checkbox {
-  appearance: none;
-  ...
-}
-*/
 
 .markdown-rendered blockquote {
   padding: 0 0 0 16px;

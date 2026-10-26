@@ -8,22 +8,9 @@ settings:
     type: heading
     level: 1
     collapsed: false
-  - id: codex-folder-style
-    title: 文件夹样式
-    description: 柔和色块为文件夹铺一层淡色底；简约图标只给图标上色，缩进线按需出现；描边色条为原来的描边加左侧色条。
-    type: class-select
-    allowEmpty: false
-    default: codex-folder-style-minimal
-    options:
-      - label: 柔和色块
-        value: codex-folder-style-tinted
-      - label: 简约图标
-        value: codex-folder-style-minimal
-      - label: 描边色条
-        value: codex-folder-style-outlined
   - id: codex-folder-palette
     title: 七彩配色
-    description: 每一层文件夹都按同级顺序从红色开始循环。选择「自定义」后使用下方颜色。
+    description: 顶层文件夹按顺序从红色开始循环，子文件夹和文件沿用所在顶层文件夹的颜色。选择「自定义」后使用下方颜色。
     type: class-select
     allowEmpty: false
     default: codex-palette-cream
@@ -41,8 +28,8 @@ settings:
     type: class-toggle
     default: false
   - id: codex-folder-markers
-    title: 显示文件夹色条
-    description: 展开的文件夹下方显示同色缩进线。简约样式平时只显示当前文件所在文件夹的竖线，鼠标移入文件列表时淡淡显示其余竖线；描边样式下为左侧色条。
+    title: 显示文件夹缩进线
+    description: 展开的文件夹下方显示同色缩进线。平时只显示当前文件所在文件夹的竖线，鼠标移入文件列表时淡淡显示其余竖线。
     type: class-toggle
     default: true
   - id: codex-file-icons
@@ -60,85 +47,85 @@ settings:
     type: variable-color
     format: hex
     opacity: false
-    default: '#98686d'
+    default: '#9a6462'
   - id: codex-folder-red-dark
     title: 红色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#b58287'
+    default: '#c29492'
   - id: codex-folder-orange-light
     title: 橙色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#9b7959'
+    default: '#926b49'
   - id: codex-folder-orange-dark
     title: 橙色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#b99a7b'
+    default: '#bb9a7f'
   - id: codex-folder-yellow-light
     title: 黄色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#917f46'
+    default: '#8a7d4c'
   - id: codex-folder-yellow-dark
     title: 黄色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#b6aa78'
+    default: '#b5ab84'
   - id: codex-folder-green-light
     title: 绿色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#61856b'
+    default: '#58805d'
   - id: codex-folder-green-dark
     title: 绿色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#86a88d'
+    default: '#8bab8e'
   - id: codex-folder-cyan-light
     title: 青色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#5d8586'
+    default: '#3c8181'
   - id: codex-folder-cyan-dark
     title: 青色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#7faaa9'
+    default: '#79adac'
   - id: codex-folder-blue-light
     title: 蓝色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#647f9f'
+    default: '#58769d'
   - id: codex-folder-blue-dark
     title: 蓝色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#829dbb'
+    default: '#8ba4c4'
   - id: codex-folder-violet-light
     title: 紫色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#836b9d'
+    default: '#7c6b97'
   - id: codex-folder-violet-dark
     title: 紫色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#a08bb7'
+    default: '#a89abf'
   - id: codex-code-section
     title: 代码高亮
     description: 阅读、实时预览与源码模式的代码块共用；行内代码保持单色。

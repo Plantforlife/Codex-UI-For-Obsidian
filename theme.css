@@ -1,4 +1,4 @@
-/* Codex UI For Obsidian 2.6.0. Generated from src; edit the source then run node build.cjs. */
+/* Codex UI For Obsidian 2.7.0. Generated from src; edit the source then run node build.cjs. */
 
 /* @settings
 name: Codex UI For Obsidian
@@ -10,22 +10,9 @@ settings:
     type: heading
     level: 1
     collapsed: false
-  - id: codex-folder-style
-    title: 文件夹样式
-    description: 柔和色块为文件夹铺一层淡色底；简约图标只给图标上色，缩进线按需出现；描边色条为原来的描边加左侧色条。
-    type: class-select
-    allowEmpty: false
-    default: codex-folder-style-minimal
-    options:
-      - label: 柔和色块
-        value: codex-folder-style-tinted
-      - label: 简约图标
-        value: codex-folder-style-minimal
-      - label: 描边色条
-        value: codex-folder-style-outlined
   - id: codex-folder-palette
     title: 七彩配色
-    description: 每一层文件夹都按同级顺序从红色开始循环。选择「自定义」后使用下方颜色。
+    description: 顶层文件夹按顺序从红色开始循环，子文件夹和文件沿用所在顶层文件夹的颜色。选择「自定义」后使用下方颜色。
     type: class-select
     allowEmpty: false
     default: codex-palette-cream
@@ -43,8 +30,8 @@ settings:
     type: class-toggle
     default: false
   - id: codex-folder-markers
-    title: 显示文件夹色条
-    description: 展开的文件夹下方显示同色缩进线。简约样式平时只显示当前文件所在文件夹的竖线，鼠标移入文件列表时淡淡显示其余竖线；描边样式下为左侧色条。
+    title: 显示文件夹缩进线
+    description: 展开的文件夹下方显示同色缩进线。平时只显示当前文件所在文件夹的竖线，鼠标移入文件列表时淡淡显示其余竖线。
     type: class-toggle
     default: true
   - id: codex-file-icons
@@ -62,85 +49,85 @@ settings:
     type: variable-color
     format: hex
     opacity: false
-    default: '#98686d'
+    default: '#9a6462'
   - id: codex-folder-red-dark
     title: 红色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#b58287'
+    default: '#c29492'
   - id: codex-folder-orange-light
     title: 橙色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#9b7959'
+    default: '#926b49'
   - id: codex-folder-orange-dark
     title: 橙色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#b99a7b'
+    default: '#bb9a7f'
   - id: codex-folder-yellow-light
     title: 黄色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#917f46'
+    default: '#8a7d4c'
   - id: codex-folder-yellow-dark
     title: 黄色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#b6aa78'
+    default: '#b5ab84'
   - id: codex-folder-green-light
     title: 绿色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#61856b'
+    default: '#58805d'
   - id: codex-folder-green-dark
     title: 绿色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#86a88d'
+    default: '#8bab8e'
   - id: codex-folder-cyan-light
     title: 青色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#5d8586'
+    default: '#3c8181'
   - id: codex-folder-cyan-dark
     title: 青色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#7faaa9'
+    default: '#79adac'
   - id: codex-folder-blue-light
     title: 蓝色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#647f9f'
+    default: '#58769d'
   - id: codex-folder-blue-dark
     title: 蓝色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#829dbb'
+    default: '#8ba4c4'
   - id: codex-folder-violet-light
     title: 紫色 · 浅色
     type: variable-color
     format: hex
     opacity: false
-    default: '#836b9d'
+    default: '#7c6b97'
   - id: codex-folder-violet-dark
     title: 紫色 · 深色
     type: variable-color
     format: hex
     opacity: false
-    default: '#a08bb7'
+    default: '#a89abf'
   - id: codex-code-section
     title: 代码高亮
     description: 阅读、实时预览与源码模式的代码块共用；行内代码保持单色。
@@ -308,6 +295,11 @@ body {
   --bold-color: inherit;
   --italic-color: inherit;
   --list-indent: 1.75em;
+  /* Source-mode marker widths: "- ", "1. ", "- [ ] " (its brackets are monospace) and the center of "-". */
+  --codex-list-marker-ul: 0.73em;
+  --codex-list-marker-ol: 1.125em;
+  --codex-list-marker-task: 2.67em;
+  --codex-list-bullet-center: 0.22em;
   --list-spacing: 0;
   --list-marker-color: var(--text-faint);
   --list-marker-color-hover: var(--text-muted);
@@ -317,7 +309,7 @@ body {
   --indentation-guide-width-active: 1px;
   --indentation-guide-color: color-mix(in srgb, var(--text-faint) 35%, transparent);
   --indentation-guide-color-active: color-mix(in srgb, var(--text-muted) 60%, transparent);
-  --indentation-guide-reading-indent: -14px;
+  --indentation-guide-reading-indent: calc(var(--codex-list-bullet-center) - var(--codex-list-marker-ul) - 0.5px);
   --nav-indentation-guide-width: 0;
   --checklist-done-decoration: none;
   --checklist-done-color: var(--text-normal);
@@ -518,13 +510,13 @@ body {
   --codex-diagram-fill: #00284d;
   --codex-diagram-stroke: #23496a;
   --codex-diagram-text: #a6c9e7;
-  --codex-folder-red: var(--codex-folder-red-dark, #b58287);
-  --codex-folder-orange: var(--codex-folder-orange-dark, #b99a7b);
-  --codex-folder-yellow: var(--codex-folder-yellow-dark, #b6aa78);
-  --codex-folder-green: var(--codex-folder-green-dark, #86a88d);
-  --codex-folder-cyan: var(--codex-folder-cyan-dark, #7faaa9);
-  --codex-folder-blue: var(--codex-folder-blue-dark, #829dbb);
-  --codex-folder-violet: var(--codex-folder-violet-dark, #a08bb7);
+  --codex-folder-red: var(--codex-folder-red-dark, #c29492);
+  --codex-folder-orange: var(--codex-folder-orange-dark, #bb9a7f);
+  --codex-folder-yellow: var(--codex-folder-yellow-dark, #b5ab84);
+  --codex-folder-green: var(--codex-folder-green-dark, #8bab8e);
+  --codex-folder-cyan: var(--codex-folder-cyan-dark, #79adac);
+  --codex-folder-blue: var(--codex-folder-blue-dark, #8ba4c4);
+  --codex-folder-violet: var(--codex-folder-violet-dark, #a89abf);
   --hr-color: #343434;
   --scrollbar-bg: transparent;
   --scrollbar-thumb-bg: rgb(255 255 255 / 20%);
@@ -585,13 +577,13 @@ body {
   --codex-diagram-fill: #e9f2fb;
   --codex-diagram-stroke: #b1c9df;
   --codex-diagram-text: #28547b;
-  --codex-folder-red: var(--codex-folder-red-light, #98686d);
-  --codex-folder-orange: var(--codex-folder-orange-light, #9b7959);
-  --codex-folder-yellow: var(--codex-folder-yellow-light, #917f46);
-  --codex-folder-green: var(--codex-folder-green-light, #61856b);
-  --codex-folder-cyan: var(--codex-folder-cyan-light, #5d8586);
-  --codex-folder-blue: var(--codex-folder-blue-light, #647f9f);
-  --codex-folder-violet: var(--codex-folder-violet-light, #836b9d);
+  --codex-folder-red: var(--codex-folder-red-light, #9a6462);
+  --codex-folder-orange: var(--codex-folder-orange-light, #926b49);
+  --codex-folder-yellow: var(--codex-folder-yellow-light, #8a7d4c);
+  --codex-folder-green: var(--codex-folder-green-light, #58805d);
+  --codex-folder-cyan: var(--codex-folder-cyan-light, #3c8181);
+  --codex-folder-blue: var(--codex-folder-blue-light, #58769d);
+  --codex-folder-violet: var(--codex-folder-violet-light, #7c6b97);
   --hr-color: #dddddd;
   --scrollbar-bg: transparent;
   --scrollbar-thumb-bg: rgb(0 0 0 / 20%);
@@ -603,68 +595,68 @@ body {
 /* Folder palette presets. 「自定义」 keeps the Style Settings pickers defined above. */
 .codex-palette-cream.theme-dark,
 .codex-palette-cream .theme-dark {
-  --codex-folder-red: #e8a3a1;
-  --codex-folder-orange: #eab88f;
-  --codex-folder-yellow: #e4cf96;
-  --codex-folder-green: #afcfa1;
-  --codex-folder-cyan: #9fd1c8;
-  --codex-folder-blue: #a9c1e6;
-  --codex-folder-violet: #c8b3e3;
+  --codex-folder-red: #f0a8a5;
+  --codex-folder-orange: #e6b285;
+  --codex-folder-yellow: #d8c787;
+  --codex-folder-green: #98cd9f;
+  --codex-folder-cyan: #77cfcf;
+  --codex-folder-blue: #99c1f4;
+  --codex-folder-violet: #c8b1ec;
 }
 
 .codex-palette-cream.theme-light,
 .codex-palette-cream .theme-light {
-  --codex-folder-red: #cf7d79;
-  --codex-folder-orange: #d0915d;
-  --codex-folder-yellow: #bb9a45;
-  --codex-folder-green: #74a467;
-  --codex-folder-cyan: #55a198;
-  --codex-folder-blue: #7391c8;
-  --codex-folder-violet: #9d81c4;
+  --codex-folder-red: #bb6261;
+  --codex-folder-orange: #b06f2d;
+  --codex-folder-yellow: #9f8827;
+  --codex-folder-green: #4b9358;
+  --codex-folder-cyan: #099393;
+  --codex-folder-blue: #4e82c3;
+  --codex-folder-violet: #8d6eb9;
 }
 
 .codex-palette-muted.theme-dark,
 .codex-palette-muted .theme-dark {
-  --codex-folder-red: #b58287;
-  --codex-folder-orange: #b99a7b;
-  --codex-folder-yellow: #b6aa78;
-  --codex-folder-green: #86a88d;
-  --codex-folder-cyan: #7faaa9;
-  --codex-folder-blue: #829dbb;
-  --codex-folder-violet: #a08bb7;
+  --codex-folder-red: #c29492;
+  --codex-folder-orange: #bb9a7f;
+  --codex-folder-yellow: #b5ab84;
+  --codex-folder-green: #8bab8e;
+  --codex-folder-cyan: #79adac;
+  --codex-folder-blue: #8ba4c4;
+  --codex-folder-violet: #a89abf;
 }
 
 .codex-palette-muted.theme-light,
 .codex-palette-muted .theme-light {
-  --codex-folder-red: #98686d;
-  --codex-folder-orange: #9b7959;
-  --codex-folder-yellow: #917f46;
-  --codex-folder-green: #61856b;
-  --codex-folder-cyan: #5d8586;
-  --codex-folder-blue: #647f9f;
-  --codex-folder-violet: #836b9d;
+  --codex-folder-red: #9a6462;
+  --codex-folder-orange: #926b49;
+  --codex-folder-yellow: #8a7d4c;
+  --codex-folder-green: #58805d;
+  --codex-folder-cyan: #3c8181;
+  --codex-folder-blue: #58769d;
+  --codex-folder-violet: #7c6b97;
 }
 
 .codex-palette-vivid.theme-dark,
 .codex-palette-vivid .theme-dark {
-  --codex-folder-red: #ff7b72;
-  --codex-folder-orange: #ffa657;
-  --codex-folder-yellow: #e3b341;
-  --codex-folder-green: #56d364;
-  --codex-folder-cyan: #39c5cf;
-  --codex-folder-blue: #58a6ff;
-  --codex-folder-violet: #bc8cff;
+  --codex-folder-red: #fe8a88;
+  --codex-folder-orange: #f4993c;
+  --codex-folder-yellow: #d9b92e;
+  --codex-folder-green: #66cb79;
+  --codex-folder-cyan: #10caca;
+  --codex-folder-blue: #7ab4fe;
+  --codex-folder-violet: #c399ff;
 }
 
 .codex-palette-vivid.theme-light,
 .codex-palette-vivid .theme-light {
-  --codex-folder-red: #cf222e;
-  --codex-folder-orange: #bc4c00;
-  --codex-folder-yellow: #9a6700;
-  --codex-folder-green: #1a7f37;
-  --codex-folder-cyan: #1b7c83;
-  --codex-folder-blue: #0969da;
-  --codex-folder-violet: #8250df;
+  --codex-folder-red: #c13b42;
+  --codex-folder-orange: #a45e02;
+  --codex-folder-yellow: #907904;
+  --codex-folder-green: #008935;
+  --codex-folder-cyan: #008282;
+  --codex-folder-blue: #1570d1;
+  --codex-folder-violet: #8552c2;
 }
 
 
@@ -1237,8 +1229,9 @@ body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary)
   }
 }
 
-/* Rainbow folders, after AnuPpuccin and Minimal: every folder takes the next of seven colors among its
-   sibling folders, restarting at red inside each folder. Files and icons inherit their folder's color. */
+/* Rainbow folders, after AnuPpuccin and Minimal: each top-level folder takes the next of seven colors,
+   and everything inside it (subfolders, files, guides) keeps that color. Top-level folders sit in an
+   unnamed wrapper since Obsidian 1.x dropped the .mod-root folder; both layouts are matched. */
 .nav-files-container {
   --codex-file-icon: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M8 13h8 M8 17h8"/%3E%3C/svg%3E');
   --codex-folder-color: var(--text-muted);
@@ -1248,25 +1241,25 @@ body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary)
   --nav-item-background-selected: transparent;
 }
 
-.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 1 of .nav-folder) {
+:is(.nav-files-container > div, .nav-folder.mod-root > .nav-folder-children) > .nav-folder:not(.mod-root):nth-child(7n + 1 of .nav-folder) {
   --codex-folder-color: var(--codex-folder-red);
 }
-.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 2 of .nav-folder) {
+:is(.nav-files-container > div, .nav-folder.mod-root > .nav-folder-children) > .nav-folder:not(.mod-root):nth-child(7n + 2 of .nav-folder) {
   --codex-folder-color: var(--codex-folder-orange);
 }
-.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 3 of .nav-folder) {
+:is(.nav-files-container > div, .nav-folder.mod-root > .nav-folder-children) > .nav-folder:not(.mod-root):nth-child(7n + 3 of .nav-folder) {
   --codex-folder-color: var(--codex-folder-yellow);
 }
-.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 4 of .nav-folder) {
+:is(.nav-files-container > div, .nav-folder.mod-root > .nav-folder-children) > .nav-folder:not(.mod-root):nth-child(7n + 4 of .nav-folder) {
   --codex-folder-color: var(--codex-folder-green);
 }
-.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 5 of .nav-folder) {
+:is(.nav-files-container > div, .nav-folder.mod-root > .nav-folder-children) > .nav-folder:not(.mod-root):nth-child(7n + 5 of .nav-folder) {
   --codex-folder-color: var(--codex-folder-cyan);
 }
-.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 6 of .nav-folder) {
+:is(.nav-files-container > div, .nav-folder.mod-root > .nav-folder-children) > .nav-folder:not(.mod-root):nth-child(7n + 6 of .nav-folder) {
   --codex-folder-color: var(--codex-folder-blue);
 }
-.nav-files-container .nav-folder:not(.mod-root):nth-child(7n + 7 of .nav-folder) {
+:is(.nav-files-container > div, .nav-folder.mod-root > .nav-folder-children) > .nav-folder:not(.mod-root):nth-child(7n + 7 of .nav-folder) {
   --codex-folder-color: var(--codex-folder-violet);
 }
 
@@ -1274,9 +1267,10 @@ body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary)
   --codex-folder-color: var(--text-muted) !important;
 }
 
-/* Icons inside a folder follow that folder; root-level files stay muted. */
+/* File icons inside a folder take a quieter shade of its color, so they sit behind the file names;
+   root-level files stay muted. */
 .nav-files-container .nav-folder:not(.mod-root) {
-  --codex-icon-color: var(--codex-folder-color);
+  --codex-icon-color: color-mix(in srgb, var(--codex-folder-color) 55%, var(--text-faint));
 }
 
 /* ---------- Folder rows ---------- */
@@ -1288,48 +1282,20 @@ body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary)
   color: var(--text-normal);
 }
 
-/* The disclosure arrow sits inside the row and takes the folder color. */
+/* The disclosure arrow sits inside the row; it stays neutral so the folder icon carries the color. */
 .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title > .collapse-icon {
-  --nav-collapse-icon-color: var(--codex-folder-color);
-  --nav-collapse-icon-color-collapsed: var(--codex-folder-color);
+  --nav-collapse-icon-color: var(--text-faint);
+  --nav-collapse-icon-color-collapsed: var(--text-faint);
   position: static;
   margin-inline-start: 0;
   margin-inline-end: 6px;
   align-self: center;
-  color: var(--codex-folder-color);
-  opacity: 0.85;
+  color: var(--text-faint);
 }
 
-/* Soft tint: a light wash of the folder color, text leaning toward it. */
-.codex-folder-style-tinted .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title {
-  background-color: color-mix(in srgb, var(--codex-folder-color) 13%, transparent);
-  color: color-mix(in oklab, var(--codex-folder-color) 40%, var(--text-normal));
-}
-
-.codex-folder-style-tinted .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title:hover {
-  background-color: color-mix(in srgb, var(--codex-folder-color) 21%, transparent);
-}
-
-/* Minimal: neutral row, colored icon and guide only. */
-.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title:hover {
+/* Hovering a folder row washes it lightly in the folder color; the icon and guide carry the rest. */
+.nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title:hover {
   background-color: color-mix(in srgb, var(--codex-folder-color) 10%, transparent);
-}
-
-/* Outlined: faint outline, square start edge carrying a straight 2px color bar, rounded end corners. */
-.codex-folder-style-outlined .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title {
-  border-color: color-mix(in srgb, var(--background-modifier-border) 70%, transparent);
-  border-start-start-radius: 0;
-  border-end-start-radius: 0;
-}
-
-.codex-folder-style-outlined.codex-folder-markers .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-title::after {
-  content: "";
-  position: absolute;
-  inset-inline-start: -1px;
-  inset-block: -1px;
-  width: 2px;
-  background-color: var(--codex-folder-color);
-  pointer-events: none;
 }
 
 /* Children: the indentation guide runs under the arrow in the folder color. */
@@ -1339,33 +1305,28 @@ body.mod-rtl.codex-floating-ribbon .workspace-ribbon:is(.mod-left, .mod-primary)
   border-inline-start-color: transparent;
 }
 
-.codex-folder-markers:not(.codex-folder-style-outlined) .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
-  /* The theme turns indentation guides off globally, so this guide sets its own width. */
-  border-inline-start: 1px solid color-mix(in srgb, var(--codex-folder-color) 45%, transparent);
-}
-
-/* Minimal keeps deep trees quiet (as VS Code's guides-on-hover): no guides at rest except the folder
-   holding the current file; faint guides while the pointer is over the list; a hovered folder's guide
-   strengthens. */
-.codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
-  border-inline-start-color: transparent;
+/* Guides keep deep trees quiet (as VS Code's guides-on-hover): none at rest except the folder holding
+   the current file; faint guides while the pointer is over the list; a hovered folder's guide
+   strengthens. The theme turns native indentation guides off, so this guide sets its own width. */
+.codex-folder-markers .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
+  border-inline-start: 1px solid transparent;
   transition: border-color 0.15s ease;
 }
 
-.codex-folder-markers.codex-folder-style-minimal .nav-files-container:hover .nav-folder:not(.mod-root) > .nav-folder-children {
-  border-inline-start-color: color-mix(in srgb, var(--codex-folder-color) 18%, transparent);
+.codex-folder-markers .nav-files-container:hover .nav-folder:not(.mod-root) > .nav-folder-children {
+  border-inline-start-color: color-mix(in srgb, var(--codex-folder-color) 20%, transparent);
 }
 
-.codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root):has(> .nav-folder-title:hover) > .nav-folder-children {
+.codex-folder-markers .nav-files-container .nav-folder:not(.mod-root):has(> .nav-folder-title:hover) > .nav-folder-children {
   border-inline-start-color: color-mix(in srgb, var(--codex-folder-color) 50%, transparent);
 }
 
-.codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root):has(> .nav-folder-children > .nav-file > .nav-file-title.is-active) > .nav-folder-children {
+.codex-folder-markers .nav-files-container .nav-folder:not(.mod-root):has(> .nav-folder-children > .nav-file > .nav-file-title.is-active) > .nav-folder-children {
   border-inline-start-color: color-mix(in srgb, var(--codex-folder-color) 70%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .codex-folder-markers.codex-folder-style-minimal .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
+  .codex-folder-markers .nav-files-container .nav-folder:not(.mod-root) > .nav-folder-children {
     transition: none;
   }
 }
@@ -1453,9 +1414,11 @@ body:not(.codex-file-icons) .nav-files-container .nav-file-title :is(.nav-file-i
   font-weight: 500;
 }
 
-/* The tinted and minimal styles mark the current file with a faint wash of its folder color. */
-:is(.codex-folder-style-tinted, .codex-folder-style-minimal) .nav-files-container .nav-file-title.is-active:not(.is-being-dragged):not(.is-being-dragged-over) {
-  background-color: color-mix(in srgb, var(--codex-icon-color) 12%, transparent);
+/* The current file gets a neutral selection, barely warmed by its folder color; a stronger wash turns
+   muddy on the dark background. It stays translucent so the folder's indentation guide still runs
+   through the row. */
+.nav-files-container .nav-file-title.is-active:not(.is-being-dragged):not(.is-being-dragged-over) {
+  background-color: color-mix(in srgb, var(--codex-icon-color) 7%, var(--background-modifier-active-hover));
 }
 
 /* Drag feedback must also survive the native active/selected hover rules. */
@@ -1550,230 +1513,230 @@ body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-sett
 
 /* Each initially unopened picker needs its own default, rather than a shared parent color. */
 .setting-item[data-id="codex-folder-red-light"] {
-  --pcr-color: var(--codex-folder-red-light, #98686d);
+  --pcr-color: var(--codex-folder-red-light, #9a6462);
 }
 
 .setting-item[data-id="codex-folder-red-dark"] {
-  --pcr-color: var(--codex-folder-red-dark, #b58287);
+  --pcr-color: var(--codex-folder-red-dark, #c29492);
 }
 
 .setting-item[data-id="codex-folder-orange-light"] {
-  --pcr-color: var(--codex-folder-orange-light, #9b7959);
+  --pcr-color: var(--codex-folder-orange-light, #926b49);
 }
 
 .setting-item[data-id="codex-folder-orange-dark"] {
-  --pcr-color: var(--codex-folder-orange-dark, #b99a7b);
+  --pcr-color: var(--codex-folder-orange-dark, #bb9a7f);
 }
 
 .setting-item[data-id="codex-folder-yellow-light"] {
-  --pcr-color: var(--codex-folder-yellow-light, #917f46);
+  --pcr-color: var(--codex-folder-yellow-light, #8a7d4c);
 }
 
 .setting-item[data-id="codex-folder-yellow-dark"] {
-  --pcr-color: var(--codex-folder-yellow-dark, #b6aa78);
+  --pcr-color: var(--codex-folder-yellow-dark, #b5ab84);
 }
 
 .setting-item[data-id="codex-folder-green-light"] {
-  --pcr-color: var(--codex-folder-green-light, #61856b);
+  --pcr-color: var(--codex-folder-green-light, #58805d);
 }
 
 .setting-item[data-id="codex-folder-green-dark"] {
-  --pcr-color: var(--codex-folder-green-dark, #86a88d);
+  --pcr-color: var(--codex-folder-green-dark, #8bab8e);
 }
 
 .setting-item[data-id="codex-folder-cyan-light"] {
-  --pcr-color: var(--codex-folder-cyan-light, #5d8586);
+  --pcr-color: var(--codex-folder-cyan-light, #3c8181);
 }
 
 .setting-item[data-id="codex-folder-cyan-dark"] {
-  --pcr-color: var(--codex-folder-cyan-dark, #7faaa9);
+  --pcr-color: var(--codex-folder-cyan-dark, #79adac);
 }
 
 .setting-item[data-id="codex-folder-blue-light"] {
-  --pcr-color: var(--codex-folder-blue-light, #647f9f);
+  --pcr-color: var(--codex-folder-blue-light, #58769d);
 }
 
 .setting-item[data-id="codex-folder-blue-dark"] {
-  --pcr-color: var(--codex-folder-blue-dark, #829dbb);
+  --pcr-color: var(--codex-folder-blue-dark, #8ba4c4);
 }
 
 .setting-item[data-id="codex-folder-violet-light"] {
-  --pcr-color: var(--codex-folder-violet-light, #836b9d);
+  --pcr-color: var(--codex-folder-violet-light, #7c6b97);
 }
 
 .setting-item[data-id="codex-folder-violet-dark"] {
-  --pcr-color: var(--codex-folder-violet-dark, #a08bb7);
+  --pcr-color: var(--codex-folder-violet-dark, #a89abf);
 }
 
 /* With a preset selected, the swatches show that preset's colors; 「自定义」 shows the saved custom colors.
    Pickr writes --pcr-color inline on the button once a color is saved, hence !important. */
 .codex-palette-cream .setting-item[data-id="codex-folder-red-light"],
 .codex-palette-cream .setting-item[data-id="codex-folder-red-light"] .pcr-button {
-  --pcr-color: #cf7d79 !important;
+  --pcr-color: #bb6261 !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-orange-light"],
 .codex-palette-cream .setting-item[data-id="codex-folder-orange-light"] .pcr-button {
-  --pcr-color: #d0915d !important;
+  --pcr-color: #b06f2d !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-yellow-light"],
 .codex-palette-cream .setting-item[data-id="codex-folder-yellow-light"] .pcr-button {
-  --pcr-color: #bb9a45 !important;
+  --pcr-color: #9f8827 !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-green-light"],
 .codex-palette-cream .setting-item[data-id="codex-folder-green-light"] .pcr-button {
-  --pcr-color: #74a467 !important;
+  --pcr-color: #4b9358 !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-cyan-light"],
 .codex-palette-cream .setting-item[data-id="codex-folder-cyan-light"] .pcr-button {
-  --pcr-color: #55a198 !important;
+  --pcr-color: #099393 !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-blue-light"],
 .codex-palette-cream .setting-item[data-id="codex-folder-blue-light"] .pcr-button {
-  --pcr-color: #7391c8 !important;
+  --pcr-color: #4e82c3 !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-violet-light"],
 .codex-palette-cream .setting-item[data-id="codex-folder-violet-light"] .pcr-button {
-  --pcr-color: #9d81c4 !important;
+  --pcr-color: #8d6eb9 !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-red-dark"],
 .codex-palette-cream .setting-item[data-id="codex-folder-red-dark"] .pcr-button {
-  --pcr-color: #e8a3a1 !important;
+  --pcr-color: #f0a8a5 !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-orange-dark"],
 .codex-palette-cream .setting-item[data-id="codex-folder-orange-dark"] .pcr-button {
-  --pcr-color: #eab88f !important;
+  --pcr-color: #e6b285 !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-yellow-dark"],
 .codex-palette-cream .setting-item[data-id="codex-folder-yellow-dark"] .pcr-button {
-  --pcr-color: #e4cf96 !important;
+  --pcr-color: #d8c787 !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-green-dark"],
 .codex-palette-cream .setting-item[data-id="codex-folder-green-dark"] .pcr-button {
-  --pcr-color: #afcfa1 !important;
+  --pcr-color: #98cd9f !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-cyan-dark"],
 .codex-palette-cream .setting-item[data-id="codex-folder-cyan-dark"] .pcr-button {
-  --pcr-color: #9fd1c8 !important;
+  --pcr-color: #77cfcf !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-blue-dark"],
 .codex-palette-cream .setting-item[data-id="codex-folder-blue-dark"] .pcr-button {
-  --pcr-color: #a9c1e6 !important;
+  --pcr-color: #99c1f4 !important;
 }
 .codex-palette-cream .setting-item[data-id="codex-folder-violet-dark"],
 .codex-palette-cream .setting-item[data-id="codex-folder-violet-dark"] .pcr-button {
-  --pcr-color: #c8b3e3 !important;
+  --pcr-color: #c8b1ec !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-red-light"],
 .codex-palette-muted .setting-item[data-id="codex-folder-red-light"] .pcr-button {
-  --pcr-color: #98686d !important;
+  --pcr-color: #9a6462 !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-orange-light"],
 .codex-palette-muted .setting-item[data-id="codex-folder-orange-light"] .pcr-button {
-  --pcr-color: #9b7959 !important;
+  --pcr-color: #926b49 !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-yellow-light"],
 .codex-palette-muted .setting-item[data-id="codex-folder-yellow-light"] .pcr-button {
-  --pcr-color: #917f46 !important;
+  --pcr-color: #8a7d4c !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-green-light"],
 .codex-palette-muted .setting-item[data-id="codex-folder-green-light"] .pcr-button {
-  --pcr-color: #61856b !important;
+  --pcr-color: #58805d !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-cyan-light"],
 .codex-palette-muted .setting-item[data-id="codex-folder-cyan-light"] .pcr-button {
-  --pcr-color: #5d8586 !important;
+  --pcr-color: #3c8181 !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-blue-light"],
 .codex-palette-muted .setting-item[data-id="codex-folder-blue-light"] .pcr-button {
-  --pcr-color: #647f9f !important;
+  --pcr-color: #58769d !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-violet-light"],
 .codex-palette-muted .setting-item[data-id="codex-folder-violet-light"] .pcr-button {
-  --pcr-color: #836b9d !important;
+  --pcr-color: #7c6b97 !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-red-dark"],
 .codex-palette-muted .setting-item[data-id="codex-folder-red-dark"] .pcr-button {
-  --pcr-color: #b58287 !important;
+  --pcr-color: #c29492 !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-orange-dark"],
 .codex-palette-muted .setting-item[data-id="codex-folder-orange-dark"] .pcr-button {
-  --pcr-color: #b99a7b !important;
+  --pcr-color: #bb9a7f !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-yellow-dark"],
 .codex-palette-muted .setting-item[data-id="codex-folder-yellow-dark"] .pcr-button {
-  --pcr-color: #b6aa78 !important;
+  --pcr-color: #b5ab84 !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-green-dark"],
 .codex-palette-muted .setting-item[data-id="codex-folder-green-dark"] .pcr-button {
-  --pcr-color: #86a88d !important;
+  --pcr-color: #8bab8e !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-cyan-dark"],
 .codex-palette-muted .setting-item[data-id="codex-folder-cyan-dark"] .pcr-button {
-  --pcr-color: #7faaa9 !important;
+  --pcr-color: #79adac !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-blue-dark"],
 .codex-palette-muted .setting-item[data-id="codex-folder-blue-dark"] .pcr-button {
-  --pcr-color: #829dbb !important;
+  --pcr-color: #8ba4c4 !important;
 }
 .codex-palette-muted .setting-item[data-id="codex-folder-violet-dark"],
 .codex-palette-muted .setting-item[data-id="codex-folder-violet-dark"] .pcr-button {
-  --pcr-color: #a08bb7 !important;
+  --pcr-color: #a89abf !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-red-light"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-red-light"] .pcr-button {
-  --pcr-color: #cf222e !important;
+  --pcr-color: #c13b42 !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-orange-light"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-orange-light"] .pcr-button {
-  --pcr-color: #bc4c00 !important;
+  --pcr-color: #a45e02 !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-yellow-light"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-yellow-light"] .pcr-button {
-  --pcr-color: #9a6700 !important;
+  --pcr-color: #907904 !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-green-light"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-green-light"] .pcr-button {
-  --pcr-color: #1a7f37 !important;
+  --pcr-color: #008935 !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-cyan-light"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-cyan-light"] .pcr-button {
-  --pcr-color: #1b7c83 !important;
+  --pcr-color: #008282 !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-blue-light"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-blue-light"] .pcr-button {
-  --pcr-color: #0969da !important;
+  --pcr-color: #1570d1 !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-violet-light"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-violet-light"] .pcr-button {
-  --pcr-color: #8250df !important;
+  --pcr-color: #8552c2 !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-red-dark"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-red-dark"] .pcr-button {
-  --pcr-color: #ff7b72 !important;
+  --pcr-color: #fe8a88 !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-orange-dark"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-orange-dark"] .pcr-button {
-  --pcr-color: #ffa657 !important;
+  --pcr-color: #f4993c !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-yellow-dark"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-yellow-dark"] .pcr-button {
-  --pcr-color: #e3b341 !important;
+  --pcr-color: #d9b92e !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-green-dark"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-green-dark"] .pcr-button {
-  --pcr-color: #56d364 !important;
+  --pcr-color: #66cb79 !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-cyan-dark"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-cyan-dark"] .pcr-button {
-  --pcr-color: #39c5cf !important;
+  --pcr-color: #10caca !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-blue-dark"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-blue-dark"] .pcr-button {
-  --pcr-color: #58a6ff !important;
+  --pcr-color: #7ab4fe !important;
 }
 .codex-palette-vivid .setting-item[data-id="codex-folder-violet-dark"],
 .codex-palette-vivid .setting-item[data-id="codex-folder-violet-dark"] .pcr-button {
-  --pcr-color: #bc8cff !important;
+  --pcr-color: #c399ff !important;
 }
 
 @container (width < 520px) {
@@ -1839,6 +1802,12 @@ body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-sett
   padding-top: 0;
 }
 
+/* CodeMirror's text-top widget buffer beside the fold arrow adds ~1px to each large heading line,
+   which accumulates against reading view. */
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header .cm-widgetBuffer {
+  vertical-align: top;
+}
+
 /* One source blank line matches one reading-view block gap. */
 .markdown-source-view.mod-cm6 .cm-line:not(.HyperMD-codeblock):not(.HyperMD-table-row):has(> br:only-child) {
   min-height: var(--codex-block-gap);
@@ -1881,8 +1850,50 @@ body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-sett
   box-decoration-break: clone;
 }
 
+/* Source backticks stay outside the code background, as in reading view. */
+.cm-s-obsidian .cm-line:not(.HyperMD-codeblock) span.cm-inline-code.cm-formatting-code {
+  padding: 0;
+  background: transparent;
+  color: var(--text-faint);
+  font-weight: 400;
+}
+
+/* Reading lists line up with source mode: text starts after the marker's width, and each level adds
+   the same --list-indent that source mode gives an indent. */
 .markdown-rendered :is(ul, ol) {
-  padding-inline-start: 28px;
+  padding-inline-start: 0;
+}
+
+.markdown-rendered ul > li {
+  margin-inline-start: var(--codex-list-marker-ul);
+}
+
+.markdown-rendered ol > li {
+  margin-inline-start: var(--codex-list-marker-ol);
+}
+
+.markdown-rendered :is(ul ul, ol ol) > li {
+  margin-inline-start: var(--list-indent);
+}
+
+.markdown-rendered ul > li > ol > li {
+  margin-inline-start: calc(var(--list-indent) + var(--codex-list-marker-ol) - var(--codex-list-marker-ul));
+}
+
+.markdown-rendered ol > li > ul > li {
+  margin-inline-start: calc(var(--list-indent) + var(--codex-list-marker-ul) - var(--codex-list-marker-ol));
+}
+
+.markdown-rendered .list-bullet {
+  margin-inline-start: calc(var(--codex-list-bullet-center) - var(--codex-list-marker-ul));
+}
+
+/* The checkbox takes the place of "[ ]", so task text starts where it does after "- [ ] ". */
+.markdown-rendered ul > li.task-list-item > :is(p > .task-list-item-checkbox, .task-list-item-checkbox) {
+  /* Form controls default to a smaller font; the em widths need the list's. */
+  font-size: inherit;
+  margin-inline-start: 0;
+  margin-inline-end: calc(var(--codex-list-marker-task) - var(--codex-list-marker-ul) - var(--checkbox-size));
 }
 
 .markdown-rendered li {
@@ -1898,7 +1909,6 @@ body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-sett
 
 .markdown-rendered li > :is(ul, ol) {
   margin-block: 0;
-  padding-inline-start: 18px;
 }
 
 /* Unordered list indentation vertical lines (guides) */
@@ -1929,14 +1939,6 @@ body .style-settings-heading[data-id="codex-custom-folder-colors"] + .style-sett
 .markdown-rendered li > p + p {
   margin-top: var(--codex-block-gap);
 }
-
-/* (已禁用 Codex UI For Obsidian 的纯文本风格待办，恢复 Obsidian 标准方框复选框)
-.markdown-rendered input.task-list-item-checkbox,
-.markdown-source-view.mod-cm6 .task-list-label input.task-list-item-checkbox {
-  appearance: none;
-  ...
-}
-*/
 
 .markdown-rendered blockquote {
   padding: 0 0 0 16px;

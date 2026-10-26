@@ -63,6 +63,11 @@ body {
   --bold-color: inherit;
   --italic-color: inherit;
   --list-indent: 1.75em;
+  /* Source-mode marker widths: "- ", "1. ", "- [ ] " (its brackets are monospace) and the center of "-". */
+  --codex-list-marker-ul: 0.73em;
+  --codex-list-marker-ol: 1.125em;
+  --codex-list-marker-task: 2.67em;
+  --codex-list-bullet-center: 0.22em;
   --list-spacing: 0;
   --list-marker-color: var(--text-faint);
   --list-marker-color-hover: var(--text-muted);
@@ -72,7 +77,7 @@ body {
   --indentation-guide-width-active: 1px;
   --indentation-guide-color: color-mix(in srgb, var(--text-faint) 35%, transparent);
   --indentation-guide-color-active: color-mix(in srgb, var(--text-muted) 60%, transparent);
-  --indentation-guide-reading-indent: -14px;
+  --indentation-guide-reading-indent: calc(var(--codex-list-bullet-center) - var(--codex-list-marker-ul) - 0.5px);
   --nav-indentation-guide-width: 0;
   --checklist-done-decoration: none;
   --checklist-done-color: var(--text-normal);
@@ -273,13 +278,13 @@ body {
   --codex-diagram-fill: #00284d;
   --codex-diagram-stroke: #23496a;
   --codex-diagram-text: #a6c9e7;
-  --codex-folder-red: var(--codex-folder-red-dark, #b58287);
-  --codex-folder-orange: var(--codex-folder-orange-dark, #b99a7b);
-  --codex-folder-yellow: var(--codex-folder-yellow-dark, #b6aa78);
-  --codex-folder-green: var(--codex-folder-green-dark, #86a88d);
-  --codex-folder-cyan: var(--codex-folder-cyan-dark, #7faaa9);
-  --codex-folder-blue: var(--codex-folder-blue-dark, #829dbb);
-  --codex-folder-violet: var(--codex-folder-violet-dark, #a08bb7);
+  --codex-folder-red: var(--codex-folder-red-dark, #c29492);
+  --codex-folder-orange: var(--codex-folder-orange-dark, #bb9a7f);
+  --codex-folder-yellow: var(--codex-folder-yellow-dark, #b5ab84);
+  --codex-folder-green: var(--codex-folder-green-dark, #8bab8e);
+  --codex-folder-cyan: var(--codex-folder-cyan-dark, #79adac);
+  --codex-folder-blue: var(--codex-folder-blue-dark, #8ba4c4);
+  --codex-folder-violet: var(--codex-folder-violet-dark, #a89abf);
   --hr-color: #343434;
   --scrollbar-bg: transparent;
   --scrollbar-thumb-bg: rgb(255 255 255 / 20%);
@@ -340,13 +345,13 @@ body {
   --codex-diagram-fill: #e9f2fb;
   --codex-diagram-stroke: #b1c9df;
   --codex-diagram-text: #28547b;
-  --codex-folder-red: var(--codex-folder-red-light, #98686d);
-  --codex-folder-orange: var(--codex-folder-orange-light, #9b7959);
-  --codex-folder-yellow: var(--codex-folder-yellow-light, #917f46);
-  --codex-folder-green: var(--codex-folder-green-light, #61856b);
-  --codex-folder-cyan: var(--codex-folder-cyan-light, #5d8586);
-  --codex-folder-blue: var(--codex-folder-blue-light, #647f9f);
-  --codex-folder-violet: var(--codex-folder-violet-light, #836b9d);
+  --codex-folder-red: var(--codex-folder-red-light, #9a6462);
+  --codex-folder-orange: var(--codex-folder-orange-light, #926b49);
+  --codex-folder-yellow: var(--codex-folder-yellow-light, #8a7d4c);
+  --codex-folder-green: var(--codex-folder-green-light, #58805d);
+  --codex-folder-cyan: var(--codex-folder-cyan-light, #3c8181);
+  --codex-folder-blue: var(--codex-folder-blue-light, #58769d);
+  --codex-folder-violet: var(--codex-folder-violet-light, #7c6b97);
   --hr-color: #dddddd;
   --scrollbar-bg: transparent;
   --scrollbar-thumb-bg: rgb(0 0 0 / 20%);
@@ -358,68 +363,68 @@ body {
 /* Folder palette presets. 「自定义」 keeps the Style Settings pickers defined above. */
 .codex-palette-cream.theme-dark,
 .codex-palette-cream .theme-dark {
-  --codex-folder-red: #e8a3a1;
-  --codex-folder-orange: #eab88f;
-  --codex-folder-yellow: #e4cf96;
-  --codex-folder-green: #afcfa1;
-  --codex-folder-cyan: #9fd1c8;
-  --codex-folder-blue: #a9c1e6;
-  --codex-folder-violet: #c8b3e3;
+  --codex-folder-red: #f0a8a5;
+  --codex-folder-orange: #e6b285;
+  --codex-folder-yellow: #d8c787;
+  --codex-folder-green: #98cd9f;
+  --codex-folder-cyan: #77cfcf;
+  --codex-folder-blue: #99c1f4;
+  --codex-folder-violet: #c8b1ec;
 }
 
 .codex-palette-cream.theme-light,
 .codex-palette-cream .theme-light {
-  --codex-folder-red: #cf7d79;
-  --codex-folder-orange: #d0915d;
-  --codex-folder-yellow: #bb9a45;
-  --codex-folder-green: #74a467;
-  --codex-folder-cyan: #55a198;
-  --codex-folder-blue: #7391c8;
-  --codex-folder-violet: #9d81c4;
+  --codex-folder-red: #bb6261;
+  --codex-folder-orange: #b06f2d;
+  --codex-folder-yellow: #9f8827;
+  --codex-folder-green: #4b9358;
+  --codex-folder-cyan: #099393;
+  --codex-folder-blue: #4e82c3;
+  --codex-folder-violet: #8d6eb9;
 }
 
 .codex-palette-muted.theme-dark,
 .codex-palette-muted .theme-dark {
-  --codex-folder-red: #b58287;
-  --codex-folder-orange: #b99a7b;
-  --codex-folder-yellow: #b6aa78;
-  --codex-folder-green: #86a88d;
-  --codex-folder-cyan: #7faaa9;
-  --codex-folder-blue: #829dbb;
-  --codex-folder-violet: #a08bb7;
+  --codex-folder-red: #c29492;
+  --codex-folder-orange: #bb9a7f;
+  --codex-folder-yellow: #b5ab84;
+  --codex-folder-green: #8bab8e;
+  --codex-folder-cyan: #79adac;
+  --codex-folder-blue: #8ba4c4;
+  --codex-folder-violet: #a89abf;
 }
 
 .codex-palette-muted.theme-light,
 .codex-palette-muted .theme-light {
-  --codex-folder-red: #98686d;
-  --codex-folder-orange: #9b7959;
-  --codex-folder-yellow: #917f46;
-  --codex-folder-green: #61856b;
-  --codex-folder-cyan: #5d8586;
-  --codex-folder-blue: #647f9f;
-  --codex-folder-violet: #836b9d;
+  --codex-folder-red: #9a6462;
+  --codex-folder-orange: #926b49;
+  --codex-folder-yellow: #8a7d4c;
+  --codex-folder-green: #58805d;
+  --codex-folder-cyan: #3c8181;
+  --codex-folder-blue: #58769d;
+  --codex-folder-violet: #7c6b97;
 }
 
 .codex-palette-vivid.theme-dark,
 .codex-palette-vivid .theme-dark {
-  --codex-folder-red: #ff7b72;
-  --codex-folder-orange: #ffa657;
-  --codex-folder-yellow: #e3b341;
-  --codex-folder-green: #56d364;
-  --codex-folder-cyan: #39c5cf;
-  --codex-folder-blue: #58a6ff;
-  --codex-folder-violet: #bc8cff;
+  --codex-folder-red: #fe8a88;
+  --codex-folder-orange: #f4993c;
+  --codex-folder-yellow: #d9b92e;
+  --codex-folder-green: #66cb79;
+  --codex-folder-cyan: #10caca;
+  --codex-folder-blue: #7ab4fe;
+  --codex-folder-violet: #c399ff;
 }
 
 .codex-palette-vivid.theme-light,
 .codex-palette-vivid .theme-light {
-  --codex-folder-red: #cf222e;
-  --codex-folder-orange: #bc4c00;
-  --codex-folder-yellow: #9a6700;
-  --codex-folder-green: #1a7f37;
-  --codex-folder-cyan: #1b7c83;
-  --codex-folder-blue: #0969da;
-  --codex-folder-violet: #8250df;
+  --codex-folder-red: #c13b42;
+  --codex-folder-orange: #a45e02;
+  --codex-folder-yellow: #907904;
+  --codex-folder-green: #008935;
+  --codex-folder-cyan: #008282;
+  --codex-folder-blue: #1570d1;
+  --codex-folder-violet: #8552c2;
 }
 
 
