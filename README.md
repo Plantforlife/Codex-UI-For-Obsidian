@@ -1,56 +1,125 @@
 # Codex UI For Obsidian
 
-面向 Obsidian 的简洁主题，提供深浅配色、七彩文件夹、紧凑的 Markdown 排版和悬浮功能区。当前版本 **2.7.0**，最低需要 Obsidian **1.6.0**。
+一款安静、克制的 Obsidian 主题：灰阶界面、七彩文件夹、紧凑的中文排版，以及源码与阅读双栏逐行对齐。
 
-配套增强插件：[Better Obsidian](https://github.com/Plantforlife/better-obsidian)，提供自动源码 / 阅读双栏、平滑同步滚动、文档分割和文件列表增强。主题可独立使用；悬浮功能区的文件列表可见性识别由配套插件提供。
+当前版本 **2.7.0**，最低需要 Obsidian **1.6.0**，支持浅色与深色模式。
 
 ## 安装
 
 1. 从 [Releases](https://github.com/Plantforlife/Codex-UI-For-Obsidian/releases/latest) 下载 `theme.css` 和 `manifest.json`。
-2. 在笔记库中新建 `.obsidian/themes/Codex UI For Obsidian/`，将两个文件放入该目录。
-3. 在 Obsidian「设置 → 外观 → 主题」中选择 **Codex UI For Obsidian**。
+2. 在笔记库中新建文件夹 `.obsidian/themes/Codex UI For Obsidian/`，把两个文件放进去。
+3. 打开「设置 → 外观 → 主题」，选择 **Codex UI For Obsidian**。
 
-浅色 / 深色随 Obsidian 的基础颜色切换。安装并启用 **Style Settings** 后，可在「设置 → Style Settings → Codex UI For Obsidian」调整主题选项。
+浅色、深色跟随 Obsidian 的基础颜色设置切换。想调整主题选项，再安装并启用 [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) 插件，选项位于「设置 → Style Settings → Codex UI For Obsidian」。
+
+### 配套插件
+
+主题可以单独使用。配合 [Better Obsidian](https://github.com/Plantforlife/better-obsidian) **1.1.0** 能补上纯 CSS 做不到的部分：
+
+- 自动打开源码 / 阅读双栏，并按实际行平滑同步滚动；
+- 编辑模式代码块的语言标签和复制按钮，两种视图共用同一套 Prism 语法高亮；
+- 文件列表的悬停删除按钮，以及悬浮功能区对文件列表是否可见的识别。
 
 ## 特点
 
-- 灰阶界面；正文使用微软雅黑，界面使用 Microsoft YaHei UI，代码使用系统等宽字体。
-- 正文基准 16px、宽度 728px、行高 1.5；阅读、源码和实时预览共享主要排版设置。
-- H1 / H2 / H3 使用 28 / 24 / 20px，H4–H6 使用 16px；支持调整正文、段落和标题间距。
-- 七彩文件夹按顶层顺序循环配色，子文件夹沿用所在顶层文件夹的颜色；只给文件夹图标和缩进线上色，行本身保持中性。
-- 文件夹配色支持奶油、莫兰迪、鲜明、自定义，分别提供深浅色板。
-- 代码高亮提供奶油、GitHub、One、Catppuccin、单色预设，代码块支持语言标签和自动换行。
-- macOS 风格代码块标题栏：左侧三色圆点、紧随其后的语言标签、右侧复制按钮，支持阅读、实时预览和源码模式；编辑模式的语言与复制按钮由 Better Obsidian 提供。配合 Better Obsidian **1.1.0**，两种视图共享 Prism 语法分类与高亮配色，并按实际代码行同步滚动。
-- SVG、图片、音频和视频分别使用对应的文件类型图标；配合 Better Obsidian，右侧扩展名与悬停垃圾桶交替显示，文件名位置保持稳定。
-- 左侧悬浮功能区、文件图标、文件夹缩进线和设置界面间距可调整。
-- 保留 Obsidian 原生方框复选框、任务交互、数学公式、Mermaid、内部链接和 Callout。
+### 排版
 
-文件夹颜色取决于顶层文件夹的位置，调整排序或新增顶层文件夹会改变后续颜色。纯 CSS 无法让阅读视图逐处还原源码空行，复杂内容仍由 Obsidian 渲染。
+- 正文使用微软雅黑，界面使用 Microsoft YaHei UI，代码使用系统等宽字体，不附带额外字体文件。
+- 正文 16px，行宽 728px，行高 1.5；H1 / H2 / H3 为 28 / 24 / 20px，H4–H6 与正文同为 16px。
+- 隐藏文件名标题，文档直接从自己的标题开始。
+- 表格、引用、分割线、图片、数学公式和 Mermaid 图表统一了间距与配色；打印时自动换成白底深字，代码块不会跨页拆开。
+- 保留 Obsidian 原生的方框复选框、任务交互、内部链接和 Callout。
+
+### 源码与阅读双栏对齐
+
+阅读、源码和实时预览共用同一套间距，在双栏中可以逐行对照：
+
+- 源码里的一个空行，对应阅读视图里的一个段落间距；标题上方的留白也按是否已有空行补足。
+- 列表的项目符号、正文、任务复选框和缩进线，在两栏中处于同一水平位置，有序、无序混合嵌套也一样。
+- 标题行高与阅读视图一致，长文档里不会逐个标题累积出上下偏差。
+
+### 文件列表
+
+- **七彩文件夹**：顶层文件夹按「红、橙、黄、绿、青、蓝、紫」的顺序循环配色，子文件夹和文件沿用所在顶层文件夹的颜色。
+- **四套配色**：奶油（默认）、莫兰迪、鲜明，以及可以分别设置深浅色的自定义配色。前三套按 OKLCH 生成，明度和彩度一致；浅色模式下图标对比度不低于 3:1。也可以切换为中性灰色。
+- **只给图标和缩进线上色**：文件夹行本身保持中性；文件图标比文件夹图标更柔和，排在文件名之后；折叠箭头为中性灰。
+- **缩进线按需出现**：平时只显示当前文件所在文件夹的竖线；鼠标移入文件列表时，其余竖线淡淡出现；悬停的文件夹竖线会加强。当前文件使用半透明底色，竖线可以连续穿过。
+- **文件类型图标**：普通文档、SVG、图片、音频和视频各有对应图标。
+
+### 代码块
+
+- macOS 风格标题栏：左侧三色圆点，后面是语言标签，右侧是复制按钮；阅读、实时预览和源码模式都有。
+- 语言标签识别约 40 种常见语言及其别名，比如 `js` / `javascript`、`sh` / `bash`。
+- 五套高亮配色：奶油（默认）、GitHub、One、Catppuccin、单色，深浅色各有一套。
+- 长代码行自动换行；源码模式下，行内代码的反引号不带底色。
+
+### 界面
+
+- 灰阶界面，标签页、标题栏和侧栏去掉了多余的分隔线，弹窗、菜单和输入框使用统一的圆角。
+- 笔记顶部的路径标题居中显示。
+- 悬浮功能区：文件列表展开时，左侧功能区收起，把鼠标移到窗口左边缘即可呼出；顶部的侧栏开关保持固定。
+- 设置界面的行距更紧凑，Style Settings 中的自定义颜色按两列排列。
+
+## Style Settings 选项
+
+| 分组 | 选项 | 说明 |
+| --- | --- | --- |
+| 文件列表 | 七彩配色 | 奶油、莫兰迪、鲜明、自定义 |
+| | 中性文件夹配色 | 所有文件夹改用中性灰 |
+| | 显示文件夹缩进线 | 开关缩进线 |
+| | 显示文件与文件夹图标 | 开关图标 |
+| | 自定义七彩颜色 | 七种颜色，各有浅色和深色两个取值 |
+| 代码高亮 | 配色预设 | 奶油、GitHub、One、Catppuccin、单色 |
+| 左侧功能区 | 悬浮功能区 | 开关悬浮功能区，也可在命令面板中切换 |
+| | 触发宽度 | 左边缘呼出区域的宽度，8–20px |
+| 正文与标题间距 | 正文行高 | 1.3–1.8 |
+| | 段落间距 | 6–24px |
+| | 一、二级标题上方 | 12–36px |
+| | 三至六级标题上方 | 10–30px |
+| 设置界面间距 | 普通设置行留白 | 6–20px |
+| | 快捷键、列表行留白 | 4–14px |
+
+## 已知限制
+
+- 文件夹颜色取决于顶层文件夹的排列位置，调整排序或新增顶层文件夹会让后面的颜色依次顺延。
+- 列表对齐按默认正文字体计算，换用其他字体后，两栏中的列表可能有一两像素的水平差。
+- 源码中列表项之间的空行，在阅读视图中不会留出间距。纯 CSS 无法让阅读视图逐处还原源码空行，复杂内容仍由 Obsidian 渲染。
 
 ## 开发
 
-需要 Node.js 18 或更高版本，无需安装 npm 依赖。
+需要 Node.js 18 或更高版本，无需安装依赖。
 
 ```sh
 node build.cjs
 ```
 
-此命令仅在项目目录生成 `theme.css`，不会修改本机笔记库。源码按职责放在 `src/`，包括设置元数据、配色、工作区、功能区、文件列表、设置布局和 Markdown 排版。字体栈定义在 `src/tokens.css`，通过系统字体加载。
+这条命令把 `src/` 下的源码合并成项目根目录的 `theme.css`，不会改动本机笔记库。请修改 `src/` 中的源码，不要直接编辑 `theme.css`。
 
-正文与界面通过系统字体加载，发布文件不包含额外字体。构建结果已检查 CSS 语法，并与配套插件一起在 Obsidian 1.14.5 中核对 TypeScript 高亮、标题栏和双栏滚动。
+| 文件 | 内容 |
+| --- | --- |
+| `src/settings.css` | Style Settings 选项定义 |
+| `src/tokens.css` | 字体、字号、间距、深浅色变量、文件夹色板与代码配色 |
+| `src/workspace.css` | 标签页、标题栏、侧栏、弹窗与设置界面 |
+| `src/ribbon.css` | 悬浮功能区 |
+| `src/folders.css` | 七彩文件夹、文件图标与缩进线 |
+| `src/style-settings.css` | Style Settings 面板布局与色块预览 |
+| `src/markdown.css` | 正文排版、列表、表格与双栏对齐 |
+| `src/code-cards.css` | 代码块标题栏与复制按钮 |
+
+代码块的语言标签由 `build.cjs` 中的语言列表生成，新增语言时在那里添加。
 
 ### 从 2.3 迁移 Style Settings 配置
 
-先关闭 Style Settings 插件，再指定其配置文件运行：
+先关闭 Style Settings 插件，再指定它的配置文件运行：
 
 ```sh
 node migrate-settings.cjs "/path/to/vault/.obsidian/plugins/obsidian-style-settings/data.json"
 ```
 
-迁移会保留已有配置，将旧的深浅色变量转换为独立变量，并转换文件夹色条开关。需要修改时，原文件会在同目录备份；已有新变量优先，重复运行不会重复修改。完成后重新启用 Style Settings。
+脚本会保留已有配置，把旧的深浅色变量转换为独立变量，并转换缩进线开关。需要修改时，原文件会在同一目录下备份；已有的新变量优先，重复运行也不会重复修改。完成后重新启用 Style Settings。
 
 ## 设计参考
 
-界面与正文样式参考 OpenAI / ChatGPT 的设计语言；排版间距参考 [Minimal](https://github.com/kepano/obsidian-minimal) 与 [Things](https://github.com/colineckert/obsidian-things)，七彩文件夹参考 [AnuPpuccin](https://github.com/AnubisNekhet/AnuPpuccin) 与 Minimal。这里的数值和实现是本主题的调整。
+界面与正文参考 OpenAI / ChatGPT 的设计语言；排版间距参考 [Minimal](https://github.com/kepano/obsidian-minimal) 与 [Things](https://github.com/colineckert/obsidian-things)；七彩文件夹参考 [AnuPpuccin](https://github.com/AnubisNekhet/AnuPpuccin) 与 Minimal；代码块标题栏的视觉参考 lspzc 在 [Obsidian 中文论坛的分享](https://forum-zh.obsidian.md/t/topic/61038)。具体数值与实现均为本主题自行调整。
 
 这是独立的社区主题，与 OpenAI 没有隶属关系。
