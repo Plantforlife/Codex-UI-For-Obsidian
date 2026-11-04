@@ -24,6 +24,8 @@
 
 ### 排版
 
+<img width="2914" height="1524" alt="image" src="https://github.com/user-attachments/assets/94806e4f-d79d-4f7d-8bd8-121ced65a969" />
+
 - 正文使用微软雅黑，界面使用 Microsoft YaHei UI，代码使用系统等宽字体，不附带额外字体文件。
 - 正文 16px，行宽 728px，行高 1.5；H1 / H2 / H3 为 28 / 24 / 20px，H4–H6 与正文同为 16px。
 - 隐藏文件名标题，文档直接从自己的标题开始。
