@@ -4,6 +4,46 @@
 
 当前版本 **2.7.0**，最低需要 Obsidian **1.6.0**，支持浅色与深色模式。
 
+## 截图与示例
+
+截图使用 Obsidian 1.15.1 和虚构的「青屿步行」演示库。下面的示例笔记可以复制到自己的库中。 [青屿步行示例笔记](docs/examples/)
+
+### 浅色与深色正文
+
+两张图展示同一份路线手册。左侧是七色文件夹和附件，右侧可对照标题、提示卡片、表格和任务清单在两种基础颜色中的效果。通过「设置 → 外观」切换浅色或深色。 [青屿步行手册](docs/examples/青屿步行手册.md)
+
+**浅色模式**
+
+![浅色主题下的青屿步行手册，带七色文件夹、浅青色提示卡、路线表格和复选框](docs/images/light.png)
+
+**深色模式**
+
+![深色主题下的同一份青屿步行手册，展示深底提示卡、路线表格和复选框](docs/images/dark.png)
+
+### 文件夹色板与附件图标
+
+从左到右依次是奶油、莫兰迪和鲜明，三种色板使用同一棵文件树。图中展开的「附件」文件夹展示 PNG、SVG、MP4 和 WAV 图标，当前笔记所在文件夹显示同色的缩进线。可在 Style Settings 的「文件列表」中切换色板、图标和缩进线。
+
+![同一棵七色文件夹树的奶油、莫兰迪、鲜明对照，附件分别用图片、矢量图、视频和音频图标表示](docs/images/folder-palettes.png)
+
+### 对照源码中的列表
+
+《同行准备》在有序列表里混合使用项目符号、任务和下一级缩进。图中使用 Better Obsidian 打开同一篇笔记的源码和阅读双栏，可以对照各级列表的缩进和行距。 [同行准备](docs/examples/同行准备.md)
+
+![源码和阅读视图并排展示相同的有序列表、嵌套项目符号和任务复选框](docs/images/aligned-lists.png)
+
+### 代码配色对照
+
+同一段 JavaScript 从上到下使用奶油、GitHub 和 Catppuccin 三种高亮预设。圆点、语言标签和复制按钮保持相同布局，可直接比较关键字、注释、数字和字符串的颜色。 [路线脚本](docs/examples/路线脚本.md)
+
+![同一 JavaScript 代码块的三个深色高亮示例，依次为奶油、GitHub 和 Catppuccin](docs/images/code-palettes.png)
+
+### 设置入口
+
+安装并启用 Style Settings 后，在其「Codex UI For Obsidian」分组可以一起查看七彩配色、图标、缩进线和代码配色选项。
+
+![Style Settings 面板展示七彩配色、图标、缩进线、代码高亮和左侧功能区选项](docs/images/style-settings.png)
+
 ## 安装
 
 1. 从 [Releases](https://github.com/Plantforlife/Codex-UI-For-Obsidian/releases/latest) 下载 `theme.css` 和 `manifest.json`。
@@ -23,8 +63,6 @@
 ## 特点
 
 ### 排版
-
-<img width="2914" height="1524" alt="image" src="https://github.com/user-attachments/assets/94806e4f-d79d-4f7d-8bd8-121ced65a969" />
 
 - 正文使用微软雅黑，界面使用 Microsoft YaHei UI，代码使用系统等宽字体，不附带额外字体文件。
 - 正文 16px，行宽 728px，行高 1.5；H1 / H2 / H3 为 28 / 24 / 20px，H4–H6 与正文同为 16px。
